@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <Portal msg="Welcome to Your AvigatorFlow App" />
+    <Portal title="AvigatorFlow App" />
   </div>
 </template>
 
