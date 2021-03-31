@@ -1,5 +1,14 @@
 # avigatorflow
 
+### 功能
+包含实现：
+- 画布
+- 快捷操作
+- 节点面板
+- 节点自定义
+- 节点菜单
+- 图形下载
+
 ## Project setup
 ```
 yarn install

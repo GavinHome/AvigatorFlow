@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="Portal">
     <h1>{{ msg }}</h1>
-    <p>
+    <!-- <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
@@ -114,7 +114,7 @@
           >awesome-vue</a
         >
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -122,7 +122,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {
+export default class Portal extends Vue {
   @Prop() private msg!: string;
 }
 </script>
