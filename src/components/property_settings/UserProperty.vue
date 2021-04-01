@@ -28,7 +28,6 @@ export default class UserProperty extends Vue {
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  //eslint-disable-next-line
   formData: NodeSchema = {
     name: "审批人",
     enName: "Approver",

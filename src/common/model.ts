@@ -31,10 +31,60 @@ export interface Taskchema extends NodeSchema {
   form?: any;
 }
 
-export interface PushSchema {
+export interface PushNodeSchema extends NodeSchema {
+  push: PushModel; ///推送配置
+}
+
+export interface PushModel {
   url: string;
 }
 
-export interface PushNodeSchema extends NodeSchema {
-  push: PushSchema; ///推送配置
+///单一节点规则
+export enum ApprovalRuleType {
+  ///单一（抢办）
+  OneAgreed = "One",
+  ///全部（会签）
+  AllAgreed = "All",
+}
+
+///聚合模式：单一，全部，多路
+export enum AggregationModeType {
+  ///单一（抢办）
+  SingleAgreed = "one",
+  ///全部（会签）
+  AllAgreed = "all",
+  // ///多路（设置人数或百分比）
+  // MultipleAgreed  = "all"
+}
+
+// ///分支模式：单一，全部，多路，符合条件的应同时分发
+// export enum BranchModeType {
+//   ///单一
+//   SingleAgreed = "one",
+//   ///全部
+//   AllAgreed = "all",
+//   ///多路（设置人数或百分比）
+//   MultipleAgreed  = "all"
+// }
+
+///审批动作
+export enum ApprovalActionType {
+  ///同意
+  Pass = "Pass",
+  ///拒绝
+  Reject = "Reject",
+  ///转交
+  Transmit = "Transmit",
+  ///退回
+  Goback = "Goback",
+  ///保存
+  Save = "Save",
+  ///提交
+  Submit = "Submit",
+}
+
+export enum ApprovalConditionType {
+  ///默认连线规则（空）
+  Default = "Defalt",
+  ///
 }

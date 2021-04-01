@@ -31,7 +31,6 @@ export default class TaskProperty extends Vue {
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  //eslint-disable-next-line
   formData: Taskchema = {
     name: "执行人",
     enName: "Executor",
