@@ -11,6 +11,14 @@ export interface ExecutorModel {
   code: string; ///编号
 }
 
+export interface EdgeSchema {
+  name: string; ///节点名称
+  enName: string; ///英文名称
+  //eslint-disable-next-line
+  condition: any; ///审批人员
+  description: string; ///节点描述
+}
+
 export interface NodeSchema {
   name: string; ///节点名称
   enName: string; ///英文名称
@@ -19,6 +27,7 @@ export interface NodeSchema {
 }
 
 export interface Taskchema extends NodeSchema {
+  //eslint-disable-next-line
   form?: any;
 }
 

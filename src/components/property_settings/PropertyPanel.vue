@@ -36,6 +36,12 @@
       :lf="lf"
       @onClose="handleClose"
     />
+    <EdgeProperty
+      v-if="nodeData.type === 'polyline'"
+      :nodeData="nodeData"
+      :lf="lf"
+      @onClose="handleClose"
+    />
   </div>
 </template>
 
@@ -48,6 +54,7 @@ import EndProperty from "./EndProperty.vue";
 import PushProperty from "./PushProperty.vue";
 import DownloadProperty from "./DownloadProperty.vue";
 import TaskProperty from "./TaskProperty.vue";
+import EdgeProperty from "./EdgeProperty.vue";
 
 @Component({
   components: {
@@ -57,6 +64,7 @@ import TaskProperty from "./TaskProperty.vue";
     PushProperty,
     DownloadProperty,
     TaskProperty,
+    EdgeProperty,
   },
 })
 export default class PropertyPanel extends Vue {

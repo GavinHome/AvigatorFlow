@@ -38,23 +38,23 @@ export default class NodePanel extends Vue {
       class: "node-rect",
     },
     {
-      type: "user",
       text: "用户",
+      type: "user",
       class: "node-user",
     },
     {
-      type: "push",
       text: "推送",
+      type: "push",
       class: "node-push",
     },
     {
-      type: "download",
       text: "下载",
+      type: "download",
       class: "node-download",
     },
     {
-      type: "end",
       text: "结束",
+      type: "end",
       class: "node-end",
     },
   ];
