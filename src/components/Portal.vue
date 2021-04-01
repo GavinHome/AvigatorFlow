@@ -5,8 +5,8 @@
     <!-- 辅助工具栏 -->
     <Control
       class="control-menus"
-      v-if="instance"
-      :lf="instance"
+      v-if="lf"
+      :lf="lf"
       @catData="catData"
     ></Control>
     <!-- 节点面板 -->
@@ -14,11 +14,15 @@
 
     <!-- 画布 -->
     <div id="workspace-view"></div>
+
     <!-- 用户节点自定义操作面板 -->
 
     <!-- 属性面板 -->
 
     <!-- 数据面板 -->
+    <el-dialog title="数据" :visible.sync="dataVisible" width="50%">
+      <DataPanel :graphData="graphData"></DataPanel>
+    </el-dialog>
   </div>
 </template>
 
@@ -31,19 +35,31 @@ import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
 import Control from "@/components/control_menus/index.vue";
 import NodePanel from "@/components/panel/index.vue";
+import DataPanel from "@/components/data_panel/index.vue";
+
+import {
+  registerDownload,
+  registerEnd,
+  registerPolyline,
+  registerPush,
+  registerStart,
+  registerUser,
+} from "./register_nodes";
 
 @Component({
   components: {
     Control,
     NodePanel,
+    DataPanel,
   },
 })
 export default class Portal extends Vue {
   @Prop() private title!: string;
 
-  private instance: LogicFlow | null = null;
+  private lf: LogicFlow | null = null;
   private showAddPanel = false;
-  private addPanelStyle = {
+  //eslint-disable-next-line
+  private addPanelStyle: any = {
     top: 0,
     left: 0,
   };
@@ -66,32 +82,45 @@ export default class Portal extends Vue {
     // 画布配置
     // eslint-disable-next-line
     const config: any = this.getFlowConfig();
-    this.instance = new LogicFlow({ ...config });
+    this.lf = new LogicFlow({ ...config });
 
     // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
     // 重置，增加，节点自由配置(以user节点为示例)
-    this.instance.setMenuConfig({
+    this.lf.setMenuConfig({
       nodeMenu: [],
       edgeMenu: [],
     });
 
     // MenuConfig
     const menuConfig = this.getMenuConfig();
-    this.instance.addMenuConfig(menuConfig);
+    this.lf.addMenuConfig(menuConfig);
 
     // 设置主题
-    this.instance.setTheme(theme);
+    this.lf.setTheme(theme);
 
     // 注册节点
     this.registerNodes();
 
     // 注册连接
     this.registerEdges();
+
+    // this.instance.render(demoData)
+
+    // 注册事件
+    this.register_event();
   }
 
   // register node
   private registerNodes() {
     console.log("register");
+    if (this.lf) {
+      registerStart(this.lf);
+      registerUser(this.lf);
+      registerEnd(this.lf);
+      registerPush(this.lf, this.clickPlus, this.mouseDownPlus);
+      registerDownload(this.lf);
+      registerPolyline(this.lf);
+    }
   }
 
   // register node
@@ -170,10 +199,81 @@ export default class Portal extends Vue {
     };
   }
 
+  private register_event(): void {
+    if (this.lf) {
+      this.lf.on("node:click", ({ data }) => {
+        console.log("node:click", data);
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:click", ({ data }) => {
+        console.log("edge:click", data);
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("element:click", () => {
+        this.hideAddPanel();
+      });
+
+      this.lf.on("blank:click", () => {
+        this.hideAddPanel();
+      });
+
+      this.lf.on("connection:not-allowed", (data) => {
+        this.$message({
+          type: "error",
+          message: data.msg,
+        });
+      });
+
+      this.lf.on("node:mousemove", () => {
+        console.log("on mousemove");
+      });
+    }
+  }
+
+  //eslint-disable-next-line
+  clickPlus(e: any, attributes: any): void {
+    e.stopPropagation();
+    console.log("clickPlus", e, attributes);
+    const { clientX, clientY } = e;
+    console.log(clientX, clientY);
+    this.addPanelStyle.top = clientY - 40 + "px";
+    this.addPanelStyle.left = clientX + "px";
+    this.showAddPanel = true;
+    this.addClickNode = attributes;
+  }
+
+  //eslint-disable-next-line
+  mouseDownPlus(e: any, attributes: any): void {
+    e.stopPropagation();
+    console.log("mouseDownPlus", e, attributes);
+  }
+
+  hideAddPanel(): void {
+    this.showAddPanel = false;
+    this.addPanelStyle.top = 0;
+    this.addPanelStyle.left = 0;
+    this.addClickNode = null;
+  }
+
+  closeDialog(): void {
+    this.$data.dialogVisible = false;
+  }
+
   // 查看数据
   private catData() {
-    this.graphData = this.instance ? this.instance.getGraphData() : null;
+    this.graphData = this.lf ? this.lf.getGraphData() : null;
     this.dataVisible = true;
+  }
+
+  private getData() {
+    if (this.lf) {
+      const data = this.lf.getGraphData();
+      console.log(JSON.stringify(data));
+    }
   }
 }
 </script>
