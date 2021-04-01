@@ -16,7 +16,7 @@
     <div id="flow-view"></div>
 
     <!-- 用户节点自定义操作面板 -->
-    <AddPanel
+    <!-- <AddPanel
       v-if="showAddPanel"
       class="add-panel"
       :style="addPanelStyle"
@@ -24,7 +24,7 @@
       :nodeData="addClickNode"
       @addNodeFinish="hideAddPanel"
     >
-    </AddPanel>
+    </AddPanel> -->
 
     <!-- 属性面板 -->
     <el-drawer
@@ -71,7 +71,7 @@ import {
   registerUser,
 } from "./register_nodes";
 
-import demoData from "@/components/data.json";
+import demoData from "@/components/data_new.json";
 
 @Component({
   components: {
@@ -234,12 +234,12 @@ export default class Portal extends Vue {
   private getMenuConfig() {
     return {
       nodeMenu: [
-        {
-          text: "分享",
-          callback() {
-            alert("分享成功！");
-          },
-        },
+        // {
+        //   text: "分享",
+        //   callback() {
+        //     alert("分享成功！");
+        //   },
+        // },
         {
           text: "属性",
           // eslint-disable-next-line

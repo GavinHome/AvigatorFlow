@@ -33,7 +33,7 @@ export default class NodePanel extends Vue {
       class: "node-start",
     },
     {
-      text: "矩形",
+      text: "任务",
       type: "rect",
       class: "node-rect",
     },
@@ -49,7 +49,7 @@ export default class NodePanel extends Vue {
     },
     {
       type: "download",
-      text: "位置",
+      text: "下载",
       class: "node-download",
     },
     {

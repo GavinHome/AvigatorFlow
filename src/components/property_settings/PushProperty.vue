@@ -1,14 +1,17 @@
 <template>
   <div>
     <el-form label-width="80px" :model="formData">
-      <el-form-item label="名称">
+      <el-form-item label="节点名称">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="活动区域">
-        <el-input v-model="formData.region"></el-input>
+      <el-form-item label="推理方式">
+        <el-input v-model="formData.executor.name" disabled></el-input>
       </el-form-item>
-      <el-form-item label="活动形式">
-        <el-input v-model="formData.type"></el-input>
+      <el-form-item label="推送地址">
+        <el-input v-model="formData.push.url"></el-input>
+      </el-form-item>
+      <el-form-item label="节点描述">
+        <el-input v-model="formData.description"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -20,18 +23,25 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
+import { PushNodeSchema } from "@/common/model";
 
 @Component
-export default class ControlMenu extends Vue {
+export default class PushProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  //eslint-disable-next-line
-  formData: any = {
-    name: "",
-    region: "",
-    type: "",
+  formData: PushNodeSchema = {
+    name: "推送",
+    enName: "Push",
+    executor: {
+      name: "自动",
+      code: "",
+    },
+    description: "系统自动处理",
+    push: {
+      url: "https://",
+    },
   };
 
   mounted(): void {

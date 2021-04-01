@@ -84,14 +84,14 @@ export default function registerUser(lf: LogicFlow): void {
             },
           },
           {
-            text: "edit",
+            text: "编辑",
             className: "lf-menu-item",
             callback(node) {
               lf.editNodeText(node.id);
             },
           },
           {
-            text: "copy",
+            text: "复制",
             className: "lf-menu-item",
             callback(node) {
               lf.cloneNode(node.id);
