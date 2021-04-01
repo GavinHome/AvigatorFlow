@@ -6,4 +6,25 @@ module.exports = {
       return args;
     });
   },
+  devServer: {
+    open: true,
+    disableHostCheck: true,
+    port: process.env.Port || 19000,
+    https: false,
+    hotOnly: false,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
+    // proxy: {
+    //   "/api": {
+    //     target: target,
+    //     changeOrigin: true,
+    //     ws: true,
+    //     pathRewrite: {
+    //       "^/api": ""
+    //     }
+    //   }
+    // }
+  }
 };
