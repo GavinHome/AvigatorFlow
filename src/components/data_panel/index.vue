@@ -1,12 +1,14 @@
 <template>
   <div>
-    <vue-json-pretty :path="'res'" :data="graphData"> </vue-json-pretty>
+    <vue-json-pretty :path="'res'" :data="graphData" class="text-left">
+    </vue-json-pretty>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import VueJsonPretty from "vue-json-pretty";
+import "vue-json-pretty/lib/styles.css";
 
 @Component({
   components: {

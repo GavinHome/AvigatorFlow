@@ -1,6 +1,6 @@
 <template>
   <div class="avigator-flow-view">
-    <h3 class="text-center m-20">{{ title }}</h3>
+    <h3 class="text-center" style="margin: 20px">{{ title }}</h3>
 
     <!-- 辅助工具栏 -->
     <Control
@@ -13,11 +13,24 @@
     <NodePanel :lf="lf"></NodePanel>
 
     <!-- 画布 -->
-    <div id="workspace-view"></div>
+    <div id="flow-view"></div>
 
     <!-- 用户节点自定义操作面板 -->
 
     <!-- 属性面板 -->
+    <!-- <el-drawer
+      title="设置节点属性"
+      :visible.sync="dialogVisible"
+      direction="rtl"
+      size="500px"
+      :before-close="closeDialog">
+      <PropertyDialog
+        v-if="dialogVisible"
+        :nodeData="clickNode"
+        :lf="lf"
+        @setPropertiesFinish="closeDialog"
+      ></PropertyDialog>
+    </el-drawer> -->
 
     <!-- 数据面板 -->
     <el-dialog title="数据" :visible.sync="dataVisible" width="50%">
@@ -28,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import LogicFlow from "@logicflow/core";
+import LogicFlow, { Definition } from "@logicflow/core";
 import { Menu, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
@@ -142,9 +155,39 @@ export default class Portal extends Vue {
   // instance config
   private getFlowConfig() {
     return {
-      container: document.querySelector("#workspace-view"),
+      container: document.querySelector("#flow-view"),
       background: {
         color: "#f7f9ff",
+      },
+      style: {
+        rect: {
+          strokeWidth: 1,
+        },
+        circle: {
+          r: 20,
+          strokeWidth: 1,
+        },
+        ellipse: {
+          strokeWidth: 1,
+        },
+        diamond: {
+          strokeWidth: 1,
+        },
+        polygon: {
+          strokeWidth: 1,
+        },
+        anchor: {
+          strokeWidth: 1,
+        },
+        line: {
+          strokeWidth: 1,
+        },
+        arrow: {
+          strokeWidth: 1,
+        },
+        polyline: {
+          strokeWidth: 1,
+        },
       },
       grid: {
         size: 10,
@@ -153,6 +196,7 @@ export default class Portal extends Vue {
       keyboard: {
         enabled: true,
       },
+      hoverOutline: true,
       edgeTextDraggable: true,
       guards: {
         // eslint-disable-next-line
@@ -304,7 +348,7 @@ export default class Portal extends Vue {
     z-index: 2;
   }
 
-  #workspace-view {
+  #flow-view {
     width: calc(100% - 100px);
     height: 80%;
     outline: none;
