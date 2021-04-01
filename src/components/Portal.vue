@@ -16,6 +16,15 @@
     <div id="flow-view"></div>
 
     <!-- 用户节点自定义操作面板 -->
+    <AddPanel
+      v-if="showAddPanel"
+      class="add-panel"
+      :style="addPanelStyle"
+      :lf="lf"
+      :nodeData="addClickNode"
+      @addNodeFinish="hideAddPanel"
+    >
+    </AddPanel>
 
     <!-- 属性面板 -->
     <el-drawer
@@ -51,6 +60,7 @@ import Control from "@/components/control_menus/index.vue";
 import NodePanel from "@/components/node_panel/index.vue";
 import DataPanel from "@/components/data_panel/index.vue";
 import PropertyPanel from "@/components/property_settings/PropertyPanel.vue";
+import AddPanel from "@/components/custom_panel/AddPanel.vue";
 
 import {
   registerDownload,
@@ -69,6 +79,7 @@ import demoData from "@/components/data.json";
     NodePanel,
     DataPanel,
     PropertyPanel,
+    AddPanel,
   },
 })
 export default class Portal extends Vue {
@@ -353,7 +364,7 @@ export default class Portal extends Vue {
 
   #flow-view {
     width: calc(100% - 100px);
-    height: 80%;
+    height: 85%;
     outline: none;
     margin-left: 50px;
   }
