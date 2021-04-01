@@ -18,19 +18,20 @@
     <!-- 用户节点自定义操作面板 -->
 
     <!-- 属性面板 -->
-    <!-- <el-drawer
+    <el-drawer
       title="设置节点属性"
       :visible.sync="dialogVisible"
       direction="rtl"
       size="500px"
-      :before-close="closeDialog">
-      <PropertyDialog
+      :before-close="closeDialog"
+    >
+      <PropertyPanel
         v-if="dialogVisible"
         :nodeData="clickNode"
         :lf="lf"
         @setPropertiesFinish="closeDialog"
-      ></PropertyDialog>
-    </el-drawer> -->
+      ></PropertyPanel>
+    </el-drawer>
 
     <!-- 数据面板 -->
     <el-dialog title="数据" :visible.sync="dataVisible" width="50%">
@@ -41,14 +42,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import LogicFlow, { Definition } from "@logicflow/core";
+import LogicFlow from "@logicflow/core";
 import { Menu, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
 import Control from "@/components/control_menus/index.vue";
-import NodePanel from "@/components/panel/index.vue";
+import NodePanel from "@/components/node_panel/index.vue";
 import DataPanel from "@/components/data_panel/index.vue";
+import PropertyPanel from "@/components/property_settings/PropertyPanel.vue";
 
 import {
   registerDownload,
@@ -66,6 +68,7 @@ import demoData from "@/components/data.json";
     Control,
     NodePanel,
     DataPanel,
+    PropertyPanel,
   },
 })
 export default class Portal extends Vue {
