@@ -3,7 +3,12 @@
     <h3 class="text-center m-20">{{ title }}</h3>
 
     <!-- 辅助工具栏 -->
-
+    <Control
+      class="control-menus"
+      v-if="instance"
+      :lf="instance"
+      @catData="catData"
+    ></Control>
     <!-- 节点面板 -->
 
     <!-- 画布 -->
@@ -23,11 +28,28 @@ import { Menu, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
-@Component
+import Control from "@/components/control_menus/index.vue";
+
+@Component({
+  components: {
+    Control,
+  },
+})
 export default class Portal extends Vue {
   @Prop() private title!: string;
 
-  private instance!: LogicFlow;
+  private instance: LogicFlow | null = null;
+  private showAddPanel = false;
+  private addPanelStyle = {
+    top: 0,
+    left: 0,
+  };
+
+  private addClickNode = null;
+  private clickNode = null;
+  private dialogVisible = false;
+  private graphData = null;
+  private dataVisible = false;
 
   mounted(): void {
     this.init();
@@ -144,6 +166,12 @@ export default class Portal extends Vue {
       ],
     };
   }
+
+  // 查看数据
+  private catData() {
+    this.graphData = this.instance.getGraphData();
+    this.dataVisible = true;
+  }
 }
 </script>
 
@@ -154,6 +182,13 @@ export default class Portal extends Vue {
 .avigator-flow-view {
   height: 100vh;
   position: relative;
+
+  .control-menus {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 2;
+  }
 }
 
 #workspace-view {
