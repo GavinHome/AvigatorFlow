@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Portal title="AvigatorFlow App" />
+    <Portal title="AvigatorFlow" />
   </div>
 </template>
 
