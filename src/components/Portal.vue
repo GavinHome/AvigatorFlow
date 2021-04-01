@@ -10,6 +10,7 @@
       @catData="catData"
     ></Control>
     <!-- 节点面板 -->
+    <NodePanel :lf="lf"></NodePanel>
 
     <!-- 画布 -->
     <div id="workspace-view"></div>
@@ -29,10 +30,12 @@ import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
 import Control from "@/components/control_menus/index.vue";
+import NodePanel from "@/components/panel/index.vue";
 
 @Component({
   components: {
     Control,
+    NodePanel,
   },
 })
 export default class Portal extends Vue {
@@ -169,7 +172,7 @@ export default class Portal extends Vue {
 
   // 查看数据
   private catData() {
-    this.graphData = this.instance.getGraphData();
+    this.graphData = this.instance ? this.instance.getGraphData() : null;
     this.dataVisible = true;
   }
 }
