@@ -46,6 +46,8 @@ import {
   registerUser,
 } from "./register_nodes";
 
+import demoData from "@/components/data.json";
+
 @Component({
   components: {
     Control,
@@ -84,16 +86,8 @@ export default class Portal extends Vue {
     const config: any = this.getFlowConfig();
     this.lf = new LogicFlow({ ...config });
 
-    // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
-    // 重置，增加，节点自由配置(以user节点为示例)
-    this.lf.setMenuConfig({
-      nodeMenu: [],
-      edgeMenu: [],
-    });
-
-    // MenuConfig
-    const menuConfig = this.getMenuConfig();
-    this.lf.addMenuConfig(menuConfig);
+    // 设置节点菜单
+    this.setMenu();
 
     // 设置主题
     this.lf.setTheme(theme);
@@ -104,10 +98,27 @@ export default class Portal extends Vue {
     // 注册连接
     this.registerEdges();
 
-    // this.instance.render(demoData)
+    // 加载数据
+    this.lf.render(demoData);
 
     // 注册事件
     this.register_event();
+  }
+
+  // 设置节点菜单
+  private setMenu() {
+    // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
+    // 重置，增加，节点自由配置(以user节点为示例)
+    if (this.lf) {
+      this.lf.setMenuConfig({
+        nodeMenu: [],
+        edgeMenu: [],
+      });
+
+      // 设置节点菜单
+      const menuConfig = this.getMenuConfig();
+      this.lf.addMenuConfig(menuConfig);
+    }
   }
 
   // register node
@@ -292,12 +303,30 @@ export default class Portal extends Vue {
     right: 50px;
     z-index: 2;
   }
-}
 
-#workspace-view {
-  width: calc(100% - 100px);
-  height: 80%;
-  outline: none;
-  margin-left: 50px;
+  #workspace-view {
+    width: calc(100% - 100px);
+    height: 80%;
+    outline: none;
+    margin-left: 50px;
+  }
+
+  .time-plus {
+    cursor: pointer;
+  }
+
+  .add-panel {
+    position: absolute;
+    z-index: 11;
+    background-color: white;
+    padding: 10px 5px;
+  }
+
+  .el-drawer__body {
+    height: 80%;
+    overflow: auto;
+    margin-top: -30px;
+    z-index: 3;
+  }
 }
 </style>
