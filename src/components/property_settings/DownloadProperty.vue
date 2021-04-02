@@ -28,10 +28,7 @@ export default class DownloadProperty extends Vue {
   formData: NodeSchema = {
     name: "下载",
     enName: "Downloader",
-    executor: {
-      name: "自动",
-      code: "",
-    },
+    executor: null,
     description: "系统自动处理",
   };
 

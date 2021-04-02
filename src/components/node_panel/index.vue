@@ -34,7 +34,7 @@ export default class NodePanel extends Vue {
     },
     {
       text: "任务",
-      type: "rect",
+      type: "task",
       class: "node-rect",
     },
     {

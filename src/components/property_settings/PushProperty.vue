@@ -4,9 +4,6 @@
       <el-form-item label="节点名称">
         <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
-      <el-form-item label="推送方式">
-        <el-input v-model="formData.executor.name" disabled></el-input>
-      </el-form-item>
       <el-form-item label="推送地址">
         <el-input v-model="formData.push.url"></el-input>
       </el-form-item>
@@ -23,7 +20,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { PushNodeSchema } from "@/common/model";
+import { PushSchema } from "@/common/model";
 
 @Component
 export default class PushProperty extends Vue {
@@ -31,13 +28,10 @@ export default class PushProperty extends Vue {
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  formData: PushNodeSchema = {
+  formData: PushSchema = {
     name: "推送",
     enName: "Pusher",
-    executor: {
-      name: "自动",
-      code: "",
-    },
+    executor: null,
     description: "系统自动处理",
     push: {
       url: "https://",

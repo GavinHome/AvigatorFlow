@@ -7,9 +7,9 @@
       <el-form-item label="执行人员">
         <el-input v-model="formData.executor.code"></el-input>
       </el-form-item>
-      <el-form-item label="任务表单">
+      <!-- <el-form-item label="任务表单">
         <el-input v-model="formData.form"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
       </el-form-item>

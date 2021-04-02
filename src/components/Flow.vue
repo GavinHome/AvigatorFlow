@@ -70,12 +70,21 @@ import {
   // registerPolyline,
   registerPush,
   registerStart,
+  registerTask,
   registerUser,
 } from "./register_nodes";
 
 import { registerPolyline } from "./register_edges";
 
 import demoData from "@/components/data_new.json";
+import {
+  AggregationModeType,
+  ApprovalActionType,
+  ApprovalRuleType,
+  NodeSchema,
+  PushSchema,
+  Taskchema,
+} from "@/common/model";
 
 @Component({
   components: {
@@ -165,6 +174,7 @@ export default class Portal extends Vue {
       registerPush(this.lf, this.clickPlus, this.mouseDownPlus);
       registerDownload(this.lf);
       // registerPolyline(this.lf);
+      registerTask(this.lf);
     }
   }
 
@@ -306,14 +316,17 @@ export default class Portal extends Vue {
       });
 
       this.lf.on("element:click", () => {
+        console.log("element:click");
         this.hideAddPanel();
       });
 
       this.lf.on("blank:click", () => {
+        console.log("blank:click");
         this.hideAddPanel();
       });
 
       this.lf.on("connection:not-allowed", (data) => {
+        console.log("connection:click");
         this.$message({
           type: "error",
           message: data.msg,
@@ -323,7 +336,119 @@ export default class Portal extends Vue {
       this.lf.on("node:mousemove", () => {
         console.log("on mousemove");
       });
+
+      this.lf.on("node:add", ({ data }) => {
+        var properties = this.getInitNodeProperties(data);
+        if (this.lf) {
+          console.log("node properties:", properties);
+          this.lf.setProperties(data.id, properties);
+        }
+        console.log("node:add", data);
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:add", ({ data }) => {
+        console.log("edge:add", data);
+      });
     }
+  }
+
+  //eslint-disable-next-line
+  private getInitNodeProperties(nodeData: any): NodeSchema | Taskchema | any {
+    switch (nodeData.type) {
+      case "start":
+        var start_properties: NodeSchema = {
+          name: "发起人",
+          enName: "Initiator",
+          executor: {
+            name: "发起人",
+            code: "",
+          },
+          description: "",
+          aggregation: null,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
+        };
+        return start_properties;
+      case "user":
+        var user_properties: NodeSchema = {
+          name: "审批人",
+          enName: "Approver",
+          executor: {
+            name: "审批人",
+            code: "",
+          },
+          description: "",
+          aggregation: AggregationModeType.AllAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: [
+            ApprovalActionType.Pass,
+            ApprovalActionType.Reject,
+            ApprovalActionType.Assist,
+          ],
+        };
+        return user_properties;
+      case "push":
+        var push_properties: PushSchema = {
+          name: "推送",
+          enName: "Pusher",
+          executor: null,
+          description: "系统自动处理",
+          push: {
+            url: "https://",
+          },
+          aggregation: AggregationModeType.AllAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: null,
+        };
+        return push_properties;
+      case "download":
+        var download_properties: NodeSchema = {
+          name: "下载",
+          enName: "Downloader",
+          executor: null,
+          description: "系统自动处理",
+          aggregation: AggregationModeType.AllAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: null,
+        };
+        return download_properties;
+      case "task":
+        var properties1: Taskchema = {
+          name: "执行人",
+          enName: "Executor",
+          executor: {
+            name: "",
+            code: "",
+          },
+          description: "",
+          form: {},
+          aggregation: AggregationModeType.AllAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: [
+            ApprovalActionType.Pass,
+            ApprovalActionType.Reject,
+            ApprovalActionType.Assist,
+          ],
+        };
+        return properties1;
+      case "end":
+        var properties: NodeSchema = {
+          name: "结束",
+          enName: "Completer",
+          executor: null,
+          description: "",
+          aggregation: AggregationModeType.AllAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: null,
+        };
+        return properties;
+      default:
+        break;
+    }
+
+    return {};
   }
 
   //eslint-disable-next-line

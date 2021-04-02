@@ -25,7 +25,7 @@
       @onClose="handleClose"
     />
     <TaskProperty
-      v-if="nodeData.type === 'rect'"
+      v-if="nodeData.type === 'task'"
       :nodeData="nodeData"
       :lf="lf"
       @onClose="handleClose"

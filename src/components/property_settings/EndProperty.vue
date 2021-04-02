@@ -28,10 +28,7 @@ export default class EndProperty extends Vue {
   formData: NodeSchema = {
     name: "结束",
     enName: "Completer",
-    executor: {
-      name: "系统",
-      code: "",
-    },
+    executor: null,
     description: "",
   };
 

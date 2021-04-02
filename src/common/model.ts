@@ -1,45 +1,27 @@
-export type NodeType = "start" | "user" | "push" | "download" | "rect" | "end";
+export type NodeType = "start" | "user" | "push" | "download" | "task" | "end";
+export type NodeNameType =
+  | "Initiator"
+  | "Executor"
+  | "Approver"
+  | "Pusher"
+  | "Completer"
+  | "Downloader"
+  | "Condition";
 
+///节点类型
 export interface NodeModel {
   text: string; ///节点名称
   type: NodeType; ///节点类型
   class: string; ///节点样式
 }
 
+///审批人结构
 export interface ExecutorModel {
   name: string; ///姓名
   code: string; ///编号
 }
 
-export interface EdgeSchema {
-  name: string; ///节点名称
-  enName: NodeNameType; ///英文名称
-  //eslint-disable-next-line
-  condition: any; ///审批人员
-  description: string; ///节点描述
-}
-
-export interface NodeSchema {
-  name: string; ///节点名称
-  enName: NodeNameType; ///英文名称
-  executor: ExecutorModel; ///审批人员
-  description: string; ///节点描述
-}
-
-export interface Taskchema extends NodeSchema {
-  //eslint-disable-next-line
-  form?: any;
-}
-
-export interface PushNodeSchema extends NodeSchema {
-  push: PushModel; ///推送配置
-}
-
-export interface PushModel {
-  url: string;
-}
-
-///单一节点规则
+///审批机制：单一节点规则
 export enum ApprovalRuleType {
   ///单一（抢办）
   OneAgreed = "One",
@@ -54,46 +36,56 @@ export enum AggregationModeType {
   ///全部（会签）
   AllAgreed = "all",
   // ///多路（设置人数或百分比）
-  // MultipleAgreed  = "all"
+  // MultipleAgreed  = "multiple"
 }
 
-// ///分支模式：单一，全部，多路，符合条件的应同时分发
-// export enum BranchModeType {
-//   ///单一
-//   SingleAgreed = "one",
-//   ///全部
-//   AllAgreed = "all",
-//   ///多路（设置人数或百分比）
-//   MultipleAgreed  = "all"
-// }
-
-///审批动作
+///审批动作：动作为空时表示自动完成
 export enum ApprovalActionType {
   ///同意
   Pass = "Pass",
   ///拒绝
   Reject = "Reject",
   ///转交
-  Transmit = "Transmit",
+  // Transmit = "Transmit",
   ///退回
-  Goback = "Goback",
+  // Goback = "Goback",
+  ///协审
+  Assist = "Assist",
   ///保存
   Save = "Save",
   ///提交
   Submit = "Submit",
 }
 
-export enum ApprovalConditionType {
-  ///默认连线规则（空）
-  Default = "Defalt",
-  ///
+///节点属性： 通用
+export interface NodeSchema {
+  name: string; ///节点名称
+  enName: NodeNameType; ///英文名称
+  executor: ExecutorModel | null; ///审批人员, 为空时自动处理
+  description: string; ///节点描述
+  aggregation?: AggregationModeType | null; ///聚合方式
+  rule?: ApprovalRuleType; ///审核机制
+  actions?: Array<ApprovalActionType> | null; ///审批动作
 }
 
-export type NodeNameType =
-  | "Initiator"
-  | "Executor"
-  | "Approver"
-  | "Pusher"
-  | "Completer"
-  | "Downloader"
-  | "Condition";
+////节点属性： 表单任务
+export interface Taskchema extends NodeSchema {
+  //eslint-disable-next-line
+  form?: any;
+}
+
+////节点属性： 推送设置
+export interface PushSchema extends NodeSchema {
+  push: {
+    url: string;
+  }; ///推送配置
+}
+
+///连线属性：通用
+export interface EdgeSchema {
+  name: string; ///节点名称
+  enName: NodeNameType; ///英文名称
+  description: string; ///节点描述
+  //eslint-disable-next-line
+  condition: any; ///审批人员
+}
