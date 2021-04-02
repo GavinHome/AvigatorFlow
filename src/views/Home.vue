@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <Portal title="AvigatorFlow" />
+    <Flow title="AvigatorFlow" :isSilentMode="false" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Portal from "@/components/Portal.vue";
+import Flow from "@/components/Flow.vue";
 
 export default {
   name: "Home",
   components: {
-    Portal,
+    Flow,
   },
 };
 </script>

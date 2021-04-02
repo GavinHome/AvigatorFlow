@@ -88,6 +88,7 @@ import demoData from "@/components/data_new.json";
 })
 export default class Portal extends Vue {
   @Prop() private title!: string;
+  @Prop() private isSilentMode!: boolean;
 
   private lf: LogicFlow | null = null;
   private showAddPanel = false;
@@ -147,8 +148,10 @@ export default class Portal extends Vue {
       });
 
       // 设置节点菜单
-      const menuConfig = this.getMenuConfig();
-      this.lf.addMenuConfig(menuConfig);
+      if (!this.isSilentMode) {
+        const menuConfig = this.getMenuConfig();
+        this.lf.addMenuConfig(menuConfig);
+      }
     }
   }
 
@@ -176,6 +179,7 @@ export default class Portal extends Vue {
   // instance config
   private getFlowConfig() {
     return {
+      isSilentMode: this.isSilentMode,
       container: document.querySelector("#flow-view"),
       background: {
         color: "#f7f9ff",
