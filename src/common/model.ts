@@ -13,7 +13,7 @@ export interface ExecutorModel {
 
 export interface EdgeSchema {
   name: string; ///节点名称
-  enName: string; ///英文名称
+  enName: NodeNameType; ///英文名称
   //eslint-disable-next-line
   condition: any; ///审批人员
   description: string; ///节点描述
@@ -21,7 +21,7 @@ export interface EdgeSchema {
 
 export interface NodeSchema {
   name: string; ///节点名称
-  enName: string; ///英文名称
+  enName: NodeNameType; ///英文名称
   executor: ExecutorModel; ///审批人员
   description: string; ///节点描述
 }
@@ -88,3 +88,12 @@ export enum ApprovalConditionType {
   Default = "Defalt",
   ///
 }
+
+export type NodeNameType =
+  | "Initiator"
+  | "Executor"
+  | "Approver"
+  | "Pusher"
+  | "Completer"
+  | "Downloader"
+  | "Condition";

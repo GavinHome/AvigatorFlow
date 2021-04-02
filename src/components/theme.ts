@@ -30,5 +30,20 @@ export const theme = (): any => {
         fill: "#f7f9ff",
       },
     },
+    ellipse: {
+      strokeWidth: 1,
+    },
+    diamond: {
+      strokeWidth: 1,
+    },
+    anchor: {
+      strokeWidth: 1,
+    },
+    line: {
+      strokeWidth: 1,
+    },
+    arrow: {
+      strokeWidth: 1,
+    },
   };
 };

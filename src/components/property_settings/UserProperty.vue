@@ -2,7 +2,7 @@
   <div>
     <el-form label-width="80px" :model="formData">
       <el-form-item label="节点名称">
-        <el-input v-model="formData.name"></el-input>
+        <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
       <el-form-item label="审批人员">
         <el-input v-model="formData.executor.code"></el-input>

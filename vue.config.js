@@ -14,7 +14,7 @@ module.exports = {
     hotOnly: false,
     overlay: {
       warnings: false,
-      errors: true
+      errors: true,
     },
     // proxy: {
     //   "/api": {
@@ -26,5 +26,5 @@ module.exports = {
     //     }
     //   }
     // }
-  }
+  },
 };

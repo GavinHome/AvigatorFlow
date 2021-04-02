@@ -22,7 +22,6 @@ export default function registerStart(lf: LogicFlow): void {
       getShape() {
         const attributes = this.getAttributes();
         const { x, y, r, fill, stroke, strokeWidth } = attributes;
-        debugger;
         return h("g", {}, [
           h("circle", {
             cx: x,

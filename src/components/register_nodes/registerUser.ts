@@ -74,30 +74,31 @@ export default function registerUser(lf: LogicFlow): void {
           [0, lenght],
         ];
         // 右键菜单自由配置，也可以通过边的properties或者其他属性条件更换不同菜单
-        this.menu = [
-          {
-            className: "lf-menu-delete",
-            icon: true,
-            callback(node) {
-              const comfirm = window.confirm("你确定要删除吗？");
-              comfirm && lf.deleteNode(node.id);
-            },
-          },
-          {
-            text: "编辑",
-            className: "lf-menu-item",
-            callback(node) {
-              lf.editNodeText(node.id);
-            },
-          },
-          {
-            text: "复制",
-            className: "lf-menu-item",
-            callback(node) {
-              lf.cloneNode(node.id);
-            },
-          },
-        ];
+        // this.menu = [
+        //   {
+        //     text: "删除",
+        //     className: "lf-menu-delete",
+        //     icon: true,
+        //     callback(node) {
+        //       const comfirm = window.confirm("你确定要删除吗？");
+        //       comfirm && lf.deleteNode(node.id);
+        //     },
+        //   },
+        //   {
+        //     text: "编辑",
+        //     className: "lf-menu-item",
+        //     callback(node) {
+        //       lf.editNodeText(node.id);
+        //     },
+        //   },
+        //   {
+        //     text: "复制",
+        //     className: "lf-menu-item",
+        //     callback(node) {
+        //       lf.cloneNode(node.id);
+        //     },
+        //   },
+        // ];
       }
     }
     return {

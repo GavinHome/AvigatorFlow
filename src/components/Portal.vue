@@ -51,11 +51,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+
 import LogicFlow from "@logicflow/core";
 import { Menu, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
+
 import Control from "@/components/control_menus/index.vue";
 import NodePanel from "@/components/node_panel/index.vue";
 import DataPanel from "@/components/data_panel/index.vue";
@@ -65,11 +67,13 @@ import AddPanel from "@/components/custom_panel/AddPanel.vue";
 import {
   registerDownload,
   registerEnd,
-  registerPolyline,
+  // registerPolyline,
   registerPush,
   registerStart,
   registerUser,
 } from "./register_nodes";
+
+import { registerPolyline } from "./register_edges";
 
 import demoData from "@/components/data_new.json";
 
@@ -150,20 +154,23 @@ export default class Portal extends Vue {
 
   // register node
   private registerNodes() {
-    console.log("register");
+    console.log("register Nodes");
     if (this.lf) {
       registerStart(this.lf);
       registerUser(this.lf);
       registerEnd(this.lf);
       registerPush(this.lf, this.clickPlus, this.mouseDownPlus);
       registerDownload(this.lf);
-      registerPolyline(this.lf);
+      // registerPolyline(this.lf);
     }
   }
 
   // register node
   private registerEdges() {
-    console.log("register");
+    console.log("register Edges");
+    if (this.lf) {
+      registerPolyline(this.lf);
+    }
   }
 
   // instance config
@@ -234,20 +241,23 @@ export default class Portal extends Vue {
   private getMenuConfig() {
     return {
       nodeMenu: [
-        // {
-        //   text: "分享",
-        //   callback() {
-        //     alert("分享成功！");
-        //   },
-        // },
         {
           text: "属性",
           // eslint-disable-next-line
-          callback(node: any) {
-            alert(`
+          callback: (node: any) => {
+            console.log(`
                 节点id：${node.id}
                 节点类型：${node.type}
                 节点坐标：(x: ${node.x}, y: ${node.y})`);
+            this.clickNode = node;
+            this.dialogVisible = true;
+          },
+        },
+        {
+          text: "删除",
+          // eslint-disable-next-line
+          callback: (node: any) => {
+            this.lf && this.lf.deleteNode(node.id);
           },
         },
       ],
@@ -255,13 +265,26 @@ export default class Portal extends Vue {
         {
           text: "属性",
           // eslint-disable-next-line
-          callback(edge: any) {
-            alert(`
+          callback: (edge: any) => {
+            this.clickNode = edge;
+            console.log(`
                 边id：${edge.id}
                 边类型：${edge.type}
                 边坐标：(x: ${edge.x}, y: ${edge.y})
                 源节点id：${edge.sourceNodeId}
                 目标节点id：${edge.targetNodeId}`);
+            this.dialogVisible = true;
+          },
+        },
+        {
+          text: "删除",
+          // eslint-disable-next-line
+          callback: (node: any) => {
+            this.lf &&
+              this.lf.removeEdge({
+                sourceNodeId: node.sourceNodeI,
+                targetNodeId: node.targetNodeId,
+              });
           },
         },
       ],
@@ -273,13 +296,13 @@ export default class Portal extends Vue {
       this.lf.on("node:click", ({ data }) => {
         console.log("node:click", data);
         this.clickNode = data;
-        this.dialogVisible = true;
+        // this.dialogVisible = true;
       });
 
       this.lf.on("edge:click", ({ data }) => {
         console.log("edge:click", data);
         this.clickNode = data;
-        this.dialogVisible = true;
+        // this.dialogVisible = true;
       });
 
       this.lf.on("element:click", () => {
@@ -329,7 +352,7 @@ export default class Portal extends Vue {
   }
 
   closeDialog(): void {
-    this.$data.dialogVisible = false;
+    this.dialogVisible = false;
   }
 
   // 查看数据

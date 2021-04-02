@@ -2,7 +2,7 @@
   <div>
     <el-form label-width="80px" :model="formData">
       <el-form-item label="节点名称">
-        <el-input v-model="formData.name"></el-input>
+        <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
@@ -27,7 +27,7 @@ export default class DownloadProperty extends Vue {
 
   formData: NodeSchema = {
     name: "下载",
-    enName: "Push",
+    enName: "Downloader",
     executor: {
       name: "自动",
       code: "",

@@ -2,9 +2,9 @@
   <div>
     <el-form label-width="80px" :model="formData">
       <el-form-item label="节点名称">
-        <el-input v-model="formData.name"></el-input>
+        <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
-      <el-form-item label="推理方式">
+      <el-form-item label="推送方式">
         <el-input v-model="formData.executor.name" disabled></el-input>
       </el-form-item>
       <el-form-item label="推送地址">
@@ -33,7 +33,7 @@ export default class PushProperty extends Vue {
 
   formData: PushNodeSchema = {
     name: "推送",
-    enName: "Push",
+    enName: "Pusher",
     executor: {
       name: "自动",
       code: "",

@@ -6,12 +6,12 @@ import registerUser from "./registerUser";
 import registerEnd from "./registerEnd";
 import registerPush from "./registerPush";
 import registerDownload from "./registerDownload";
-import registerPolyline from "./registerPolyline";
+// import registerPolyline from "../register_edges/registerPolyline";
 export {
   registerStart,
   registerUser,
   registerEnd,
   registerPush,
   registerDownload,
-  registerPolyline,
+  // registerPolyline,
 };
