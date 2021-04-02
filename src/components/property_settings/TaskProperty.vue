@@ -10,6 +10,36 @@
       <!-- <el-form-item label="任务表单">
         <el-input v-model="formData.form"></el-input>
       </el-form-item> -->
+      <!-- <el-form-item label="审批规则">
+        <el-radio-group v-model="formData.rule">
+          <el-radio-button
+            v-for="(option, index) in rules"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item> -->
+      <el-form-item label="聚合方式">
+        <el-radio-group v-model="formData.aggregation">
+          <el-radio-button
+            v-for="(option, index) in aggregations"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="审批动作">
+        <el-checkbox-group v-model="formData.actions">
+          <el-checkbox-button
+            v-for="(option, index) in actions"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-checkbox-button
+          >
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
       </el-form-item>
@@ -23,11 +53,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
+
 import {
   AggregationModeType,
   ApprovalActionType,
   ApprovalRuleType,
   Taskchema,
+  ApprovalRules,
+  AggregationModes,
+  DataOption,
 } from "@/common/model";
 
 @Component
@@ -35,6 +69,19 @@ export default class TaskProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
+
+  rules = ApprovalRules;
+  aggregations = AggregationModes;
+  actions: Array<DataOption> = [
+    {
+      value: "Save",
+      text: "保存",
+    },
+    {
+      value: "Submit",
+      text: "提交",
+    },
+  ];
 
   formData: Taskchema = {
     name: "执行人",

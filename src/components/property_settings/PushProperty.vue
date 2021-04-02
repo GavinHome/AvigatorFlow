@@ -7,6 +7,16 @@
       <el-form-item label="推送地址">
         <el-input v-model="formData.push.url"></el-input>
       </el-form-item>
+      <el-form-item label="聚合方式">
+        <el-radio-group v-model="formData.aggregation">
+          <el-radio-button
+            v-for="(option, index) in aggregations"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
       </el-form-item>
@@ -21,6 +31,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
 import {
+  AggregationModes,
   AggregationModeType,
   ApprovalRuleType,
   PushSchema,
@@ -31,6 +42,8 @@ export default class PushProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
+
+  aggregations = AggregationModes;
 
   formData: PushSchema = {
     name: "推送",

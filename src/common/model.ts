@@ -35,9 +35,9 @@ export enum ApprovalRuleType {
 ///聚合模式：单一，全部，多路
 export enum AggregationModeType {
   ///单一（抢办）
-  SingleAgreed = "one",
+  SingleAgreed = "One",
   ///全部（会签）
-  AllAgreed = "all",
+  AllAgreed = "All",
   // ///多路（设置人数或百分比）
   // MultipleAgreed  = "multiple"
 }
@@ -97,3 +97,54 @@ export interface GraphConfigData {
   nodes: NodeConfig[];
   edges: EdgeConfig[];
 }
+
+/* data */
+export interface DataOption {
+  value: string;
+  text: string;
+}
+
+export const ApprovalRules: Array<DataOption> = [
+  {
+    value: "One",
+    text: "抢办",
+  },
+  {
+    value: "All",
+    text: "会签",
+  },
+];
+
+export const AggregationModes: Array<DataOption> = [
+  {
+    value: "One",
+    text: "单一聚合",
+  },
+  {
+    value: "All",
+    text: "全部聚合",
+  },
+];
+
+export const ApprovalActions: Array<DataOption> = [
+  {
+    value: "Pass",
+    text: "同意",
+  },
+  {
+    value: "Reject",
+    text: "拒绝",
+  },
+  {
+    value: "Assist",
+    text: "协审",
+  },
+  {
+    value: "Save",
+    text: "保存",
+  },
+  {
+    value: "Submit",
+    text: "提交",
+  },
+];

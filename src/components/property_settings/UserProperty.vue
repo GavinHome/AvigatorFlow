@@ -7,6 +7,36 @@
       <el-form-item label="审批人员">
         <el-input v-model="formData.executor.code"></el-input>
       </el-form-item>
+      <el-form-item label="审批规则">
+        <el-radio-group v-model="formData.rule">
+          <el-radio-button
+            v-for="(option, index) in rules"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="聚合方式">
+        <el-radio-group v-model="formData.aggregation">
+          <el-radio-button
+            v-for="(option, index) in aggregations"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="审批动作">
+        <el-checkbox-group v-model="formData.actions">
+          <el-checkbox-button
+            v-for="(option, index) in actions"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-checkbox-button
+          >
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
       </el-form-item>
@@ -25,6 +55,9 @@ import {
   ApprovalActionType,
   ApprovalRuleType,
   NodeSchema,
+  ApprovalRules,
+  AggregationModes,
+  DataOption,
 } from "@/common/model";
 
 @Component
@@ -32,6 +65,23 @@ export default class UserProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
+
+  rules = ApprovalRules;
+  aggregations = AggregationModes;
+  actions: Array<DataOption> = [
+    {
+      value: "Pass",
+      text: "同意",
+    },
+    {
+      value: "Reject",
+      text: "拒绝",
+    },
+    {
+      value: "Assist",
+      text: "协审",
+    },
+  ];
 
   formData: NodeSchema = {
     name: "审批人",

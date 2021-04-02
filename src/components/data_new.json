@@ -30,8 +30,8 @@
                 "name": "结束",
                 "enName": "Completer",
                 "executor": null,
-                "description": "完成",
-                "aggregation": "all",
+                "description": "完成流程",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": null
             }
@@ -50,12 +50,11 @@
                 },
                 "description": "请假单",
                 "form": {},
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
+                    "Save",
+                    "Submit"
                 ]
             },
             "text": {
@@ -77,7 +76,7 @@
                     "code": "201406348"
                 },
                 "description": "审批",
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": [
                     "Pass",
@@ -104,7 +103,7 @@
                 "push": {
                     "url": "https://xiangmuzu"
                 },
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": null
             },
@@ -124,7 +123,7 @@
                 "enName": "Downloader",
                 "executor": null,
                 "description": "系统自动处理",
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": null
             },
@@ -147,7 +146,7 @@
                     "code": "201406348"
                 },
                 "description": "审批",
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": [
                     "Pass",
@@ -174,7 +173,7 @@
                 "push": {
                     "url": "https://renli"
                 },
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": null
             },
@@ -194,7 +193,7 @@
                 "enName": "Downloader",
                 "executor": null,
                 "description": "系统自动处理",
-                "aggregation": "all",
+                "aggregation": "All",
                 "rule": "One",
                 "actions": null
             },
