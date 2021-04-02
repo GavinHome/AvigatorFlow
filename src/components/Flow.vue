@@ -81,6 +81,8 @@ import {
   AggregationModeType,
   ApprovalActionType,
   ApprovalRuleType,
+  EdgeSchema,
+  GraphConfigData,
   NodeSchema,
   PushSchema,
   Taskchema,
@@ -110,7 +112,7 @@ export default class Portal extends Vue {
   private addClickNode = null;
   private clickNode = null;
   private dialogVisible = false;
-  private graphData = null;
+  private graphData: GraphConfigData | null = null;
   private dataVisible = false;
 
   mounted(): void {
@@ -186,7 +188,7 @@ export default class Portal extends Vue {
     }
   }
 
-  // instance config
+  // lf config
   private getFlowConfig() {
     return {
       isSilentMode: this.isSilentMode,
@@ -301,6 +303,7 @@ export default class Portal extends Vue {
     };
   }
 
+  // register event
   private register_event(): void {
     if (this.lf) {
       this.lf.on("node:click", ({ data }) => {
@@ -349,13 +352,18 @@ export default class Portal extends Vue {
       });
 
       this.lf.on("edge:add", ({ data }) => {
+        var properties = this.getInitNodeProperties(data);
+        if (this.lf) {
+          console.log("node properties:", properties);
+          this.lf.setProperties(data.id, properties);
+        }
         console.log("edge:add", data);
       });
     }
   }
 
   //eslint-disable-next-line
-  private getInitNodeProperties(nodeData: any): NodeSchema | Taskchema | any {
+  private getInitNodeProperties(nodeData: any): NodeSchema | EdgeSchema | any {
     switch (nodeData.type) {
       case "start":
         var start_properties: NodeSchema = {
@@ -444,6 +452,13 @@ export default class Portal extends Vue {
           actions: null,
         };
         return properties;
+      case "polyline":
+        var edge_properties: EdgeSchema = {
+          name: "",
+          enName: "Condition",
+          condition: "",
+        };
+        return edge_properties;
       default:
         break;
     }
@@ -464,19 +479,21 @@ export default class Portal extends Vue {
   }
 
   //eslint-disable-next-line
-  mouseDownPlus(e: any, attributes: any): void {
+  private mouseDownPlus(e: any, attributes: any): void {
     e.stopPropagation();
     console.log("mouseDownPlus", e, attributes);
   }
 
-  hideAddPanel(): void {
+  //隐藏自定义面板
+  private hideAddPanel(): void {
     this.showAddPanel = false;
     this.addPanelStyle.top = 0;
     this.addPanelStyle.left = 0;
     this.addClickNode = null;
   }
 
-  closeDialog(): void {
+  //关闭弹框
+  private closeDialog(): void {
     this.dialogVisible = false;
   }
 

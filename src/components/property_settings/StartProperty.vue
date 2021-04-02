@@ -20,7 +20,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeSchema } from "@/common/model";
+import {
+  ApprovalActionType,
+  ApprovalRuleType,
+  NodeSchema,
+} from "@/common/model";
 
 @Component
 export default class StartProperty extends Vue {
@@ -36,12 +40,18 @@ export default class StartProperty extends Vue {
       code: "",
     },
     description: "",
+    aggregation: null,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
   };
 
   mounted(): void {
-    const { properties } = this.nodeData;
+    const { properties, text } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
+      if (text && text.value) {
+        this.formData.name = text.value;
+      }
     }
   }
 

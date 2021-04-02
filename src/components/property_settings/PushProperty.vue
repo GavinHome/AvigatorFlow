@@ -20,7 +20,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { PushSchema } from "@/common/model";
+import {
+  AggregationModeType,
+  ApprovalRuleType,
+  PushSchema,
+} from "@/common/model";
 
 @Component
 export default class PushProperty extends Vue {
@@ -36,12 +40,18 @@ export default class PushProperty extends Vue {
     push: {
       url: "https://",
     },
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: null,
   };
 
   mounted(): void {
-    const { properties } = this.nodeData;
+    const { properties, text } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
+      if (text && text.value) {
+        this.formData.name = text.value;
+      }
     }
   }
 

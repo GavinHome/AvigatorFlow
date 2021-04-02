@@ -17,7 +17,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeSchema } from "@/common/model";
+import {
+  AggregationModeType,
+  ApprovalRuleType,
+  NodeSchema,
+} from "@/common/model";
 
 @Component
 export default class EndProperty extends Vue {
@@ -30,12 +34,18 @@ export default class EndProperty extends Vue {
     enName: "Completer",
     executor: null,
     description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: null,
   };
 
   mounted(): void {
-    const { properties } = this.nodeData;
+    const { properties, text } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
+      if (text && text.value) {
+        this.formData.name = text.value;
+      }
     }
   }
 

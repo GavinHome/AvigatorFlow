@@ -1,3 +1,5 @@
+import { EdgeConfig, NodeConfig } from "@logicflow/core";
+
 export type NodeType = "start" | "user" | "push" | "download" | "task" | "end";
 export type NodeNameType =
   | "Initiator"
@@ -5,8 +7,9 @@ export type NodeNameType =
   | "Approver"
   | "Pusher"
   | "Completer"
-  | "Downloader"
-  | "Condition";
+  | "Downloader";
+
+export type EdgeNameType = "Condition";
 
 ///节点类型
 export interface NodeModel {
@@ -84,8 +87,13 @@ export interface PushSchema extends NodeSchema {
 ///连线属性：通用
 export interface EdgeSchema {
   name: string; ///节点名称
-  enName: NodeNameType; ///英文名称
-  description: string; ///节点描述
+  enName: EdgeNameType; ///英文名称
+  // description: string; ///规则描述
   //eslint-disable-next-line
-  condition: any; ///审批人员
+  condition: any; ///执行规则
+}
+
+export interface GraphConfigData {
+  nodes: NodeConfig[];
+  edges: EdgeConfig[];
 }

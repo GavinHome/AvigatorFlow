@@ -23,7 +23,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { Taskchema } from "@/common/model";
+import {
+  AggregationModeType,
+  ApprovalActionType,
+  ApprovalRuleType,
+  Taskchema,
+} from "@/common/model";
 
 @Component
 export default class TaskProperty extends Vue {
@@ -35,17 +40,27 @@ export default class TaskProperty extends Vue {
     name: "执行人",
     enName: "Executor",
     executor: {
-      name: "执行人",
+      name: "",
       code: "",
     },
     description: "",
-    form: "",
+    form: {},
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: [
+      ApprovalActionType.Pass,
+      ApprovalActionType.Reject,
+      ApprovalActionType.Assist,
+    ],
   };
 
   mounted(): void {
-    const { properties } = this.nodeData;
+    const { properties, text } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
+      if (text && text.value) {
+        this.formData.name = text.value;
+      }
     }
   }
 

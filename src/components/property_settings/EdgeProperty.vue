@@ -7,9 +7,6 @@
       <el-form-item label="执行规则">
         <el-input v-model="formData.condition"></el-input>
       </el-form-item>
-      <el-form-item label="规则描述">
-        <el-input v-model="formData.description"></el-input>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
       </el-form-item>
@@ -32,7 +29,6 @@ export default class EdgeProperty extends Vue {
     name: "",
     enName: "Condition",
     condition: "",
-    description: "",
   };
 
   mounted(): void {

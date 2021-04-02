@@ -5,21 +5,59 @@
             "type": "start",
             "x": 270,
             "y": 200,
-            "properties": {}
+            "properties": {
+                "name": "发起人",
+                "enName": "Initiator",
+                "executor": {
+                    "name": "发起人",
+                    "code": ""
+                },
+                "description": "发起流程",
+                "aggregation": null,
+                "rule": "One",
+                "actions": [
+                    "Save",
+                    "Submit"
+                ]
+            }
         },
         {
             "id": "3e1c693e-bba7-4bb1-ba8e-f5b7eca26302",
             "type": "end",
             "x": 1250,
             "y": 400,
-            "properties": {}
+            "properties": {
+                "name": "结束",
+                "enName": "Completer",
+                "executor": null,
+                "description": "完成",
+                "aggregation": "all",
+                "rule": "One",
+                "actions": null
+            }
         },
         {
             "id": "0ee8d30c-dc41-490a-833e-298fce26d8dc",
-            "type": "rect",
+            "type": "task",
             "x": 440,
             "y": 200,
-            "properties": {},
+            "properties": {
+                "name": "填写请假单",
+                "enName": "Executor",
+                "executor": {
+                    "name": "",
+                    "code": "201406348"
+                },
+                "description": "请假单",
+                "form": {},
+                "aggregation": "all",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
             "text": {
                 "x": 440,
                 "y": 200,
@@ -31,7 +69,22 @@
             "type": "user",
             "x": 630,
             "y": 200,
-            "properties": {},
+            "properties": {
+                "name": "产品级负责人",
+                "enName": "Approver",
+                "executor": {
+                    "name": "审批人",
+                    "code": "201406348"
+                },
+                "description": "审批",
+                "aggregation": "all",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
             "text": {
                 "x": 630,
                 "y": 250,
@@ -43,7 +96,18 @@
             "type": "push",
             "x": 820,
             "y": 200,
-            "properties": {},
+            "properties": {
+                "name": "推送项目组",
+                "enName": "Pusher",
+                "executor": null,
+                "description": "系统自动处理",
+                "push": {
+                    "url": "https://xiangmuzu"
+                },
+                "aggregation": "all",
+                "rule": "One",
+                "actions": null
+            },
             "text": {
                 "x": 820,
                 "y": 250,
@@ -55,7 +119,15 @@
             "type": "download",
             "x": 820,
             "y": 400,
-            "properties": {},
+            "properties": {
+                "name": "打印请假单",
+                "enName": "Downloader",
+                "executor": null,
+                "description": "系统自动处理",
+                "aggregation": "all",
+                "rule": "One",
+                "actions": null
+            },
             "text": {
                 "x": 820,
                 "y": 450,
@@ -67,7 +139,22 @@
             "type": "user",
             "x": 1010,
             "y": 400,
-            "properties": {},
+            "properties": {
+                "name": "部门经理",
+                "enName": "Approver",
+                "executor": {
+                    "name": "审批人",
+                    "code": "201406348"
+                },
+                "description": "审批",
+                "aggregation": "all",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
             "text": {
                 "x": 1010,
                 "y": 450,
@@ -79,7 +166,18 @@
             "type": "push",
             "x": 1010,
             "y": 570,
-            "properties": {},
+            "properties": {
+                "name": "抄送人力",
+                "enName": "Pusher",
+                "executor": null,
+                "description": "系统自动处理",
+                "push": {
+                    "url": "https://renli"
+                },
+                "aggregation": "all",
+                "rule": "One",
+                "actions": null
+            },
             "text": {
                 "x": 1010,
                 "y": 620,
@@ -91,7 +189,15 @@
             "type": "download",
             "x": 1010,
             "y": 200,
-            "properties": {},
+            "properties": {
+                "name": "下载请假单",
+                "enName": "Downloader",
+                "executor": null,
+                "description": "系统自动处理",
+                "aggregation": "all",
+                "rule": "One",
+                "actions": null
+            },
             "text": {
                 "x": 1010,
                 "y": 250,
@@ -188,7 +294,11 @@
                 "x": 820,
                 "y": 375
             },
-            "properties": {},
+            "properties": {
+                "name": "大于0.5天",
+                "enName": "Condition",
+                "condition": ""
+            },
             "text": {
                 "x": 785,
                 "y": 300,
@@ -243,7 +353,11 @@
                 "x": 1010,
                 "y": 535
             },
-            "properties": {},
+            "properties": {
+                "name": "",
+                "enName": "Condition",
+                "condition": ""
+            },
             "pointsList": [
                 {
                     "x": 1010,
@@ -268,7 +382,11 @@
                 "x": 1250,
                 "y": 420
             },
-            "properties": {},
+            "properties": {
+                "name": "同意 ",
+                "enName": "Condition",
+                "condition": ""
+            },
             "text": {
                 "x": 1150,
                 "y": 560,
@@ -302,7 +420,11 @@
                 "x": 1230,
                 "y": 400
             },
-            "properties": {},
+            "properties": {
+                "name": "不同意",
+                "enName": "Condition",
+                "condition": ""
+            },
             "text": {
                 "x": 1130,
                 "y": 385,
@@ -361,7 +483,11 @@
                 "x": 985,
                 "y": 200
             },
-            "properties": {},
+            "properties": {
+                "name": "小于等于0.5 ",
+                "enName": "Condition",
+                "condition": ""
+            },
             "text": {
                 "x": 922,
                 "y": 185,

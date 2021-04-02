@@ -20,7 +20,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeSchema } from "@/common/model";
+import {
+  AggregationModeType,
+  ApprovalActionType,
+  ApprovalRuleType,
+  NodeSchema,
+} from "@/common/model";
 
 @Component
 export default class UserProperty extends Vue {
@@ -36,12 +41,22 @@ export default class UserProperty extends Vue {
       code: "",
     },
     description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: [
+      ApprovalActionType.Pass,
+      ApprovalActionType.Reject,
+      ApprovalActionType.Assist,
+    ],
   };
 
   mounted(): void {
-    const { properties } = this.nodeData;
+    const { properties, text } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
+      if (text && text.value) {
+        this.formData.name = text.value;
+      }
     }
   }
 
