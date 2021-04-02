@@ -284,11 +284,7 @@ export default class Portal extends Vue {
           text: "删除",
           // eslint-disable-next-line
           callback: (node: any) => {
-            this.lf &&
-              this.lf.removeEdge({
-                sourceNodeId: node.sourceNodeI,
-                targetNodeId: node.targetNodeId,
-              });
+            this.lf && this.lf.deleteEdge(node.id);
           },
         },
       ],
