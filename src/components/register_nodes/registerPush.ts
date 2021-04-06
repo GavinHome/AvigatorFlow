@@ -101,7 +101,7 @@ export default function registerPush(
               fillOpacity,
             }),
             this.getIconShape(),
-            this.getPulsShape(),
+            // this.getPulsShape(),
           ]
         );
       }

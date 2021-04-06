@@ -1,6 +1,6 @@
 <template>
   <div class="avigator-flow-view">
-    <h3 class="text-center" style="margin: 20px">{{ title }}</h3>
+    <slot name="title"></slot>
 
     <!-- 辅助工具栏 -->
     <Control
@@ -13,7 +13,7 @@
     <NodePanel :lf="lf"></NodePanel>
 
     <!-- 画布 -->
-    <div id="flow-view"></div>
+    <div id="flow-view" :style="bodyStyle"></div>
 
     <!-- 用户节点自定义操作面板 -->
     <!-- <AddPanel
@@ -98,7 +98,9 @@ import {
   },
 })
 export default class Portal extends Vue {
-  @Prop() private title!: string;
+  // @Prop() private title!: string;
+  //eslint-disable-next-line
+  @Prop() private bodyStyle!: any;
   @Prop() private isSilentMode!: boolean;
 
   private lf: LogicFlow | null = null;
@@ -119,6 +121,18 @@ export default class Portal extends Vue {
     this.init();
   }
 
+  //eslint-disable-next-line
+  public getData(): any {
+    if (this.lf) {
+      const data = this.lf.getGraphData();
+      console.log(JSON.stringify(data));
+      return data;
+    }
+
+    return null;
+  }
+
+  /// 初始化
   private init() {
     // 使用插件
     LogicFlow.use(Menu);
@@ -148,7 +162,7 @@ export default class Portal extends Vue {
     this.register_event();
   }
 
-  // 设置节点菜单
+  /// 设置节点菜单
   private setMenu() {
     // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
     // 重置，增加，节点自由配置(以user节点为示例)
@@ -166,7 +180,7 @@ export default class Portal extends Vue {
     }
   }
 
-  // register node
+  /// register node
   private registerNodes() {
     console.log("register Nodes");
     if (this.lf) {
@@ -180,7 +194,7 @@ export default class Portal extends Vue {
     }
   }
 
-  // register node
+  /// register node
   private registerEdges() {
     console.log("register Edges");
     if (this.lf) {
@@ -188,7 +202,7 @@ export default class Portal extends Vue {
     }
   }
 
-  // lf config
+  /// lf config
   private getFlowConfig() {
     return {
       isSilentMode: this.isSilentMode,
@@ -253,7 +267,7 @@ export default class Portal extends Vue {
     };
   }
 
-  // menu config
+  /// menu config
   private getMenuConfig() {
     return {
       nodeMenu: [
@@ -303,7 +317,7 @@ export default class Portal extends Vue {
     };
   }
 
-  // register event
+  /// register event
   private register_event(): void {
     if (this.lf) {
       this.lf.on("node:click", ({ data }) => {
@@ -467,7 +481,7 @@ export default class Portal extends Vue {
   }
 
   //eslint-disable-next-line
-  clickPlus(e: any, attributes: any): void {
+  private clickPlus(e: any, attributes: any): void {
     e.stopPropagation();
     console.log("clickPlus", e, attributes);
     const { clientX, clientY } = e;
@@ -502,13 +516,6 @@ export default class Portal extends Vue {
     this.graphData = this.lf ? this.lf.getGraphData() : null;
     this.dataVisible = true;
   }
-
-  private getData() {
-    if (this.lf) {
-      const data = this.lf.getGraphData();
-      console.log(JSON.stringify(data));
-    }
-  }
 }
 </script>
 
@@ -528,10 +535,10 @@ export default class Portal extends Vue {
   }
 
   #flow-view {
-    width: calc(100% - 100px);
-    height: 85%;
+    // width: calc(100% - 100px);
+    height: 100%;
     outline: none;
-    margin-left: 50px;
+    // margin-left: 50px;
   }
 
   .time-plus {
