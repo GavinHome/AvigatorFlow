@@ -1,0 +1,315 @@
+{
+    "nodes": [
+        {
+            "id": "396b11da-f628-4638-ad2f-404cef0d7d98",
+            "type": "start",
+            "x": 210,
+            "y": 320,
+            "properties": {
+                "name": "发起人",
+                "enName": "Initiator",
+                "executor": {
+                    "name": "发起人",
+                    "code": ""
+                },
+                "description": "发起流程",
+                "aggregation": null,
+                "rule": "One",
+                "actions": [
+                    "Save",
+                    "Submit"
+                ]
+            }
+        },
+        {
+            "id": "3e1c693e-bba7-4bb1-ba8e-f5b7eca26302",
+            "type": "end",
+            "x": 890,
+            "y": 320,
+            "properties": {
+                "name": "结束",
+                "enName": "Completer",
+                "executor": null,
+                "description": "完成流程",
+                "aggregation": "All",
+                "rule": "One",
+                "actions": null
+            }
+        },
+        {
+            "id": "608d221f-5737-44ba-a18f-52288113b028",
+            "type": "gateway",
+            "x": 610,
+            "y": 320,
+            "properties": {},
+            "text": {
+                "x": 610,
+                "y": 370,
+                "value": "网关节点"
+            }
+        },
+        {
+            "id": "18d7b6d7-220c-4f1b-9066-567721ebc2f2",
+            "type": "approval",
+            "x": 400,
+            "y": 320,
+            "properties": {
+                "name": "任务1",
+                "enName": "Approver",
+                "executor": {
+                    "name": "审批人",
+                    "code": "user001"
+                },
+                "description": "user1",
+                "aggregation": "All",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
+            "text": {
+                "x": 400,
+                "y": 370,
+                "value": "任务1"
+            }
+        },
+        {
+            "id": "88650c63-8883-4fbc-894a-b7b430876f3a",
+            "type": "approval",
+            "x": 610,
+            "y": 140,
+            "properties": {
+                "name": "任务2",
+                "enName": "Approver",
+                "executor": {
+                    "name": "审批人",
+                    "code": "user002"
+                },
+                "description": "user2",
+                "aggregation": "All",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
+            "text": {
+                "x": 610,
+                "y": 190,
+                "value": "任务2"
+            }
+        },
+        {
+            "id": "678ac6ca-ee1d-4ccd-ab1d-d949cb229654",
+            "type": "approval",
+            "x": 610,
+            "y": 510,
+            "properties": {
+                "name": "任务3",
+                "enName": "Approver",
+                "executor": {
+                    "name": "审批人",
+                    "code": "user003"
+                },
+                "description": "user3",
+                "aggregation": "All",
+                "rule": "One",
+                "actions": [
+                    "Pass",
+                    "Reject",
+                    "Assist"
+                ]
+            },
+            "text": {
+                "x": 610,
+                "y": 560,
+                "value": "任务3"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "0a1431f8-e408-4a84-b864-785b4bcb9f6e",
+            "type": "polyline",
+            "sourceNodeId": "18d7b6d7-220c-4f1b-9066-567721ebc2f2",
+            "targetNodeId": "608d221f-5737-44ba-a18f-52288113b028",
+            "startPoint": {
+                "x": 450,
+                "y": 320
+            },
+            "endPoint": {
+                "x": 585,
+                "y": 320
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 450,
+                    "y": 320
+                },
+                {
+                    "x": 585,
+                    "y": 320
+                }
+            ]
+        },
+        {
+            "id": "fb7bf1f6-0697-491e-b5c6-04dfa4bdf76b",
+            "type": "polyline",
+            "sourceNodeId": "396b11da-f628-4638-ad2f-404cef0d7d98",
+            "targetNodeId": "18d7b6d7-220c-4f1b-9066-567721ebc2f2",
+            "startPoint": {
+                "x": 230,
+                "y": 320
+            },
+            "endPoint": {
+                "x": 350,
+                "y": 320
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 230,
+                    "y": 320
+                },
+                {
+                    "x": 350,
+                    "y": 320
+                }
+            ]
+        },
+        {
+            "id": "2fafe673-5853-4c68-b165-2b4318e7cb59",
+            "type": "polyline",
+            "sourceNodeId": "608d221f-5737-44ba-a18f-52288113b028",
+            "targetNodeId": "88650c63-8883-4fbc-894a-b7b430876f3a",
+            "startPoint": {
+                "x": 610,
+                "y": 295
+            },
+            "endPoint": {
+                "x": 610,
+                "y": 175
+            },
+            "properties": {
+                "name": "111",
+                "enName": "Condition",
+                "condition": "${abc == true}"
+            },
+            "text": {
+                "x": 610,
+                "y": 265,
+                "value": "符合"
+            },
+            "pointsList": [
+                {
+                    "x": 610,
+                    "y": 295
+                },
+                {
+                    "x": 610,
+                    "y": 175
+                }
+            ]
+        },
+        {
+            "id": "0f28ffdd-5b60-4287-ad8b-0f30cca9de50",
+            "type": "polyline",
+            "sourceNodeId": "608d221f-5737-44ba-a18f-52288113b028",
+            "targetNodeId": "678ac6ca-ee1d-4ccd-ab1d-d949cb229654",
+            "startPoint": {
+                "x": 610,
+                "y": 345
+            },
+            "endPoint": {
+                "x": 610,
+                "y": 475
+            },
+            "properties": {},
+            "text": {
+                "x": 610,
+                "y": 414,
+                "value": "默认"
+            },
+            "pointsList": [
+                {
+                    "x": 610,
+                    "y": 345
+                },
+                {
+                    "x": 610,
+                    "y": 475
+                }
+            ]
+        },
+        {
+            "id": "5f044912-70c4-4a87-9359-d7889bda7e1d",
+            "type": "polyline",
+            "sourceNodeId": "88650c63-8883-4fbc-894a-b7b430876f3a",
+            "targetNodeId": "3e1c693e-bba7-4bb1-ba8e-f5b7eca26302",
+            "startPoint": {
+                "x": 660,
+                "y": 140
+            },
+            "endPoint": {
+                "x": 870,
+                "y": 320
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 660,
+                    "y": 140
+                },
+                {
+                    "x": 840,
+                    "y": 140
+                },
+                {
+                    "x": 840,
+                    "y": 320
+                },
+                {
+                    "x": 870,
+                    "y": 320
+                }
+            ]
+        },
+        {
+            "id": "fb62581c-fc9b-41af-9e83-77b60ed22463",
+            "type": "polyline",
+            "sourceNodeId": "678ac6ca-ee1d-4ccd-ab1d-d949cb229654",
+            "targetNodeId": "3e1c693e-bba7-4bb1-ba8e-f5b7eca26302",
+            "startPoint": {
+                "x": 660,
+                "y": 510
+            },
+            "endPoint": {
+                "x": 870,
+                "y": 320
+            },
+            "properties": {},
+            "pointsList": [
+                {
+                    "x": 660,
+                    "y": 510
+                },
+                {
+                    "x": 840,
+                    "y": 510
+                },
+                {
+                    "x": 840,
+                    "y": 320
+                },
+                {
+                    "x": 870,
+                    "y": 320
+                }
+            ]
+        }
+    ]
+}

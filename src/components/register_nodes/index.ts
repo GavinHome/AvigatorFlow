@@ -8,6 +8,9 @@ import registerPush from "./registerPush";
 import registerDownload from "./registerDownload";
 // import registerPolyline from "../register_edges/registerPolyline";
 import registerTask from "./registerTask";
+import registerGateway from "./registerGateway";
+import registerApproval from "./registerApproval";
+import registerSystem from "./registerSystem";
 export {
   registerStart,
   registerUser,
@@ -16,4 +19,7 @@ export {
   registerDownload,
   // registerPolyline,
   registerTask,
+  registerGateway,
+  registerApproval,
+  registerSystem,
 };

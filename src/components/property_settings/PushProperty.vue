@@ -72,6 +72,7 @@ export default class PushProperty extends Vue {
     console.log("submit!");
     const { id } = this.nodeData;
     this.lf.setProperties(id, this.formData);
+    this.lf.updateText(id, this.formData.name);
     this.$emit("onClose");
   }
 }

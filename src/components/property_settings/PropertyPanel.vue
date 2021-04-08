@@ -42,6 +42,18 @@
       :lf="lf"
       @onClose="handleClose"
     />
+    <ApprovalProperty
+      v-if="nodeData.type === 'approval'"
+      :nodeData="nodeData"
+      :lf="lf"
+      @onClose="handleClose"
+    />
+    <GatewayProperty
+      v-if="nodeData.type === 'gateway'"
+      :nodeData="nodeData"
+      :lf="lf"
+      @onClose="handleClose"
+    />
   </div>
 </template>
 
@@ -55,6 +67,8 @@ import PushProperty from "./PushProperty.vue";
 import DownloadProperty from "./DownloadProperty.vue";
 import TaskProperty from "./TaskProperty.vue";
 import EdgeProperty from "./EdgeProperty.vue";
+import ApprovalProperty from "./ApprovalProperty.vue";
+import GatewayProperty from "./GatewayProperty.vue";
 
 @Component({
   components: {
@@ -65,6 +79,8 @@ import EdgeProperty from "./EdgeProperty.vue";
     DownloadProperty,
     TaskProperty,
     EdgeProperty,
+    ApprovalProperty,
+    GatewayProperty,
   },
 })
 export default class PropertyPanel extends Vue {

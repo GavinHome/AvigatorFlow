@@ -32,25 +32,40 @@ export default class NodePanel extends Vue {
       type: "start",
       class: "node-start",
     },
+    // {
+    //   text: "任务",
+    //   type: "task",
+    //   class: "node-rect",
+    // },
+    // {
+    //   text: "用户",
+    //   type: "user",
+    //   class: "node-user",
+    // },
+    // {
+    //   text: "推送",
+    //   type: "push",
+    //   class: "node-push",
+    // },
+    // {
+    //   text: "下载",
+    //   type: "download",
+    //   class: "node-download",
+    // },
     {
-      text: "任务",
-      type: "task",
-      class: "node-rect",
+      text: "审批节点",
+      type: "approval",
+      class: "node-approval",
     },
+    // {
+    //   text: "系统任务",
+    //   type: "system",
+    //   class: "node-system",
+    // },
     {
-      text: "用户",
-      type: "user",
-      class: "node-user",
-    },
-    {
-      text: "推送",
-      type: "push",
-      class: "node-push",
-    },
-    {
-      text: "下载",
-      type: "download",
-      class: "node-download",
+      text: "网关节点",
+      type: "gateway",
+      class: "node-gateway",
     },
     {
       text: "结束",
@@ -126,6 +141,18 @@ export default class NodePanel extends Vue {
 }
 .node-end {
   background: url("./node_type_icon/end.png") no-repeat;
+  background-size: cover;
+}
+.node-approval {
+  background: url("./node_type_icon/user.png") no-repeat;
+  background-size: cover;
+}
+.node-system {
+  background: url("./node_type_icon/click.png") no-repeat;
+  background-size: cover;
+}
+.node-gateway {
+  background: url("./node_type_icon/time.png") no-repeat;
   background-size: cover;
 }
 </style>

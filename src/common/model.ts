@@ -1,13 +1,23 @@
 import { EdgeConfig, NodeConfig } from "@logicflow/core";
 
-export type NodeType = "start" | "user" | "push" | "download" | "task" | "end";
+export type NodeType =
+  | "start"
+  // | "user"
+  // | "push"
+  // | "download"
+  // | "task"
+  | "approval"
+  | "system"
+  | "gateway"
+  | "end";
 export type NodeNameType =
   | "Initiator"
   | "Executor"
   | "Approver"
   | "Pusher"
   | "Completer"
-  | "Downloader";
+  | "Downloader"
+  | "Gateway";
 
 export type EdgeNameType = "Condition";
 
@@ -107,7 +117,7 @@ export interface DataOption {
 export const ApprovalRules: Array<DataOption> = [
   {
     value: "One",
-    text: "抢办",
+    text: "或签",
   },
   {
     value: "All",

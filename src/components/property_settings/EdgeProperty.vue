@@ -2,7 +2,7 @@
   <div>
     <el-form label-width="80px" :model="formData">
       <el-form-item label="显示名称">
-        <el-input v-model="formData.name" disabled></el-input>
+        <el-input v-model="formData.name"></el-input>
       </el-form-item>
       <el-form-item label="执行规则">
         <el-input v-model="formData.condition"></el-input>
@@ -45,6 +45,7 @@ export default class EdgeProperty extends Vue {
     console.log("submit!");
     const { id } = this.nodeData;
     this.lf.setProperties(id, this.formData);
+    this.lf.updateText(id, this.formData.name);
     this.$emit("onClose");
   }
 }

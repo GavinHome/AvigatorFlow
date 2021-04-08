@@ -52,8 +52,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-import LogicFlow from "@logicflow/core";
-import { Menu, Snapshot } from "@logicflow/extension";
+import LogicFlow, { Definition } from "@logicflow/core";
+import { Menu, SelectionSelect, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 import { theme } from "@/components/theme";
@@ -72,11 +72,14 @@ import {
   registerStart,
   registerTask,
   registerUser,
+  registerApproval,
+  registerGateway,
+  registerSystem,
 } from "./register_nodes";
 
 import { registerPolyline } from "./register_edges";
 
-import demoData from "@/components/data_new.json";
+import demoData from "@/components/data_new_v2.json";
 import {
   AggregationModeType,
   ApprovalActionType,
@@ -137,10 +140,14 @@ export default class Portal extends Vue {
     // 使用插件
     LogicFlow.use(Menu);
     LogicFlow.use(Snapshot);
+    // 启用框选
+    LogicFlow.use(SelectionSelect);
+    // SelectionSelect.open();
+    // LogicFlow.use(MiniMap);
 
     // 画布配置
     // eslint-disable-next-line
-    const config: any = this.getFlowConfig();
+    const config: Definition = this.getFlowConfig();
     this.lf = new LogicFlow({ ...config });
 
     // 设置节点菜单
@@ -160,6 +167,9 @@ export default class Portal extends Vue {
 
     // 注册事件
     this.register_event();
+
+    // MiniMap.show(10,20);
+    // SelectionSelect.open();
   }
 
   /// 设置节点菜单
@@ -191,6 +201,9 @@ export default class Portal extends Vue {
       registerDownload(this.lf);
       // registerPolyline(this.lf);
       registerTask(this.lf);
+      registerGateway(this.lf);
+      registerApproval(this.lf);
+      registerSystem(this.lf);
     }
   }
 
@@ -203,10 +216,12 @@ export default class Portal extends Vue {
   }
 
   /// lf config
-  private getFlowConfig() {
+  private getFlowConfig(): Definition {
     return {
+      // stopMoveGraph: false,
+      textEdit: false,
       isSilentMode: this.isSilentMode,
-      container: document.querySelector("#flow-view"),
+      container: document.querySelector("#flow-view") as HTMLElement,
       background: {
         color: "#f7f9ff",
       },
@@ -233,9 +248,9 @@ export default class Portal extends Vue {
         line: {
           strokeWidth: 1,
         },
-        arrow: {
-          strokeWidth: 1,
-        },
+        // arrow: {
+        //   strokeWidth: 1,
+        // },
         polyline: {
           strokeWidth: 1,
         },
@@ -248,7 +263,7 @@ export default class Portal extends Vue {
         enabled: true,
       },
       hoverOutline: true,
-      edgeTextDraggable: true,
+      // edgeTextDraggable: true,
       guards: {
         // eslint-disable-next-line
         beforeClone(data: any) {
@@ -326,6 +341,18 @@ export default class Portal extends Vue {
         // this.dialogVisible = true;
       });
 
+      this.lf.on("node:dbclick", ({ data }) => {
+        console.log("node:dbclick", data);
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:dbclick", ({ data }) => {
+        console.log("edge:dbclick", data);
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
       this.lf.on("edge:click", ({ data }) => {
         console.log("edge:click", data);
         this.clickNode = data;
@@ -359,6 +386,7 @@ export default class Portal extends Vue {
         if (this.lf) {
           console.log("node properties:", properties);
           this.lf.setProperties(data.id, properties);
+          data = this.lf.getNodeData(data.id);
         }
         console.log("node:add", data);
         this.clickNode = data;
@@ -473,6 +501,35 @@ export default class Portal extends Vue {
           condition: "",
         };
         return edge_properties;
+      case "approval":
+        var approval_properties: NodeSchema = {
+          name: "审批节点1",
+          enName: "Approver",
+          executor: {
+            name: "审批人",
+            code: "",
+          },
+          description: "",
+          aggregation: AggregationModeType.SingleAgreed,
+          rule: ApprovalRuleType.AllAgreed,
+          actions: [
+            ApprovalActionType.Pass,
+            ApprovalActionType.Reject,
+            ApprovalActionType.Assist,
+          ],
+        };
+        return approval_properties;
+      case "gateway":
+        var gateway_properties: NodeSchema = {
+          name: "网关节点",
+          enName: "Gateway",
+          executor: null,
+          description: "网关路由",
+          aggregation: AggregationModeType.SingleAgreed,
+          rule: ApprovalRuleType.OneAgreed,
+          actions: null,
+        };
+        return gateway_properties;
       default:
         break;
     }
