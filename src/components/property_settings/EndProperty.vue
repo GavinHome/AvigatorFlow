@@ -31,6 +31,7 @@ import {
   AggregationModes,
   AggregationModeType,
   ApprovalRuleType,
+  NodeNameConst,
   NodeSchema,
 } from "@/common/model";
 
@@ -43,7 +44,7 @@ export default class EndProperty extends Vue {
   aggregations = AggregationModes;
 
   formData: NodeSchema = {
-    name: "结束",
+    name: NodeNameConst.END,
     enName: "Completer",
     executor: null,
     description: "",
@@ -53,12 +54,9 @@ export default class EndProperty extends Vue {
   };
 
   mounted(): void {
-    const { properties, text } = this.nodeData;
+    const { properties } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
-      if (text && text.value) {
-        this.formData.name = text.value;
-      }
     }
   }
 

@@ -1,3 +1,4 @@
+import { NodeNameConst } from "@/common/model";
 import LogicFlow, { GraphModel } from "@logicflow/core";
 
 export default function registerUser(lf: LogicFlow): void {
@@ -55,7 +56,7 @@ export default function registerUser(lf: LogicFlow): void {
       //eslint-disable-next-line
       constructor(data: any, graphModel: GraphModel) {
         data.text = {
-          value: (data.text && data.text.value) || "系统任务",
+          value: (data.text && data.text.value) || NodeNameConst.SYSTEM,
           x: data.x,
           y: data.y + 50,
         };

@@ -1,3 +1,4 @@
+import { NodeNameConst } from "@/common/model";
 import LogicFlow, { GraphModel } from "@logicflow/core";
 
 export default function registerStart(lf: LogicFlow): void {
@@ -16,7 +17,7 @@ export default function registerStart(lf: LogicFlow): void {
             width: 50,
             height: 25,
           },
-          "开始"
+          ""
         );
       }
       getShape() {
@@ -39,9 +40,9 @@ export default function registerStart(lf: LogicFlow): void {
       //eslint-disable-next-line
       constructor(data: any, graphModel: GraphModel) {
         data.text = {
-          value: (data.text && data.text.value) || "",
+          value: (data.text && data.text.value) || NodeNameConst.START,
           x: data.x,
-          y: data.y + 35,
+          y: data.y,
           dragable: false,
           editable: true,
         };

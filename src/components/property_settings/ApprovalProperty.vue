@@ -58,6 +58,7 @@ import {
   ApprovalRules,
   AggregationModes,
   DataOption,
+  NodeNameConst,
 } from "@/common/model";
 
 @Component
@@ -84,10 +85,10 @@ export default class UserProperty extends Vue {
   ];
 
   formData: NodeSchema = {
-    name: "审批人",
+    name: NodeNameConst.APPROVAL,
     enName: "Approver",
     executor: {
-      name: "审批人",
+      name: "",
       code: "",
     },
     description: "",
@@ -101,12 +102,9 @@ export default class UserProperty extends Vue {
   };
 
   mounted(): void {
-    const { properties, text } = this.nodeData;
+    const { properties } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
-      if (text && text.value) {
-        this.formData.name = text.value;
-      }
     }
   }
 

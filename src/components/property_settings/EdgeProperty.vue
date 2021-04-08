@@ -32,12 +32,9 @@ export default class EdgeProperty extends Vue {
   };
 
   mounted(): void {
-    const { properties, text } = this.nodeData;
+    const { properties } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
-      if (text && text.value) {
-        this.formData.name = text.value;
-      }
     }
   }
 

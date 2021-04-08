@@ -31,6 +31,7 @@ import {
   AggregationModes,
   AggregationModeType,
   ApprovalRuleType,
+  NodeNameConst,
   NodeSchema,
 } from "@/common/model";
 
@@ -43,7 +44,7 @@ export default class PushProperty extends Vue {
   aggregations = AggregationModes;
 
   formData: NodeSchema = {
-    name: "网关",
+    name: NodeNameConst.GATEWAY,
     enName: "Gateway",
     executor: null,
     description: "",
@@ -53,12 +54,9 @@ export default class PushProperty extends Vue {
   };
 
   mounted(): void {
-    const { properties, text } = this.nodeData;
+    const { properties } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
-      if (text && text.value) {
-        this.formData.name = text.value;
-      }
     }
   }
 

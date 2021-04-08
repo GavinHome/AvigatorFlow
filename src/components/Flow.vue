@@ -65,31 +65,17 @@ import PropertyPanel from "@/components/property_settings/PropertyPanel.vue";
 import AddPanel from "@/components/custom_panel/AddPanel.vue";
 
 import {
-  registerDownload,
-  registerEnd,
-  // registerPolyline,
-  registerPush,
   registerStart,
-  registerTask,
-  registerUser,
   registerApproval,
   registerGateway,
   registerSystem,
+  registerEnd,
 } from "./register_nodes";
 
 import { registerPolyline } from "./register_edges";
 
-import demoData from "@/components/data_new_v2.json";
-import {
-  AggregationModeType,
-  ApprovalActionType,
-  ApprovalRuleType,
-  EdgeSchema,
-  GraphConfigData,
-  NodeSchema,
-  PushSchema,
-  Taskchema,
-} from "@/common/model";
+import demoData from "@/components/data_new_v3.json";
+import { GraphConfigData, NodeSchema, NodesData } from "@/common/model";
 
 @Component({
   components: {
@@ -101,7 +87,6 @@ import {
   },
 })
 export default class Portal extends Vue {
-  // @Prop() private title!: string;
   //eslint-disable-next-line
   @Prop() private bodyStyle!: any;
   @Prop() private isSilentMode!: boolean;
@@ -195,15 +180,10 @@ export default class Portal extends Vue {
     console.log("register Nodes");
     if (this.lf) {
       registerStart(this.lf);
-      registerUser(this.lf);
-      registerEnd(this.lf);
-      registerPush(this.lf, this.clickPlus, this.mouseDownPlus);
-      registerDownload(this.lf);
-      // registerPolyline(this.lf);
-      registerTask(this.lf);
-      registerGateway(this.lf);
       registerApproval(this.lf);
+      registerGateway(this.lf);
       registerSystem(this.lf);
+      registerEnd(this.lf);
     }
   }
 
@@ -382,8 +362,20 @@ export default class Portal extends Vue {
       });
 
       this.lf.on("node:add", ({ data }) => {
-        var properties = this.getInitNodeProperties(data);
-        if (this.lf) {
+        let n = NodesData.find((n) => n.type === data.type);
+        var properties: NodeSchema | null = n
+          ? {
+              name: n.name,
+              enName: n.enName,
+              executor: n.executor,
+              description: n.description,
+              aggregation: n.aggregation,
+              rule: n.rule,
+              actions: n.actions,
+            }
+          : null;
+
+        if (this.lf && properties) {
           console.log("node properties:", properties);
           this.lf.setProperties(data.id, properties);
           data = this.lf.getNodeData(data.id);
@@ -394,7 +386,11 @@ export default class Portal extends Vue {
       });
 
       this.lf.on("edge:add", ({ data }) => {
-        var properties = this.getInitNodeProperties(data);
+        var properties = {
+          name: "",
+          enName: "Condition",
+          condition: "",
+        };
         if (this.lf) {
           console.log("node properties:", properties);
           this.lf.setProperties(data.id, properties);
@@ -402,139 +398,6 @@ export default class Portal extends Vue {
         console.log("edge:add", data);
       });
     }
-  }
-
-  //eslint-disable-next-line
-  private getInitNodeProperties(nodeData: any): NodeSchema | EdgeSchema | any {
-    switch (nodeData.type) {
-      case "start":
-        var start_properties: NodeSchema = {
-          name: "发起人",
-          enName: "Initiator",
-          executor: {
-            name: "发起人",
-            code: "",
-          },
-          description: "",
-          aggregation: null,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
-        };
-        return start_properties;
-      case "user":
-        var user_properties: NodeSchema = {
-          name: "审批人",
-          enName: "Approver",
-          executor: {
-            name: "审批人",
-            code: "",
-          },
-          description: "",
-          aggregation: AggregationModeType.AllAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: [
-            ApprovalActionType.Pass,
-            ApprovalActionType.Reject,
-            ApprovalActionType.Assist,
-          ],
-        };
-        return user_properties;
-      case "push":
-        var push_properties: PushSchema = {
-          name: "推送",
-          enName: "Pusher",
-          executor: null,
-          description: "系统自动处理",
-          push: {
-            url: "https://",
-          },
-          aggregation: AggregationModeType.AllAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: null,
-        };
-        return push_properties;
-      case "download":
-        var download_properties: NodeSchema = {
-          name: "下载",
-          enName: "Downloader",
-          executor: null,
-          description: "系统自动处理",
-          aggregation: AggregationModeType.AllAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: null,
-        };
-        return download_properties;
-      case "task":
-        var properties1: Taskchema = {
-          name: "执行人",
-          enName: "Executor",
-          executor: {
-            name: "",
-            code: "",
-          },
-          description: "",
-          form: {},
-          aggregation: AggregationModeType.AllAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: [
-            ApprovalActionType.Pass,
-            ApprovalActionType.Reject,
-            ApprovalActionType.Assist,
-          ],
-        };
-        return properties1;
-      case "end":
-        var properties: NodeSchema = {
-          name: "结束",
-          enName: "Completer",
-          executor: null,
-          description: "",
-          aggregation: AggregationModeType.AllAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: null,
-        };
-        return properties;
-      case "polyline":
-        var edge_properties: EdgeSchema = {
-          name: "",
-          enName: "Condition",
-          condition: "",
-        };
-        return edge_properties;
-      case "approval":
-        var approval_properties: NodeSchema = {
-          name: "审批节点1",
-          enName: "Approver",
-          executor: {
-            name: "审批人",
-            code: "",
-          },
-          description: "",
-          aggregation: AggregationModeType.SingleAgreed,
-          rule: ApprovalRuleType.AllAgreed,
-          actions: [
-            ApprovalActionType.Pass,
-            ApprovalActionType.Reject,
-            ApprovalActionType.Assist,
-          ],
-        };
-        return approval_properties;
-      case "gateway":
-        var gateway_properties: NodeSchema = {
-          name: "网关节点",
-          enName: "Gateway",
-          executor: null,
-          description: "网关路由",
-          aggregation: AggregationModeType.SingleAgreed,
-          rule: ApprovalRuleType.OneAgreed,
-          actions: null,
-        };
-        return gateway_properties;
-      default:
-        break;
-    }
-
-    return {};
   }
 
   //eslint-disable-next-line

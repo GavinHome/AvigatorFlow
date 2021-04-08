@@ -2,23 +2,13 @@
 // [阿里字体库](https://www.iconfont.cn/collections/index?spm=a313x.7781069.1998910419.4)
 // svg图标建议使用自己创建的
 import registerStart from "./registerStart";
-import registerUser from "./registerUser";
 import registerEnd from "./registerEnd";
-import registerPush from "./registerPush";
-import registerDownload from "./registerDownload";
-// import registerPolyline from "../register_edges/registerPolyline";
-import registerTask from "./registerTask";
 import registerGateway from "./registerGateway";
 import registerApproval from "./registerApproval";
 import registerSystem from "./registerSystem";
 export {
   registerStart,
-  registerUser,
   registerEnd,
-  registerPush,
-  registerDownload,
-  // registerPolyline,
-  registerTask,
   registerGateway,
   registerApproval,
   registerSystem,

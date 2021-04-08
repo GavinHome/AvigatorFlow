@@ -4,9 +4,6 @@
       <el-form-item label="节点名称">
         <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
-      <el-form-item label="发起人员">
-        <el-input v-model="formData.executor.name" disabled></el-input>
-      </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
       </el-form-item>
@@ -23,6 +20,7 @@ import LogicFlow from "@logicflow/core";
 import {
   ApprovalActionType,
   ApprovalRuleType,
+  NodeNameConst,
   NodeSchema,
 } from "@/common/model";
 
@@ -33,10 +31,10 @@ export default class StartProperty extends Vue {
   @Prop() private lf!: LogicFlow;
 
   formData: NodeSchema = {
-    name: "发起人",
+    name: NodeNameConst.START,
     enName: "Initiator",
     executor: {
-      name: "发起人",
+      name: "",
       code: "",
     },
     description: "",
@@ -46,12 +44,9 @@ export default class StartProperty extends Vue {
   };
 
   mounted(): void {
-    const { properties, text } = this.nodeData;
+    const { properties } = this.nodeData;
     if (properties) {
       this.formData = Object.assign({}, this.formData, properties);
-      if (text && text.value) {
-        this.formData.name = text.value;
-      }
     }
   }
 

@@ -30,7 +30,7 @@ yarn lint
 ```
 
 ### TODO
-- 节点操作、审批方式、聚合方式、分支、连线、审批人规则
+- 节点操作、审批人规则、分支规则
 - 任务表单
 
 ### Customize configuration

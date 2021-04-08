@@ -1,23 +1,21 @@
 import { EdgeConfig, NodeConfig } from "@logicflow/core";
 
-export type NodeType =
-  | "start"
-  // | "user"
-  // | "push"
-  // | "download"
-  // | "task"
-  | "approval"
-  | "system"
-  | "gateway"
-  | "end";
+export type NodeType = "start" | "approval" | "system" | "gateway" | "end";
+
+export const NodeNameConst = {
+  START: "开始",
+  APPROVAL: "审批节点",
+  SYSTEM: "系统任务",
+  GATEWAY: "网关节点",
+  END: "结束",
+};
+
 export type NodeNameType =
   | "Initiator"
-  | "Executor"
   | "Approver"
-  | "Pusher"
-  | "Completer"
-  | "Downloader"
-  | "Gateway";
+  | "System"
+  | "Gateway"
+  | "Completer";
 
 export type EdgeNameType = "Condition";
 
@@ -79,19 +77,6 @@ export interface NodeSchema {
   aggregation?: AggregationModeType | null; ///聚合方式
   rule?: ApprovalRuleType; ///审核机制
   actions?: Array<ApprovalActionType> | null; ///审批动作
-}
-
-////节点属性： 表单任务
-export interface Taskchema extends NodeSchema {
-  //eslint-disable-next-line
-  form?: any;
-}
-
-////节点属性： 推送设置
-export interface PushSchema extends NodeSchema {
-  push: {
-    url: string;
-  }; ///推送配置
 }
 
 ///连线属性：通用
@@ -156,5 +141,80 @@ export const ApprovalActions: Array<DataOption> = [
   {
     value: "Submit",
     text: "提交",
+  },
+];
+
+export interface NodeData extends NodeModel, NodeSchema {}
+
+export const NodesData: Array<NodeData> = [
+  {
+    text: NodeNameConst.START,
+    type: "start",
+    class: "node-start",
+    name: NodeNameConst.START,
+    enName: "Initiator",
+    executor: {
+      name: "",
+      code: "",
+    },
+    description: "",
+    aggregation: null,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
+  },
+  {
+    text: NodeNameConst.APPROVAL,
+    type: "approval",
+    class: "node-approval",
+    name: NodeNameConst.APPROVAL,
+    enName: "Approver",
+    executor: {
+      name: "",
+      code: "",
+    },
+    description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: [
+      ApprovalActionType.Pass,
+      ApprovalActionType.Reject,
+      ApprovalActionType.Assist,
+    ],
+  },
+  // {
+  //   text: "系统任务",
+  //   type: "system",
+  //   class: "node-system",
+  //   name: "系统任务",
+  //   enName: "System",
+  //   executor: null,
+  //   description: "",
+  //   aggregation: AggregationModeType.AllAgreed,
+  //   rule: ApprovalRuleType.OneAgreed,
+  //   actions: null,
+  // },
+  {
+    text: NodeNameConst.GATEWAY,
+    type: "gateway",
+    class: "node-gateway",
+    name: NodeNameConst.GATEWAY,
+    enName: "Gateway",
+    executor: null,
+    description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: null,
+  },
+  {
+    text: NodeNameConst.END,
+    type: "end",
+    class: "node-end",
+    name: NodeNameConst.END,
+    enName: "Completer",
+    executor: null,
+    description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: null,
   },
 ];

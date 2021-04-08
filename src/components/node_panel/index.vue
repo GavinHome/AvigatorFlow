@@ -2,7 +2,7 @@
   <div class="node-panel">
     <div
       class="node-item"
-      v-for="item in nodeList"
+      v-for="item in nodes"
       :key="item.text"
       @mousedown="dragNode(item)"
     >
@@ -20,59 +20,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeModel } from "@/common/model";
+import { NodeModel, NodesData } from "@/common/model";
 
 @Component
 export default class NodePanel extends Vue {
   @Prop() private lf!: LogicFlow;
 
-  private nodeList: Array<NodeModel> = [
-    {
-      text: "开始",
-      type: "start",
-      class: "node-start",
-    },
-    // {
-    //   text: "任务",
-    //   type: "task",
-    //   class: "node-rect",
-    // },
-    // {
-    //   text: "用户",
-    //   type: "user",
-    //   class: "node-user",
-    // },
-    // {
-    //   text: "推送",
-    //   type: "push",
-    //   class: "node-push",
-    // },
-    // {
-    //   text: "下载",
-    //   type: "download",
-    //   class: "node-download",
-    // },
-    {
-      text: "审批节点",
-      type: "approval",
-      class: "node-approval",
-    },
-    // {
-    //   text: "系统任务",
-    //   type: "system",
-    //   class: "node-system",
-    // },
-    {
-      text: "网关节点",
-      type: "gateway",
-      class: "node-gateway",
-    },
-    {
-      text: "结束",
-      type: "end",
-      class: "node-end",
-    },
-  ];
+  private nodes: Array<NodeModel> = NodesData.map((n) =>
+    Object({
+      text: n.text,
+      type: n.type,
+      class: n.class,
+    })
+  );
 
   dragNode(item: NodeModel): void {
     this.lf.dnd.startDrag({
