@@ -261,14 +261,14 @@ export default class Portal extends Vue {
             properties.key,
             properties.key,
             1,
-            data
+            data.id
           );
           var name = this.getName(
             flowData,
             properties.name,
             properties.name,
             1,
-            data
+            data.id
           );
           properties.key = key;
           properties.name = name;
@@ -299,16 +299,16 @@ export default class Portal extends Vue {
     key: string,
     current: string,
     next: number,
-    data: any
+    id: string
   ): string {
     var count: number = flowData.Nodes.filter(
-      (n) => n.key === current && n.id !== data.id
+      (n) => n.key === current && n.id !== id
     ).length;
     if (count === 0) {
       return current;
     }
 
-    return this.getKey(flowData, key, key + next, next + 1, data);
+    return this.getKey(flowData, key, key + next, next + 1, id);
   }
 
   private getName(
@@ -316,16 +316,16 @@ export default class Portal extends Vue {
     name: string,
     current: string,
     next: number,
-    data: any
+    id: string
   ): string {
     var count: number = flowData.Nodes.filter(
-      (n) => n.name === current && n.id !== data.id
+      (n) => n.name === current && n.id !== id
     ).length;
     if (count === 0) {
       return current;
     }
 
-    return this.getName(flowData, name, name + next, next + 1, data);
+    return this.getName(flowData, name, name + next, next + 1, id);
   }
 
   //关闭弹框
