@@ -34,6 +34,8 @@ import {
   NodeNameTypeEnum,
 } from "../common/model";
 
+import { validateKeyExist } from "../common/validators";
+
 @Component
 export default class StartProperty extends Vue {
   //eslint-disable-next-line
@@ -55,7 +57,15 @@ export default class StartProperty extends Vue {
   };
 
   rulesData = {
-    key: [{ required: true, message: "请输入节点标识", trigger: "blur" }],
+    key: [
+      { required: true, message: "请输入节点标识", trigger: "blur" },
+      {
+        validator: validateKeyExist,
+        flow: this.lf,
+        id: this.nodeData.id,
+        trigger: "blur",
+      },
+    ],
     name: [{ required: true, message: "请输入节点名称", trigger: "blur" }],
   };
 

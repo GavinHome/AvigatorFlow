@@ -18,7 +18,8 @@
                 "actions": [
                     "Save",
                     "Submit"
-                ]
+                ],
+                "key": "start"
             },
             "text": {
                 "x": 400,
@@ -38,11 +39,12 @@
                 "description": "终止",
                 "aggregation": "All",
                 "rule": "One",
-                "actions": null
+                "actions": null,
+                "key": "end"
             },
             "text": {
                 "x": 1110,
-                "y": 330,
+                "y": 328,
                 "value": "结束"
             }
         },
@@ -65,7 +67,8 @@
                     "Pass",
                     "Reject",
                     "Assist"
-                ]
+                ],
+                "key": "approval"
             },
             "text": {
                 "x": 630,
@@ -92,7 +95,8 @@
                     "Pass",
                     "Reject",
                     "Assist"
-                ]
+                ],
+                "key": "approval"
             },
             "text": {
                 "x": 860,
@@ -119,7 +123,8 @@
                     "Pass",
                     "Reject",
                     "Assist"
-                ]
+                ],
+                "key": "approval"
             },
             "text": {
                 "x": 860,
@@ -139,11 +144,12 @@
                 "description": "",
                 "aggregation": "All",
                 "rule": "One",
-                "actions": null
+                "actions": null,
+                "key": "gateway"
             },
             "text": {
                 "x": 860,
-                "y": 330,
+                "y": 328,
                 "value": "网关节点"
             }
         }
