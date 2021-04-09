@@ -65,11 +65,13 @@ import { registerPolyline } from "./register_edges";
 
 import {
   GraphConfigData,
+  loadInitDodes,
   NodeSchema,
   NodesData,
   schemaAdapter,
 } from "./common/model";
-import demoData from "./example.json";
+import { FlowData, getFlowData } from "./common/utils";
+// import demoData from "./example.json";
 
 @Component({
   components: {
@@ -116,7 +118,6 @@ export default class Portal extends Vue {
     // 使用插件
     LogicFlow.use(Menu);
     LogicFlow.use(Snapshot);
-    // LogicFlow.use(MiniMap);
     LogicFlow.use(SelectionSelect);
 
     // 画布配置
@@ -137,10 +138,10 @@ export default class Portal extends Vue {
     this.registerEdges();
 
     // 加载数据
-    this.lf.render(demoData);
+    this.lf.render({});
 
     // 加载默认节点
-    // loadInitDodes(this.lf);
+    loadInitDodes(this.lf);
 
     // 注册事件
     this.register_event();
@@ -253,6 +254,13 @@ export default class Portal extends Vue {
         var properties: NodeSchema | null = n ? schemaAdapter(n) : null;
 
         if (this.lf && properties) {
+          //TODO: key自增
+          var flowData = getFlowData(this.lf);
+          var key = this.getKey(flowData, properties.key, 1, data);
+          var name = this.getName(flowData, properties.name, 1, data);
+          properties.key = key;
+          properties.name = name;
+
           this.lf.setProperties(data.id, properties);
           data = this.lf.getNodeData(data.id);
         }
@@ -272,6 +280,24 @@ export default class Portal extends Vue {
         }
       });
     }
+  }
+
+  private getKey(flowData: FlowData,  key: string, countbase: number, data: any): any {
+    var count: number = flowData.Nodes.filter(n => n.key === key && n.id !== data.id).length;
+    if(count == 0) {
+      return key;
+    } 
+
+    return this.getKey(flowData, key + countbase, countbase++, data);
+  }
+
+  private getName(flowData: FlowData, name: string, countbase: number, data: any): any {
+    var count: number = flowData.Nodes.filter(n => n.name === name && n.id !== data.id).length;
+    if(count == 0) {
+      return name;
+    } 
+
+    return this.getName(flowData, name + countbase, countbase++, data);
   }
 
   //关闭弹框
@@ -298,7 +324,7 @@ export default class Portal extends Vue {
   .control-menus {
     position: absolute;
     top: 50px;
-    right: 50px;
+    right: 55px;
     z-index: 2;
   }
 

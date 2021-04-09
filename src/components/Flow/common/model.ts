@@ -310,8 +310,8 @@ export const NodesData: Array<NodeData> = [
 ];
 
 export const loadInitDodes = (lf: LogicFlow): void => {
-  const start_x = 400,
-    start_y = 300,
+  const start_x = 300,
+    start_y = 380,
     offset_x = 200,
     offset_y = 100;
   if (lf) {
@@ -334,39 +334,68 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         type: NodeTypeEnum.Start,
         x: start_x,
         y: start_y,
-        text: startData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: startData.text
+        },
         properties: { ...schemaAdapter(startData) },
       });
 
+      const task1Properties = schemaAdapter(task1Data);
+      task1Properties.key = "approval1";
+      task1Properties.name = "任务1";
       const task1Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x,
         y: start_y,
-        text: task1Data.text,
-        properties: { ...schemaAdapter(task1Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task1Properties.name
+        },
+        properties: { ...task1Properties },
       });
 
+      const task2Properties = schemaAdapter(task2Data);
+      task2Properties.key = "approval2";
+      task2Properties.name = "任务2";
       const task2Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
         y: start_y - offset_y * 2,
-        text: task2Data.text,
-        properties: { ...schemaAdapter(task2Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task2Properties.name
+        },
+        properties: { ...task2Properties },
       });
 
+      const task3Properties = schemaAdapter(task3Data);
+      task3Properties.key = "approval3";
+      task3Properties.name = "任务3";
       const task3Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
         y: start_y + offset_y * 2,
-        text: task3Data.text,
-        properties: { ...schemaAdapter(task3Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task3Properties.name
+        },
+        properties: { ...task3Properties },
       });
 
       const gatewayNode = lf.addNode({
         type: NodeTypeEnum.Gateway,
         x: start_x + offset_x * 2,
         y: start_y,
-        text: gatewayData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: gatewayData.text
+        },
         properties: { ...schemaAdapter(gatewayData) },
       });
 
@@ -374,7 +403,11 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         type: NodeTypeEnum.End,
         x: start_x + offset_x * 3,
         y: start_y,
-        text: endData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: endData.text
+        },
         properties: { ...schemaAdapter(endData) },
       });
 
@@ -418,7 +451,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       lf.createEdge({
         type: EdgeNameTypeEnum.Polyline,
         sourceNodeId: gatewayNode.id,
-        targetNodeId: task2Node.id,
+        targetNodeId: task3Node.id,
         text: {
           value: "",
           x: start_x + 160 + offset_x + 100 + offset_x + 50,
