@@ -42,7 +42,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 import LogicFlow, { Definition } from "@logicflow/core";
-import { Menu, SelectionSelect, Snapshot, MiniMap } from "@logicflow/extension";
+import { Menu, SelectionSelect, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 
@@ -289,7 +289,7 @@ export default class Portal extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "@/assets/common.scss";
+@import "./common/style.scss";
 
 .avigator-flow-view {
   height: 100vh;

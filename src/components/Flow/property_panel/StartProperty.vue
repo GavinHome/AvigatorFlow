@@ -91,5 +91,5 @@ export default class StartProperty extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/common.scss";
+@import "../common/style.scss";
 </style>
