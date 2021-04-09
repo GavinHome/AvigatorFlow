@@ -42,7 +42,7 @@ import {
   NodeNameConst,
   NodeSchema,
   NodeIdConst,
-} from "@/common/model";
+} from "../common/model";
 
 @Component
 export default class EndProperty extends Vue {

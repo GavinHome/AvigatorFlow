@@ -1,18 +1,19 @@
-import { NodeNameConst } from "@/common/model";
+import { NodeNameConst, NodeTypeEnum } from "@/components/Flow/common/model";
 import LogicFlow, { GraphModel } from "@logicflow/core";
+import { PolygonNodeConst } from "../common/const";
 
 const NODE_COLOR = "#9932CC";
 export default function registerGateway(lf: LogicFlow): void {
-  lf.register("gateway", ({ PolygonNode, PolygonNodeModel, h }) => {
+  lf.register(NodeTypeEnum.Gateway, ({ PolygonNode, PolygonNodeModel, h }) => {
     class Node extends PolygonNode {
       getIconShape() {
         return h(
           "svg",
           {
             x: 14,
-            y: 13,
-            width: 23,
-            height: 23,
+            y: 14,
+            width: PolygonNodeConst.icon_width,
+            height: PolygonNodeConst.icon_height,
             viewBox: "0 0 1024 1024",
           },
           h("path", {
@@ -63,10 +64,10 @@ export default function registerGateway(lf: LogicFlow): void {
         data.text = {
           value: (data.text && data.text.value) || NodeNameConst.GATEWAY,
           x: data.x,
-          y: data.y + 50,
+          y: data.y + PolygonNodeConst.text_offsetY,
         };
         super(data, graphModel);
-        const lenght = 25;
+        const lenght = PolygonNodeConst.size / 2;
         this.points = [
           [lenght, 0],
           [lenght * 2, lenght],

@@ -31,7 +31,8 @@ import {
   NodeNameConst,
   NodeSchema,
   NodeIdConst,
-} from "@/common/model";
+  NodeNameTypeEnum,
+} from "../common/model";
 
 @Component
 export default class StartProperty extends Vue {
@@ -42,7 +43,7 @@ export default class StartProperty extends Vue {
   formData: NodeSchema = {
     key: NodeIdConst.START,
     name: NodeNameConst.START,
-    enName: "Initiator",
+    enName: NodeNameTypeEnum.Initiator,
     executor: {
       name: "",
       code: "",

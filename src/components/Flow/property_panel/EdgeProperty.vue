@@ -17,7 +17,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { EdgeSchema } from "@/common/model";
+import { EdgeSchema } from "../common/model";
 
 @Component
 export default class EdgeProperty extends Vue {

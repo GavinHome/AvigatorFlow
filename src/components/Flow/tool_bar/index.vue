@@ -40,7 +40,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
 import { SelectionSelect } from "@logicflow/extension";
-import demoData from "./example.json";
+import demoData from "../example.json";
 
 @Component
 export default class ControlMenu extends Vue {

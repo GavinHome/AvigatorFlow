@@ -1,8 +1,8 @@
-import { NodeNameConst } from "@/common/model";
+import { NodeNameConst, NodeTypeEnum } from "@/components/Flow/common/model";
 import LogicFlow, { GraphModel } from "@logicflow/core";
 
 export default function registerStart(lf: LogicFlow): void {
-  lf.register("start", ({ CircleNode, CircleNodeModel, h }) => {
+  lf.register(NodeTypeEnum.Start, ({ CircleNode, CircleNodeModel, h }) => {
     class StartNode extends CircleNode {
       getLabelShape() {
         const attributes = this.getAttributes();
@@ -44,7 +44,7 @@ export default function registerStart(lf: LogicFlow): void {
           x: data.x,
           y: data.y,
           dragable: false,
-          editable: true,
+          editable: false,
         };
         super(data, graphModel);
       }

@@ -68,7 +68,7 @@ import {
   DataOption,
   NodeNameConst,
   NodeIdConst,
-} from "@/common/model";
+} from "../common/model";
 
 @Component
 export default class UserProperty extends Vue {

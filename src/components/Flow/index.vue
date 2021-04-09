@@ -45,9 +45,10 @@ import LogicFlow, { Definition } from "@logicflow/core";
 import { Menu, SelectionSelect, Snapshot, MiniMap } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
-import { theme } from "./theme";
 
-import Control from "./tools.vue";
+import { flowConfig } from "./common/config";
+import { theme } from "./common/theme";
+import Control from "./tool_bar/index.vue";
 import NodePanel from "./node_panel/index.vue";
 import DataPanel from "./data_panel/index.vue";
 import PropertyPanel from "./property_panel/index.vue";
@@ -62,14 +63,12 @@ import {
 
 import { registerPolyline } from "./register_edges";
 
-import { flowConfig } from "./config";
 import {
   GraphConfigData,
-  loadInitDodes,
   NodeSchema,
   NodesData,
   schemaAdapter,
-} from "@/common/model";
+} from "./common/model";
 import demoData from "./example.json";
 
 @Component({

@@ -1,37 +1,24 @@
-import { NodeNameConst } from "@/common/model";
+import { NodeNameConst, NodeTypeEnum } from "@/components/Flow/common/model";
 import LogicFlow, { GraphModel } from "@logicflow/core";
+import { RectangleNodeConst } from "../common/const";
 
 export default function registerUser(lf: LogicFlow): void {
-  lf.register("system", ({ PolygonNode, PolygonNodeModel, h }) => {
+  lf.register(NodeTypeEnum.System, ({ PolygonNode, PolygonNodeModel, h }) => {
     class Node extends PolygonNode {
       getShape() {
         const attributes = this.getAttributes();
-        const {
-          width,
-          height,
-          x,
-          y,
-          fill,
-          // fillOpacity,
-          strokeWidth,
-          stroke,
-          // strokeOpacity,
-          // points,
-        } = attributes;
+        const { width, height, x, y, fill, strokeWidth, stroke } = attributes;
         const attrs = {
-          // rect 标签的 x，y 对应的是图形的左上角
-          // 所以我们要将矩形的中心移动到 x，y
           x: x - width / 2,
           y: y - height / 2,
-          width: 100,
-          height: 70,
+          width: RectangleNodeConst.width,
+          height: RectangleNodeConst.height,
           stroke,
           fill,
           strokeWidth,
-          rx: 5,
-          ry: 5,
+          rx: RectangleNodeConst.radius,
+          ry: RectangleNodeConst.radius,
         };
-        // getShape 的返回值是一个通过 h 方法创建的 svg 元素
         return h("g", {}, [
           h("rect", { ...attrs }),
           h(
@@ -39,8 +26,8 @@ export default function registerUser(lf: LogicFlow): void {
             {
               x: x - width / 2 + 5,
               y: y - height / 2 + 5,
-              width: 25,
-              height: 25,
+              width: RectangleNodeConst.icon_width,
+              height: RectangleNodeConst.icon_height,
               viewBox: "0 0 1274 1024",
             },
             h("path", {
@@ -58,15 +45,16 @@ export default function registerUser(lf: LogicFlow): void {
         data.text = {
           value: (data.text && data.text.value) || NodeNameConst.SYSTEM,
           x: data.x,
-          y: data.y + 50,
+          y: data.y + RectangleNodeConst.text_offsetY,
         };
         super(data, graphModel);
-        // const lenght = 50;
+        const lenght = RectangleNodeConst.width / 2;
+        const height = RectangleNodeConst.height / 2;
         this.points = [
-          [50, 0],
-          [50 * 2, 35],
-          [50, 35 * 2],
-          [0, 35],
+          [lenght, 0],
+          [lenght * 2, height],
+          [lenght, height * 2],
+          [0, height],
         ];
       }
     }

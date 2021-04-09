@@ -20,7 +20,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeModel, NodesData } from "@/common/model";
+import { NodeModel, NodesData } from "../common/model";
 
 @Component
 export default class NodePanel extends Vue {

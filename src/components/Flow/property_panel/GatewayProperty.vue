@@ -42,7 +42,8 @@ import {
   NodeNameConst,
   NodeSchema,
   NodeIdConst,
-} from "@/common/model";
+  NodeNameTypeEnum,
+} from "../common/model";
 
 @Component
 export default class PushProperty extends Vue {
@@ -55,7 +56,7 @@ export default class PushProperty extends Vue {
   formData: NodeSchema = {
     key: NodeIdConst.GATEWAY,
     name: NodeNameConst.GATEWAY,
-    enName: "Gateway",
+    enName: NodeNameTypeEnum.Gateway,
     executor: null,
     description: "",
     aggregation: AggregationModeType.AllAgreed,

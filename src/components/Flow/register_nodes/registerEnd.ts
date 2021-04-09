@@ -1,7 +1,9 @@
 import LogicFlow, { GraphModel } from "@logicflow/core";
+import { CircleNodeConst } from "../common/const";
+import { NodeTypeEnum } from "../common/model";
 
 export default function registerEnd(lf: LogicFlow): void {
-  lf.register("end", ({ CircleNode, CircleNodeModel, h }) => {
+  lf.register(NodeTypeEnum.End, ({ CircleNode, CircleNodeModel, h }) => {
     class EndNode extends CircleNode {
       getIconShape() {
         const attributes = this.getAttributes();
@@ -12,8 +14,8 @@ export default function registerEnd(lf: LogicFlow): void {
           {
             x: x - width / 2,
             y: y - height / 2,
-            width: 40,
-            height: 40,
+            width: CircleNodeConst.icon_width,
+            height: CircleNodeConst.icon_height,
             viewBox: "0 0 1024 1024",
           },
           h("path", {
@@ -50,7 +52,9 @@ export default function registerEnd(lf: LogicFlow): void {
         data.text = {
           value: (data.text && data.text.value) || "",
           x: data.x,
-          y: data.y + 50,
+          y: data.y + CircleNodeConst.text_offsetY,
+          dragable: false,
+          editable: false,
         };
         super(data, graphModel);
       }
