@@ -116,7 +116,7 @@ export default class Portal extends Vue {
     // 使用插件
     LogicFlow.use(Menu);
     LogicFlow.use(Snapshot);
-    LogicFlow.use(MiniMap);
+    // LogicFlow.use(MiniMap);
     LogicFlow.use(SelectionSelect);
 
     // 画布配置
