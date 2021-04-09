@@ -256,8 +256,20 @@ export default class Portal extends Vue {
         if (this.lf && properties) {
           //TODO: key自增
           var flowData = getFlowData(this.lf);
-          var key = this.getKey(flowData, properties.key, 1, data);
-          var name = this.getName(flowData, properties.name, 1, data);
+          var key = this.getKey(
+            flowData,
+            properties.key,
+            properties.key,
+            1,
+            data
+          );
+          var name = this.getName(
+            flowData,
+            properties.name,
+            properties.name,
+            1,
+            data
+          );
           properties.key = key;
           properties.name = name;
 
@@ -282,22 +294,38 @@ export default class Portal extends Vue {
     }
   }
 
-  private getKey(flowData: FlowData,  key: string, countbase: number, data: any): any {
-    var count: number = flowData.Nodes.filter(n => n.key === key && n.id !== data.id).length;
-    if(count == 0) {
-      return key;
-    } 
+  private getKey(
+    flowData: FlowData,
+    key: string,
+    current: string,
+    next: number,
+    data: any
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.key === current && n.id !== data.id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
 
-    return this.getKey(flowData, key + countbase, countbase++, data);
+    return this.getKey(flowData, key, key + next, next + 1, data);
   }
 
-  private getName(flowData: FlowData, name: string, countbase: number, data: any): any {
-    var count: number = flowData.Nodes.filter(n => n.name === name && n.id !== data.id).length;
-    if(count == 0) {
-      return name;
-    } 
+  private getName(
+    flowData: FlowData,
+    name: string,
+    current: string,
+    next: number,
+    data: any
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.name === current && n.id !== data.id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
 
-    return this.getName(flowData, name + countbase, countbase++, data);
+    return this.getName(flowData, name, name + next, next + 1, data);
   }
 
   //关闭弹框

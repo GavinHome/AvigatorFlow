@@ -337,7 +337,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: startData.text
+          value: startData.text,
         },
         properties: { ...schemaAdapter(startData) },
       });
@@ -352,7 +352,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: task1Properties.name
+          value: task1Properties.name,
         },
         properties: { ...task1Properties },
       });
@@ -367,7 +367,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: task2Properties.name
+          value: task2Properties.name,
         },
         properties: { ...task2Properties },
       });
@@ -382,7 +382,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: task3Properties.name
+          value: task3Properties.name,
         },
         properties: { ...task3Properties },
       });
@@ -394,7 +394,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: gatewayData.text
+          value: gatewayData.text,
         },
         properties: { ...schemaAdapter(gatewayData) },
       });
@@ -406,7 +406,7 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         text: {
           x: 1,
           y: 1,
-          value: endData.text
+          value: endData.text,
         },
         properties: { ...schemaAdapter(endData) },
       });
