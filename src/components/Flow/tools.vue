@@ -30,7 +30,7 @@
       >
       <el-button type="plain" size="small" @click="catData">查看数据</el-button>
       <el-button type="plain" size="small" @click="loadDemo"
-        >加载实例</el-button
+        >加载示例</el-button
       >
     </el-button-group>
   </div>
