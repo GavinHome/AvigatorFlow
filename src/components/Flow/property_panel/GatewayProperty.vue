@@ -1,8 +1,16 @@
 <template>
   <div>
-    <el-form label-width="80px" :model="formData">
-      <el-form-item label="节点名称">
-        <el-input v-model="formData.name"></el-input>
+    <el-form
+      ref="ruleForm"
+      label-width="80px"
+      :model="formData"
+      :rules="rulesData"
+    >
+      <el-form-item label="节点标识" prop="key">
+        <el-input v-model="formData.key" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="节点名称" prop="name">
+        <el-input v-model="formData.name" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="聚合方式">
         <el-radio-group v-model="formData.aggregation">
@@ -15,7 +23,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="节点描述">
-        <el-input v-model="formData.description"></el-input>
+        <el-input type="textarea" v-model="formData.description"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -33,6 +41,7 @@ import {
   ApprovalRuleType,
   NodeNameConst,
   NodeSchema,
+  NodeIdConst,
 } from "@/common/model";
 
 @Component
@@ -44,6 +53,7 @@ export default class PushProperty extends Vue {
   aggregations = AggregationModes;
 
   formData: NodeSchema = {
+    key: NodeIdConst.GATEWAY,
     name: NodeNameConst.GATEWAY,
     enName: "Gateway",
     executor: null,
@@ -51,6 +61,11 @@ export default class PushProperty extends Vue {
     aggregation: AggregationModeType.AllAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: null,
+  };
+
+  rulesData = {
+    key: [{ required: true, message: "请输入节点标识", trigger: "blur" }],
+    name: [{ required: true, message: "请输入节点名称", trigger: "blur" }],
   };
 
   mounted(): void {
@@ -61,10 +76,15 @@ export default class PushProperty extends Vue {
   }
 
   onSubmit(): void {
-    const { id } = this.nodeData;
-    this.lf.setProperties(id, this.formData);
-    this.lf.updateText(id, this.formData.name);
-    this.$emit("onClose");
+    //eslint-disable-next-line
+     (this.$refs["ruleForm"] as any).validate((valid: boolean) => {
+      if (valid) {
+        const { id } = this.nodeData;
+        this.lf.setProperties(id, this.formData);
+        this.lf.updateText(id, this.formData.name);
+        this.$emit("onClose");
+      }
+    });
   }
 }
 </script>

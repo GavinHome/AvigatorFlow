@@ -1,4 +1,4 @@
-import { EdgeConfig, NodeConfig } from "@logicflow/core";
+import LogicFlow, { EdgeConfig, NodeConfig } from "@logicflow/core";
 
 export type NodeType = "start" | "approval" | "system" | "gateway" | "end";
 
@@ -8,6 +8,14 @@ export const NodeNameConst = {
   SYSTEM: "系统任务",
   GATEWAY: "网关节点",
   END: "结束",
+};
+
+export const NodeIdConst = {
+  START: "start",
+  APPROVAL: "approval",
+  SYSTEM: "system",
+  GATEWAY: "gateway",
+  END: "end",
 };
 
 export type NodeNameType =
@@ -70,6 +78,7 @@ export enum ApprovalActionType {
 
 ///节点属性： 通用
 export interface NodeSchema {
+  key: string;
   name: string; ///节点名称
   enName: NodeNameType; ///英文名称
   executor: ExecutorModel | null; ///审批人员, 为空时自动处理
@@ -144,13 +153,14 @@ export const ApprovalActions: Array<DataOption> = [
   },
 ];
 
-export interface NodeData extends NodeModel, NodeSchema {}
+export interface NodeData extends NodeModel, NodeSchema { }
 
 export const NodesData: Array<NodeData> = [
   {
     text: NodeNameConst.START,
     type: "start",
     class: "node-start",
+    key: NodeIdConst.START,
     name: NodeNameConst.START,
     enName: "Initiator",
     executor: {
@@ -166,6 +176,7 @@ export const NodesData: Array<NodeData> = [
     text: NodeNameConst.APPROVAL,
     type: "approval",
     class: "node-approval",
+    key: NodeIdConst.APPROVAL,
     name: NodeNameConst.APPROVAL,
     enName: "Approver",
     executor: {
@@ -197,6 +208,7 @@ export const NodesData: Array<NodeData> = [
     text: NodeNameConst.GATEWAY,
     type: "gateway",
     class: "node-gateway",
+    key: NodeIdConst.GATEWAY,
     name: NodeNameConst.GATEWAY,
     enName: "Gateway",
     executor: null,
@@ -209,6 +221,7 @@ export const NodesData: Array<NodeData> = [
     text: NodeNameConst.END,
     type: "end",
     class: "node-end",
+    key: NodeIdConst.END,
     name: NodeNameConst.END,
     enName: "Completer",
     executor: null,
@@ -218,3 +231,170 @@ export const NodesData: Array<NodeData> = [
     actions: null,
   },
 ];
+
+export const schemaAdapter = (data: NodeData): NodeSchema => {
+  return {
+    key: data.key,
+    name: data.name,
+    enName: data.enName,
+    executor: data.executor,
+    description: data.description,
+    aggregation: data.aggregation,
+    rule: data.rule,
+    actions: data.actions,
+  }
+}
+
+export const nodeAdapter = (data: NodeData): NodeModel => {
+  return {
+    text: data.text,
+    type: data.type,
+    class: data.class,
+  }
+}
+
+export const loadInitDodes = (lf: LogicFlow) => {
+  const start_x = 400,
+    start_y = 300,
+    offset_x = 200,
+    offset_y = 100,
+    node_width = 100,
+    node_height = 70;
+  if (lf) {
+    const startData = NodesData.find((n) => n.type === "start");
+    const task1Data = NodesData.find((n) => n.type === "approval");
+    const task2Data = NodesData.find((n) => n.type === "approval");
+    const task3Data = NodesData.find((n) => n.type === "approval");
+    const gatewayData = NodesData.find((n) => n.type === "gateway");
+    const endData = NodesData.find((n) => n.type === "end");
+
+    if (
+      startData &&
+      task1Data &&
+      task2Data &&
+      task3Data &&
+      gatewayData &&
+      endData
+    ) {
+      const startNode = lf.addNode({
+        type: "start",
+        x: start_x,
+        y: start_y,
+        text: startData.text,
+        properties: { ...schemaAdapter(startData) },
+      });
+
+      const task1Node = lf.addNode({
+        type: "approval",
+        x: start_x + offset_x,
+        y: start_y,
+        text: task1Data.text,
+        properties: { ...schemaAdapter(task1Data) },
+      });
+
+      const task2Node = lf.addNode({
+        type: "approval",
+        x: start_x + offset_x * 2,
+        y: start_y - offset_y * 2,
+        text: task2Data.text,
+        properties: { ...schemaAdapter(task2Data) },
+      });
+
+      const task3Node = lf.addNode({
+        type: "approval",
+        x: start_x + offset_x * 2,
+        y: start_y + offset_y * 2,
+        text: task3Data.text,
+        properties: { ...schemaAdapter(task3Data) },
+      });
+
+      const gatewayNode = lf.addNode({
+        type: "gateway",
+        x: start_x + offset_x * 2,
+        y: start_y,
+        text: gatewayData.text,
+        properties: { ...schemaAdapter(gatewayData) },
+      });
+
+      const endNode = lf.addNode({
+        type: "end",
+        x: start_x + offset_x * 3,
+        y: start_y,
+        text: endData.text,
+        properties: { ...schemaAdapter(endData) },
+      });
+
+      // start ----> task1
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: startNode.id,
+        targetNodeId: task1Node.id,
+        text: {
+          value: "",
+          x: start_x + 160,
+          y: start_y + 35,
+        },
+      });
+
+      // task1 ----> gateway
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: task1Node.id,
+        targetNodeId: gatewayNode.id,
+        text: {
+          value: "",
+          x: start_x + 160 + offset_x + 100,
+          y: start_y + 35,
+        },
+      });
+
+      // gateway ----> task2
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: gatewayNode.id,
+        targetNodeId: task2Node.id,
+        text: {
+          value: "",
+          x: start_x + 160 + offset_x + 100 + offset_x + 50,
+          y: start_y,
+        },
+      });
+
+      // gateway ----> task3
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: gatewayNode.id,
+        targetNodeId: task2Node.id,
+        text: {
+          value: "",
+          x: start_x + 160 + offset_x + 100 + offset_x + 50,
+          y: start_y + 70,
+        },
+      });
+
+      // task2 ----> end
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: task2Node.id,
+        targetNodeId: endNode.id,
+        text: {
+          value: "",
+          x: start_x + 160 + offset_x + 100 + offset_x + 100,
+          y: start_y - offset_y * 2 + 35,
+        },
+      });
+
+      // task3 ----> end
+      lf.createEdge({
+        type: "polyline",
+        sourceNodeId: task3Node.id,
+        targetNodeId: endNode.id,
+        text: {
+          value: "",
+          x: start_x + 160 + offset_x + 100 + offset_x + 100,
+          y: start_y + offset_y * 2 + 35,
+        },
+      });
+    }
+  }
+}

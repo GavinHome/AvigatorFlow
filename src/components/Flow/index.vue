@@ -63,7 +63,13 @@ import {
 import { registerPolyline } from "./register_edges";
 
 import { flowConfig } from "./config";
-import { GraphConfigData, NodeSchema, NodesData } from "@/common/model";
+import {
+  GraphConfigData,
+  loadInitDodes,
+  NodeSchema,
+  NodesData,
+  schemaAdapter,
+} from "@/common/model";
 import demoData from "./example.json";
 
 @Component({
@@ -134,6 +140,9 @@ export default class Portal extends Vue {
     // 加载数据
     this.lf.render(demoData);
 
+    // 加载默认节点
+    // loadInitDodes(this.lf);
+
     // 注册事件
     this.register_event();
 
@@ -165,6 +174,7 @@ export default class Portal extends Vue {
               text: "删除",
               // eslint-disable-next-line
               callback: (node: any) => {
+                console.log("node delete: ", node);
                 this.lf && this.lf.deleteNode(node.id);
               },
             },
@@ -182,6 +192,7 @@ export default class Portal extends Vue {
               text: "删除",
               // eslint-disable-next-line
               callback: (node: any) => {
+                console.log("edge delete: ", node);
                 this.lf && this.lf.deleteEdge(node.id);
               },
             },
@@ -240,17 +251,7 @@ export default class Portal extends Vue {
 
       this.lf.on("node:add", ({ data }) => {
         let n = NodesData.find((n) => n.type === data.type);
-        var properties: NodeSchema | null = n
-          ? {
-              name: n.name,
-              enName: n.enName,
-              executor: n.executor,
-              description: n.description,
-              aggregation: n.aggregation,
-              rule: n.rule,
-              actions: n.actions,
-            }
-          : null;
+        var properties: NodeSchema | null = n ? schemaAdapter(n) : null;
 
         if (this.lf && properties) {
           this.lf.setProperties(data.id, properties);
