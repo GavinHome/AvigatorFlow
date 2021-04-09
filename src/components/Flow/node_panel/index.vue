@@ -2,7 +2,7 @@
   <div class="node-panel">
     <div
       class="node-item"
-      v-for="item in nodeList"
+      v-for="item in nodes"
       :key="item.text"
       @mousedown="dragNode(item)"
     >
@@ -20,44 +20,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { NodeModel } from "@/common/model";
+import { NodeModel, NodesData } from "../common/model";
 
 @Component
 export default class NodePanel extends Vue {
   @Prop() private lf!: LogicFlow;
 
-  private nodeList: Array<NodeModel> = [
-    {
-      text: "开始",
-      type: "start",
-      class: "node-start",
-    },
-    {
-      text: "矩形",
-      type: "rect",
-      class: "node-rect",
-    },
-    {
-      type: "user",
-      text: "用户",
-      class: "node-user",
-    },
-    {
-      type: "push",
-      text: "推送",
-      class: "node-push",
-    },
-    {
-      type: "download",
-      text: "位置",
-      class: "node-download",
-    },
-    {
-      type: "end",
-      text: "结束",
-      class: "node-end",
-    },
-  ];
+  private nodes: Array<NodeModel> = NodesData.map((n) =>
+    Object({
+      text: n.text,
+      type: n.type,
+      class: n.class,
+    })
+  );
 
   dragNode(item: NodeModel): void {
     this.lf.dnd.startDrag({
@@ -98,34 +73,46 @@ export default class NodePanel extends Vue {
   user-select: none;
 }
 .node-start {
-  background: url("./node_type_icon/start.png") no-repeat;
+  background: url("./icon/start.png") no-repeat;
   background-size: cover;
 }
 .node-rect {
   border: 1px solid black;
 }
 .node-user {
-  background: url("./node_type_icon/user.png") no-repeat;
+  background: url("./icon/user.png") no-repeat;
   background-size: cover;
 }
 .node-time {
-  background: url("./node_type_icon/time.png") no-repeat;
+  background: url("./icon/time.png") no-repeat;
   background-size: cover;
 }
 .node-push {
-  background: url("./node_type_icon/push.png") no-repeat;
+  background: url("./icon/push.png") no-repeat;
   background-size: cover;
 }
 .node-download {
-  background: url("./node_type_icon/download.png") no-repeat;
+  background: url("./icon/download.png") no-repeat;
   background-size: cover;
 }
 .node-click {
-  background: url("./node_type_icon/click.png") no-repeat;
+  background: url("./icon/click.png") no-repeat;
   background-size: cover;
 }
 .node-end {
-  background: url("./node_type_icon/end.png") no-repeat;
+  background: url("./icon/end.png") no-repeat;
+  background-size: cover;
+}
+.node-approval {
+  background: url("./icon/user.png") no-repeat;
+  background-size: cover;
+}
+.node-system {
+  background: url("./icon/click.png") no-repeat;
+  background-size: cover;
+}
+.node-gateway {
+  background: url("./icon/time.png") no-repeat;
   background-size: cover;
 }
 </style>

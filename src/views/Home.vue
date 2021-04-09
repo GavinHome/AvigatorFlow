@@ -1,17 +1,28 @@
 <template>
   <div class="home">
-    <Portal title="AvigatorFlow App" />
+    <Flow
+      :isSilentMode="false"
+      :bodyStyle="{
+        'padding-left': '50px',
+        'padding-right': '50px',
+        height: '85%',
+      }"
+    >
+      <h3 slot="title" class="text-center" style="margin: 20px">
+        AvigatorFlow
+      </h3>
+    </Flow>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Portal from "@/components/Portal.vue";
+import Flow from "@/components/Flow/index.vue";
 
 export default {
   name: "Home",
   components: {
-    Portal,
+    Flow,
   },
 };
 </script>

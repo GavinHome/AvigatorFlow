@@ -5,9 +5,9 @@
 - 画布
 - 快捷操作
 - 节点面板
-- 节点自定义
 - 节点菜单
 - 图形下载
+- 数据面板
 
 ## Project setup
 ```
@@ -28,6 +28,10 @@ yarn build
 ```
 yarn lint
 ```
+
+### TODO
+- 节点操作、审批人规则、分支规则
+- 任务表单
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
