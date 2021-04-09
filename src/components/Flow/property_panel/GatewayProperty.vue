@@ -1,11 +1,21 @@
 <template>
   <div>
     <el-form label-width="80px" :model="formData">
-      <el-form-item label="显示名称">
+      <el-form-item label="节点名称">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="执行规则">
-        <el-input v-model="formData.condition"></el-input>
+      <el-form-item label="聚合方式">
+        <el-radio-group v-model="formData.aggregation">
+          <el-radio-button
+            v-for="(option, index) in aggregations"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="节点描述">
+        <el-input v-model="formData.description"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -17,18 +27,30 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { EdgeSchema } from "@/common/model";
+import {
+  AggregationModes,
+  AggregationModeType,
+  ApprovalRuleType,
+  NodeNameConst,
+  NodeSchema,
+} from "@/common/model";
 
 @Component
-export default class EdgeProperty extends Vue {
+export default class PushProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  formData: EdgeSchema = {
-    name: "",
-    enName: "Condition",
-    condition: "",
+  aggregations = AggregationModes;
+
+  formData: NodeSchema = {
+    name: NodeNameConst.GATEWAY,
+    enName: "Gateway",
+    executor: null,
+    description: "",
+    aggregation: AggregationModeType.AllAgreed,
+    rule: ApprovalRuleType.OneAgreed,
+    actions: null,
   };
 
   mounted(): void {
@@ -39,7 +61,6 @@ export default class EdgeProperty extends Vue {
   }
 
   onSubmit(): void {
-    console.log("submit!");
     const { id } = this.nodeData;
     this.lf.setProperties(id, this.formData);
     this.lf.updateText(id, this.formData.name);

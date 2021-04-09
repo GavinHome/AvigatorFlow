@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form label-width="80px" :model="formData">
-      <el-form-item label="节点名称">
-        <el-input v-model="formData.name" disabled></el-input>
+      <el-form-item label="显示名称">
+        <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="节点描述">
-        <el-input v-model="formData.description"></el-input>
+      <el-form-item label="执行规则">
+        <el-input v-model="formData.condition"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -17,30 +17,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import {
-  ApprovalActionType,
-  ApprovalRuleType,
-  NodeNameConst,
-  NodeSchema,
-} from "@/common/model";
+import { EdgeSchema } from "@/common/model";
 
 @Component
-export default class StartProperty extends Vue {
+export default class EdgeProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  formData: NodeSchema = {
-    name: NodeNameConst.START,
-    enName: "Initiator",
-    executor: {
-      name: "",
-      code: "",
-    },
-    description: "",
-    aggregation: null,
-    rule: ApprovalRuleType.OneAgreed,
-    actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
+  formData: EdgeSchema = {
+    name: "",
+    enName: "Condition",
+    condition: "",
   };
 
   mounted(): void {
@@ -51,7 +39,6 @@ export default class StartProperty extends Vue {
   }
 
   onSubmit(): void {
-    console.log("submit!");
     const { id } = this.nodeData;
     this.lf.setProperties(id, this.formData);
     this.lf.updateText(id, this.formData.name);

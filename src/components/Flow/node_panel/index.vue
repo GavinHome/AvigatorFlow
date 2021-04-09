@@ -73,46 +73,46 @@ export default class NodePanel extends Vue {
   user-select: none;
 }
 .node-start {
-  background: url("./node_type_icon/start.png") no-repeat;
+  background: url("./icon/start.png") no-repeat;
   background-size: cover;
 }
 .node-rect {
   border: 1px solid black;
 }
 .node-user {
-  background: url("./node_type_icon/user.png") no-repeat;
+  background: url("./icon/user.png") no-repeat;
   background-size: cover;
 }
 .node-time {
-  background: url("./node_type_icon/time.png") no-repeat;
+  background: url("./icon/time.png") no-repeat;
   background-size: cover;
 }
 .node-push {
-  background: url("./node_type_icon/push.png") no-repeat;
+  background: url("./icon/push.png") no-repeat;
   background-size: cover;
 }
 .node-download {
-  background: url("./node_type_icon/download.png") no-repeat;
+  background: url("./icon/download.png") no-repeat;
   background-size: cover;
 }
 .node-click {
-  background: url("./node_type_icon/click.png") no-repeat;
+  background: url("./icon/click.png") no-repeat;
   background-size: cover;
 }
 .node-end {
-  background: url("./node_type_icon/end.png") no-repeat;
+  background: url("./icon/end.png") no-repeat;
   background-size: cover;
 }
 .node-approval {
-  background: url("./node_type_icon/user.png") no-repeat;
+  background: url("./icon/user.png") no-repeat;
   background-size: cover;
 }
 .node-system {
-  background: url("./node_type_icon/click.png") no-repeat;
+  background: url("./icon/click.png") no-repeat;
   background-size: cover;
 }
 .node-gateway {
-  background: url("./node_type_icon/time.png") no-repeat;
+  background: url("./icon/time.png") no-repeat;
   background-size: cover;
 }
 </style>

@@ -1,6 +1,13 @@
 <template>
   <div>
     <el-button-group>
+      <el-button
+        :type="selectionMode ? 'primary' : 'plain'"
+        size="small"
+        @click="selection"
+        >{{ !selectionMode ? "框选" : "取消框选" }}</el-button
+      >
+
       <el-button type="plain" size="small" @click="zoomIn">放大</el-button>
       <el-button type="plain" size="small" @click="zoomOut">缩小</el-button>
       <el-button type="plain" size="small" @click="zoomReset"
@@ -22,6 +29,7 @@
         >下载图片</el-button
       >
       <el-button type="plain" size="small" @click="catData">查看数据</el-button>
+      <!-- <el-button type="plain" size="small" @click="loadDemo">加载实例</el-button> -->
     </el-button-group>
   </div>
 </template>
@@ -29,6 +37,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
+import { SelectionSelect } from "@logicflow/extension";
+import demoData from "./example.json";
 
 @Component
 export default class ControlMenu extends Vue {
@@ -37,6 +47,7 @@ export default class ControlMenu extends Vue {
   redoDisable = true;
   graphData = null;
   dataVisible = false;
+  selectionMode = false;
 
   mounted(): void {
     this.lf.on("history:change", ({ data: { undoAble, redoAble } }) => {
@@ -80,6 +91,23 @@ export default class ControlMenu extends Vue {
 
   catData(): void {
     this.$emit("catData");
+  }
+
+  selection(): void {
+    this.selectionMode = !this.selectionMode;
+    this.lf.updateEditConfig({
+      stopMoveGraph: this.selectionMode,
+    });
+
+    if (!this.selectionMode) {
+      SelectionSelect.close();
+    } else {
+      SelectionSelect.open();
+    }
+  }
+
+  loadDemo(): void {
+    this.lf.render(demoData);
   }
 }
 </script>

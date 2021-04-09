@@ -17,7 +17,7 @@
 
 <script>
 // @ is an alias to /src
-import Flow from "@/components/Flow.vue";
+import Flow from "@/components/Flow/index.vue";
 
 export default {
   name: "Home",

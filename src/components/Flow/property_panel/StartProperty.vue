@@ -2,17 +2,7 @@
   <div>
     <el-form label-width="80px" :model="formData">
       <el-form-item label="节点名称">
-        <el-input v-model="formData.name"></el-input>
-      </el-form-item>
-      <el-form-item label="聚合方式">
-        <el-radio-group v-model="formData.aggregation">
-          <el-radio-button
-            v-for="(option, index) in aggregations"
-            :label="option.value"
-            :key="index"
-            >{{ option.text }}</el-radio-button
-          >
-        </el-radio-group>
+        <el-input v-model="formData.name" disabled></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="formData.description"></el-input>
@@ -28,29 +18,29 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
 import {
-  AggregationModes,
-  AggregationModeType,
+  ApprovalActionType,
   ApprovalRuleType,
   NodeNameConst,
   NodeSchema,
 } from "@/common/model";
 
 @Component
-export default class PushProperty extends Vue {
+export default class StartProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  aggregations = AggregationModes;
-
   formData: NodeSchema = {
-    name: NodeNameConst.GATEWAY,
-    enName: "Gateway",
-    executor: null,
+    name: NodeNameConst.START,
+    enName: "Initiator",
+    executor: {
+      name: "",
+      code: "",
+    },
     description: "",
-    aggregation: AggregationModeType.AllAgreed,
+    aggregation: null,
     rule: ApprovalRuleType.OneAgreed,
-    actions: null,
+    actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
   };
 
   mounted(): void {
@@ -61,7 +51,6 @@ export default class PushProperty extends Vue {
   }
 
   onSubmit(): void {
-    console.log("submit!");
     const { id } = this.nodeData;
     this.lf.setProperties(id, this.formData);
     this.lf.updateText(id, this.formData.name);
