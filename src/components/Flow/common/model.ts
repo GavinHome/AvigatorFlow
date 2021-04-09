@@ -126,7 +126,6 @@ export interface NodeSchema {
 export interface EdgeSchema {
   name: string; ///节点名称
   enName: EdgeNameType; ///英文名称
-  //eslint-disable-next-line
   condition: string; ///执行规则
 }
 

@@ -907,12 +907,12 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@logicflow/core@^0.3.0", "@logicflow/core@^0.3.0-beta.3":
+"@logicflow/core@^0.3.0-beta.3":
   version "0.3.0-beta.3"
   resolved "https://registry.npmjs.org/@logicflow/core/-/core-0.3.0-beta.3.tgz#21ed1a1411dd0bca7409068cc09dd80f64d54432"
   integrity sha512-eGajbeZ03klKTpdl/ttVJQ++FwsnTKxtR+3ZyhfcjmhZUHFTpo3jiCUC1A8lsVL5OsSZZZO24OUuDoieCi0cpw==
 
-"@logicflow/extension@^0.3.0":
+"@logicflow/extension@^0.3.0-beta.3":
   version "0.3.0-beta.3"
   resolved "https://registry.npmjs.org/@logicflow/extension/-/extension-0.3.0-beta.3.tgz#4002a23ff5ab5904c5d364c7380d7f7553d637cc"
   integrity sha512-wNz1DQB1814XRXuzW5bCEXUhrmHdzqKnHU82m+fnHiiGeGwqKfbfz1h93WBKgDIMIGn9YGu4ps1QO1u8pQs8Sg==

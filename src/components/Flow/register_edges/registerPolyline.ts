@@ -7,7 +7,7 @@ export default function registerPolyline(lf: LogicFlow): void {
     ({ PolylineEdge, PolylineEdgeModel }) => {
       class ConnnectionModel extends PolylineEdgeModel {
         //eslint-disable-next-line
-      constructor(data: any, graphModel: GraphModel) {
+        constructor(data: any, graphModel: GraphModel) {
           super(data, graphModel);
         }
       }

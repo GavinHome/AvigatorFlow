@@ -50,11 +50,12 @@ export const flowConfig = (
     guards: {
       // eslint-disable-next-line
       beforeClone(data: any) {
+        //允许克隆返回true,不允许返回false
         return true;
       },
       // eslint-disable-next-line
       beforeDelete(data: any) {
-        // 可以根据data数据判断是否允许删除，允许返回true,不允许返回false
+        //允许删除返回true,不允许返回false
         return true;
       },
     },
