@@ -85,6 +85,28 @@ export enum ApprovalActionType {
   ///提交
   Submit = "Submit",
 }
+
+export interface ExecutorRuleModel {
+  type: ExecutorRuleType;
+  users?: Array<ExecutorModel>;
+  variableId?: string;
+  roleId?: string;
+  orgId?: string;
+  url?: string;
+}
+
+///审批人规则
+export enum  ExecutorRuleType {
+  ///指定人，流程前确定
+  Designator = "Designator",
+  ///变量：来自表单，执行时确定
+  Variable = "Variable",
+  ///角色
+  Role = "Role",
+  ///通过接口获取，需要把表单整体传到接口中（仅开发用）
+  Api = "Api",
+}
+
 /*************************** node properties end *****************/
 
 /*************************** edge type ***************************/
