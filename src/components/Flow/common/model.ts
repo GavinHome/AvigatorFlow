@@ -86,6 +86,7 @@ export enum ApprovalActionType {
   Submit = "Submit",
 }
 
+///执行人（审批人）规则
 export interface ExecutorRuleModel {
   type: ExecutorRuleType;
   users?: Array<ExecutorModel>;
@@ -95,8 +96,8 @@ export interface ExecutorRuleModel {
   url?: string;
 }
 
-///审批人规则
-export enum  ExecutorRuleType {
+///审批人规则类型
+export enum ExecutorRuleType {
   ///指定人，流程前确定
   Designator = "Designator",
   ///变量：来自表单，执行时确定
@@ -105,6 +106,50 @@ export enum  ExecutorRuleType {
   Role = "Role",
   ///通过接口获取，需要把表单整体传到接口中（仅开发用）
   Api = "Api",
+}
+
+///1. number: ==,>,>=,<,<=,!=,
+///2. string: 包含，不包含，开始于，结束于
+///3. array： 包含
+
+///比较运算符号
+export enum ComparisonOperationSymbolEnum {
+  ///==
+  Eq = "eq",
+  ///>
+  Gt = "gt",
+  ///>=
+  Gte = "gte",
+  ///<
+  Lt = "lt",
+  ///<=
+  Lte = "lte",
+  ///!=
+  Nte = "nte",
+}
+
+///逻辑运算符号
+export enum LogicOperatorSymbolEnum {
+  ///&&，逻辑与
+  And = "&&",
+  ///||，逻辑或
+  Or = "||",
+}
+
+///条件规则类型
+export enum ConditionRuleTypeEnum {
+  ///默认，为空
+  Default = "None",
+  ///简单规则，例如${字段} == 1，
+  Simple = "Simple",
+  ///复杂表达式，多个简单表达式的复合形式，或者开发定义的变量的复合表达式（仅开发用）
+  Complex = "Complex",
+}
+
+///条件规则
+export interface ConditionRuleModel {
+  type: ConditionRuleTypeEnum; ///类型
+  value: string; ///${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
 }
 
 /*************************** node properties end *****************/
