@@ -136,13 +136,21 @@ export enum LogicOperatorSymbolEnum {
   Or = "||",
 }
 
+///逻辑运算符号
+export enum BracketSymbolEnum {
+  ///左括号：(
+  Left = "(",
+  ///右括号：)
+  Right = ")",
+}
+
 ///条件规则类型
 export enum ConditionRuleTypeEnum {
   ///默认，为空
   Default = "None",
   ///简单规则，例如${字段} == 1，
   Simple = "Simple",
-  ///复杂表达式，多个简单表达式的复合形式，或者开发定义的变量的复合表达式（仅开发用）
+  ///复杂表达式，多个简单表达式的复合形式
   Complex = "Complex",
 }
 
@@ -552,4 +560,65 @@ export const loadInitDodes = (lf: LogicFlow): void => {
     }
   }
 };
+
+export const ConditionRules: Array<DataOption> = [
+  {
+    value: ConditionRuleTypeEnum.Default,
+    text: "无",
+  },
+  {
+    value: ConditionRuleTypeEnum.Simple,
+    text: "简单规则",
+  },
+  {
+    value: ConditionRuleTypeEnum.Complex,
+    text: "复杂规则",
+  },
+];
+
+export const ComparisonOperations: Array<DataOption> = [
+  {
+    value: ComparisonOperationSymbolEnum.Eq,
+    text: "等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Gt,
+    text: "大于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Gte,
+    text: "大于等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Lt,
+    text: "小于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Lte,
+    text: "小于等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Nte,
+    text: "不等于",
+  },
+];
+
 /*************************** data common end ***************************/
+
+/*************************** form *******************************/
+export enum FieldTypeEnum {
+  Number = "number",
+  String = "string",
+  CheckBox = "checkbox",
+  RadioBox = "radiobox",
+  Boolean = "boolean",
+}
+
+export interface FieldSchema {
+  key: string;
+  name: string;
+  type: FieldTypeEnum;
+  //eslint-disable-next-line
+  options?: Array<any>; //array type
+}
+/*************************** form end ***************************/
