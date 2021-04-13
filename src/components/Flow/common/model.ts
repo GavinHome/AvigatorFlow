@@ -155,21 +155,26 @@ export enum ConditionTypeEnum {
 
 ///规则类型
 export enum ConditionRuleTypeEnum {
-  ///括号
+  ///括号符号
   Bracket = "Bracket",
-  ///变量
-  Variable = "Variable",
-  ///比较操作
-  Operator = "Operator",
-  ///右值
-  Value = "Value",
+  ///逻辑符号
+  Logic = "Logic",
+  ///表达式
+  Expression = "Expression",
+}
+
+///表达式项
+export interface ConditionExpressionModel {
+  variable: string; //表单字段
+  varType: string; //字段类型
+  operator: string; //比较操作
+  value: string | number | null; //右值
 }
 
 ///规则：${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
 export interface ConditionRuleModel {
   type: ConditionRuleTypeEnum; ///规则类型
-  value: string;
-  // format?: string;
+  expression: ConditionExpressionModel | string | null; ///表达式项
 }
 
 ///条件
@@ -646,14 +651,14 @@ export enum FieldTypeEnum {
   String = "string",
   CheckBox = "checkbox",
   RadioBox = "radiobox",
-  Boolean = "boolean",
+  // Boolean = "boolean",
+  Select = "select",
 }
 
 export interface FieldSchema {
   key: string;
   name: string;
   type: FieldTypeEnum;
-  //eslint-disable-next-line
-  options?: Array<any>; //array type
+  options?: Array<DataOption>; //array type
 }
 /*************************** form end ***************************/

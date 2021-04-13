@@ -12,11 +12,13 @@
 
     <div v-if="condition.type == 'Simple'" class="m-t-10">
       <el-row :gutter="10">
-        <Expression
-          :exp="exp"
-          v-for="(exp, index) in condition.expressions"
-          :key="index"
-        />
+        <template v-for="(exp, index) in condition.expressions">
+          <Expression
+            :exp="exp.expression"
+            :key="index"
+            v-if="exp.type === 'Expression'"
+          />
+        </template>
       </el-row>
     </div>
 
@@ -44,9 +46,17 @@
       <el-col :span="24">
         规则：
         <span v-for="(exp, index) in condition.expressions" :key="index">
-          <template v-if="exp.type === 'Variable' && exp.value">
-            {{ "${0}".replace("0", exp.value) }}
-          </template>
+          <span v-if="exp.type === 'Expression'">
+            <span>
+              {{ "${0}".replace("0", exp.expression.variable) }}
+            </span>
+            <span>
+              {{ exp.expression.operator }}
+            </span>
+            <span>
+              {{ exp.expression.value }}
+            </span>
+          </span>
           <template v-else>
             {{ exp.value }}
           </template>
@@ -85,16 +95,13 @@ export default class ConditionRuleSettingComponent extends Vue {
     this.condition.expressions = [];
     if (this.condition.type != ConditionTypeEnum.Default) {
       this.condition.expressions.push({
-        type: ConditionRuleTypeEnum.Variable,
-        value: "",
-      });
-      this.condition.expressions.push({
-        type: ConditionRuleTypeEnum.Operator,
-        value: "==",
-      });
-      this.condition.expressions.push({
-        type: ConditionRuleTypeEnum.Value,
-        value: "",
+        type: ConditionRuleTypeEnum.Expression,
+        expression: {
+          variable: "", //表单变量
+          varType: "", //变量类型
+          operator: "==", //比较操作
+          value: "", //右值
+        },
       });
     }
   }

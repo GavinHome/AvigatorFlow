@@ -72,7 +72,6 @@ import {
   NodesData,
   schemaAdapter,
   EdgeNameTypeEnum,
-  FieldSchema,
 } from "./common/model";
 import { FlowData, getFlowData } from "./common/utils";
 // import demoData from "./example.json";
@@ -89,7 +88,7 @@ export default class FlowComponent extends Vue {
   //eslint-disable-next-line
   @Prop() private bodyStyle!: any;
   @Prop() private isSilentMode!: boolean;
-  @Prop({ default: null }) private fields!: Array<FieldSchema> | null;
+  // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
 
   private lf: LogicFlow | null = null;
 
