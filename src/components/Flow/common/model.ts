@@ -651,7 +651,6 @@ export enum FieldTypeEnum {
   String = "string",
   CheckBox = "checkbox",
   RadioBox = "radiobox",
-  // Boolean = "boolean",
   Select = "select",
 }
 
