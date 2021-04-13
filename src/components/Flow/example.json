@@ -1,7 +1,7 @@
 {
     "nodes": [
         {
-            "id": "909076b4-3d36-48b2-86b6-c34eb5023532",
+            "id": "7cf75287-e220-4511-9b4b-c5820e279f23",
             "type": "start",
             "x": 300,
             "y": 380,
@@ -29,7 +29,7 @@
             }
         },
         {
-            "id": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
+            "id": "97676a5f-38a0-44d6-89ea-b676f6407fef",
             "type": "approval",
             "x": 500,
             "y": 380,
@@ -38,18 +38,14 @@
                 "name": "任务1",
                 "enName": "Approver",
                 "executor": {
-                    "type": "Role",
+                    "type": "Designator",
                     "params": [
                         {
-                            "type": "RoleId",
+                            "type": "Designator",
                             "value": {
-                                "value": "ProjectManager",
-                                "text": "项目经理"
+                                "value": "user001",
+                                "text": "用户1"
                             }
-                        },
-                        {
-                            "type": "VariableId",
-                            "value": null
                         }
                     ]
                 },
@@ -70,7 +66,7 @@
             }
         },
         {
-            "id": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
+            "id": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
             "type": "approval",
             "x": 700,
             "y": 180,
@@ -79,8 +75,15 @@
                 "name": "任务2",
                 "enName": "Approver",
                 "executor": {
-                    "type": "Variable",
+                    "type": "Role",
                     "params": [
+                        {
+                            "type": "RoleId",
+                            "value": {
+                                "value": "ProjectManager",
+                                "text": "项目经理"
+                            }
+                        },
                         {
                             "type": "VariableId",
                             "value": {
@@ -107,7 +110,7 @@
             }
         },
         {
-            "id": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
+            "id": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
             "type": "approval",
             "x": 700,
             "y": 580,
@@ -116,18 +119,14 @@
                 "name": "任务3",
                 "enName": "Approver",
                 "executor": {
-                    "type": "Role",
+                    "type": "Variable",
                     "params": [
                         {
-                            "type": "RoleId",
-                            "value": {
-                                "value": "Ceo",
-                                "text": "总裁"
-                            }
-                        },
-                        {
                             "type": "VariableId",
-                            "value": null
+                            "value": {
+                                "value": "bcd",
+                                "text": "变量2"
+                            }
                         }
                     ]
                 },
@@ -148,7 +147,7 @@
             }
         },
         {
-            "id": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
+            "id": "2837c7c3-5177-42ad-9743-973dce197a71",
             "type": "gateway",
             "x": 700,
             "y": 380,
@@ -170,7 +169,7 @@
             }
         },
         {
-            "id": "9a32181e-f453-4047-a4d5-6f069b3c761f",
+            "id": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
             "type": "end",
             "x": 900,
             "y": 380,
@@ -194,10 +193,10 @@
     ],
     "edges": [
         {
-            "id": "4acf87c2-f5a6-48a4-8aed-e923c82324e4",
+            "id": "319e2bd7-69d0-4467-8049-f6ea667d3a05",
             "type": "polyline",
-            "sourceNodeId": "909076b4-3d36-48b2-86b6-c34eb5023532",
-            "targetNodeId": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
+            "sourceNodeId": "7cf75287-e220-4511-9b4b-c5820e279f23",
+            "targetNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
             "startPoint": {
                 "x": 320,
                 "y": 380
@@ -219,10 +218,10 @@
             ]
         },
         {
-            "id": "07bf0fc9-5d63-4093-89c2-262742d70984",
+            "id": "e030143b-63fe-4f5a-97ba-5c7caaf66b10",
             "type": "polyline",
-            "sourceNodeId": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
-            "targetNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
+            "sourceNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
+            "targetNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
             "startPoint": {
                 "x": 550,
                 "y": 380
@@ -244,10 +243,10 @@
             ]
         },
         {
-            "id": "eb5960c5-689d-42b9-b8ce-db68bba0cf85",
+            "id": "cc5333d2-8f69-468d-8c59-faef08f78a94",
             "type": "polyline",
-            "sourceNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
-            "targetNodeId": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
+            "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
+            "targetNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
             "startPoint": {
                 "x": 700,
                 "y": 355
@@ -256,7 +255,29 @@
                 "x": 700,
                 "y": 215
             },
-            "properties": {},
+            "properties": {
+                "name": "金额大于10万",
+                "condition": {
+                    "type": "Simple",
+                    "expressions": [
+                        {
+                            "type": "Expression",
+                            "expression": {
+                                "variable": "abc",
+                                "varType": "",
+                                "operator": ">",
+                                "value": "100000"
+                            }
+                        }
+                    ]
+                },
+                "enName": "Condition"
+            },
+            "text": {
+                "x": 750,
+                "y": 295,
+                "value": "金额大于10万"
+            },
             "pointsList": [
                 {
                     "x": 700,
@@ -269,10 +290,10 @@
             ]
         },
         {
-            "id": "d71bfb36-4d5c-40ab-8a99-6f4b322b1de1",
+            "id": "5923f496-ec87-4076-af6a-abba7ac01438",
             "type": "polyline",
-            "sourceNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
-            "targetNodeId": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
+            "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
+            "targetNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
             "startPoint": {
                 "x": 700,
                 "y": 405
@@ -294,10 +315,10 @@
             ]
         },
         {
-            "id": "ae439e17-6722-48f2-ab6d-90c1e9e48d73",
+            "id": "be13b9a8-80ad-4704-a5be-da6a9911f4c6",
             "type": "polyline",
-            "sourceNodeId": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
-            "targetNodeId": "9a32181e-f453-4047-a4d5-6f069b3c761f",
+            "sourceNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
+            "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
             "startPoint": {
                 "x": 750,
                 "y": 180
@@ -323,10 +344,10 @@
             ]
         },
         {
-            "id": "c891f293-5c19-4544-9b2a-147abe4ded0c",
+            "id": "67035e93-8fd9-428b-8978-b1cc90a9d330",
             "type": "polyline",
-            "sourceNodeId": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
-            "targetNodeId": "9a32181e-f453-4047-a4d5-6f069b3c761f",
+            "sourceNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
+            "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
             "startPoint": {
                 "x": 750,
                 "y": 580
