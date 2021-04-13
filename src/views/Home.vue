@@ -87,6 +87,34 @@ export default {
         ],
       },
     ],
+    roles: [
+      {
+        value: "ProjectManager",
+        text: "项目经理",
+      },
+      {
+        value: "Cash",
+        text: "出纳",
+      },
+      {
+        value: "Ceo",
+        text: "总裁",
+      },
+    ],
+    users: [
+      {
+        value: "user001",
+        text: "用户1",
+      },
+      {
+        value: "user002",
+        text: "用户2",
+      },
+      {
+        value: "user003",
+        text: "用户3",
+      },
+    ],
   },
 };
 </script>

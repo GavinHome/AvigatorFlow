@@ -32,6 +32,7 @@ import {
   NodeSchema,
   NodeIdConst,
   NodeNameTypeEnum,
+  ExecutorRuleType,
 } from "../common/model";
 
 import { validateKeyExist } from "../common/validators";
@@ -47,8 +48,8 @@ export default class StartProperty extends Vue {
     name: NodeNameConst.START,
     enName: NodeNameTypeEnum.Initiator,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Initiator,
+      params: [],
     },
     description: "",
     aggregation: null,

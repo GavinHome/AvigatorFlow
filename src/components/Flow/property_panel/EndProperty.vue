@@ -42,6 +42,7 @@ import {
   NodeNameConst,
   NodeSchema,
   NodeIdConst,
+  NodeNameTypeEnum,
 } from "../common/model";
 import { validateKeyExist } from "../common/validators";
 
@@ -56,7 +57,7 @@ export default class EndProperty extends Vue {
   formData: NodeSchema = {
     key: NodeIdConst.END,
     name: NodeNameConst.END,
-    enName: "Completer",
+    enName: NodeNameTypeEnum.Completer,
     executor: null,
     description: "",
     aggregation: AggregationModeType.AllAgreed,

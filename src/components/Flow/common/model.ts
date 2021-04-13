@@ -86,18 +86,10 @@ export enum ApprovalActionType {
   Submit = "Submit",
 }
 
-///执行人（审批人）规则
-export interface ExecutorRuleModel {
-  type: ExecutorRuleType;
-  users?: Array<ExecutorModel>;
-  variableId?: string;
-  roleId?: string;
-  orgId?: string;
-  url?: string;
-}
-
 ///审批人规则类型
 export enum ExecutorRuleType {
+  ///发起人
+  Initiator = "Initiator",
   ///指定人，流程前确定
   Designator = "Designator",
   ///变量：来自表单，执行时确定
@@ -106,6 +98,35 @@ export enum ExecutorRuleType {
   Role = "Role",
   ///通过接口获取，需要把表单整体传到接口中（仅开发用）
   Api = "Api",
+}
+
+export type ExecutorRuleParamTypeConst = "Designator" | "VariableId" | "RoleId";
+
+export enum ExecutorRuleParamTypeEnum {
+  ///Initiator
+  Initiator = "Initiator",
+  ///Designator
+  Designator = "Designator",
+  ///VariableId
+  VariableId = "VariableId",
+  ///RoleId
+  RoleId = "RoleId",
+  // ///OrganizationId
+  // OrganizationId = "OrganizationId",
+  // ///Url
+  Url = "Url",
+}
+
+///执行人（审批人）规则
+export interface ExecutorRuleModel {
+  type: ExecutorRuleType;
+  // params: Map<ExecutorRuleParamTypeEnum, DataOption | null>;
+  params: Array<ExecutorRuleParamModel>;
+}
+
+export interface ExecutorRuleParamModel {
+  type: ExecutorRuleParamTypeEnum;
+  value: DataOption | null;
 }
 
 ///1. number: ==,>,>=,<,<=,!=,
@@ -200,8 +221,8 @@ export enum EdgeNameTypeEnum {
 /*************************** edge type end ***********************/
 
 /*************************** declare interface ***************************/
-///审批人结构
-export interface ExecutorModel {
+///用户信息
+export interface UserModel {
   name: string; ///姓名
   code: string; ///编号
 }
@@ -218,7 +239,7 @@ export interface NodeSchema {
   key: string;
   name: string; ///节点名称
   enName: NodeNameType; ///英文名称
-  executor: ExecutorModel | null; ///审批人员, 为空时自动处理
+  executor: ExecutorRuleModel | null; ///审批人员, 为空时自动处理
   description: string; ///节点描述
   aggregation?: AggregationModeType | null; ///聚合方式
   branch?: BranchModeType | null;
@@ -271,6 +292,26 @@ export const nodeAdapter = (data: NodeData): NodeModel => {
     class: data.class,
   };
 };
+
+// export const executorAdapter = (data: ExecutorRuleModel): any => {
+//   return  {
+//     type: data.type,
+//     params: MapToObj(data.params),
+//   }
+// }
+
+// export const propertiesAdapter = (data: NodeSchema): any => {
+//   return {
+//     key: data.key,
+//     name: data.name,
+//     enName: data.enName,
+//     executor: data.executor ? executorAdapter(data.executor) : data.executor,
+//     description: data.description,
+//     aggregation: data.aggregation,
+//     rule: data.rule,
+//     actions: data.actions,
+//   }
+// }
 /*************************** schema Adapter end ***********************/
 
 /*************************** data common ******************************/
@@ -339,8 +380,8 @@ export const NodesData: Array<NodeData> = [
     name: NodeNameConst.START,
     enName: NodeNameTypeEnum.Initiator,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Initiator,
+      params: [],
     },
     description: "",
     aggregation: null,
@@ -356,8 +397,8 @@ export const NodesData: Array<NodeData> = [
     name: NodeNameConst.APPROVAL,
     enName: NodeNameTypeEnum.Approver,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Designator,
+      params: [],
     },
     description: "",
     aggregation: AggregationModeType.OneAgreed,
@@ -640,6 +681,25 @@ export const Brackets: Array<DataOption> = [
   {
     value: BracketSymbolEnum.Right,
     text: BracketSymbolEnum.Right,
+  },
+];
+
+export const ExecutorRules: Array<DataOption> = [
+  {
+    value: ExecutorRuleType.Designator,
+    text: "全员",
+  },
+  {
+    value: ExecutorRuleType.Variable,
+    text: "表单变量",
+  },
+  {
+    value: ExecutorRuleType.Role,
+    text: "角色",
+  },
+  {
+    value: ExecutorRuleType.Api,
+    text: "接口",
   },
 ];
 
