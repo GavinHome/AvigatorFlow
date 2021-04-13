@@ -490,6 +490,19 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       const task1Properties = schemaAdapter(task1Data);
       task1Properties.key = "approval1";
       task1Properties.name = "任务1";
+      task1Properties.executor = {
+        type: ExecutorRuleType.Designator,
+        params: [
+          {
+            type: ExecutorRuleParamTypeEnum.Designator,
+            value: {
+              value: "user001",
+              text: "用户1"
+            }
+          }
+        ],
+      };
+
       const task1Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x,
@@ -505,6 +518,25 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       const task2Properties = schemaAdapter(task2Data);
       task2Properties.key = "approval2";
       task2Properties.name = "任务2";
+      task2Properties.executor = {
+        type: ExecutorRuleType.Role,
+        params: [
+          {
+            type: ExecutorRuleParamTypeEnum.RoleId,
+            value: {
+              value: "ProjectManager",
+              text: "项目经理"
+            }
+          },          
+          {
+            type: ExecutorRuleParamTypeEnum.VariableId,
+            value: {
+              value: "abc",
+              text: "变量1"
+            }
+          }
+        ],
+      };
       const task2Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
@@ -520,6 +552,18 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       const task3Properties = schemaAdapter(task3Data);
       task3Properties.key = "approval3";
       task3Properties.name = "任务3";
+      task3Properties.executor = {
+        type: ExecutorRuleType.Variable,
+        params: [        
+          {
+            type: ExecutorRuleParamTypeEnum.VariableId,
+            value: {
+              value: "bcd",
+              text: "变量2"
+            }
+          }
+        ],
+      };
       const task3Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
@@ -581,15 +625,34 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       });
 
       // gateway ----> task2
+      const condition1: ConditionModel = {
+        type: ConditionTypeEnum.Simple,
+        expressions: [
+          {
+            type: ConditionRuleTypeEnum.Expression,
+            expression: {
+              variable: "abc",
+              varType: "",
+              operator: ">",
+              value: "100000"
+            }
+          }
+        ]
+      };
       lf.createEdge({
         type: EdgeNameTypeEnum.Polyline,
         sourceNodeId: gatewayNode.id,
         targetNodeId: task2Node.id,
         text: {
-          value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 50,
-          y: start_y,
+          value: "金额大于10万",
+          x: start_x + offset_x + 250,
+          y: start_y - offset_y + 15,
         },
+        properties: {
+          name: '金额大于10万',
+          condition: condition1,
+          enName: EdgeNameTypeEnum.Condition
+        }
       });
 
       // gateway ----> task3

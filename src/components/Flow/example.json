@@ -1,344 +1,353 @@
 {
     "nodes": [
         {
-            "id": "1b1fbb85-e341-4cce-95c0-61fbfb18b82d",
+            "id": "909076b4-3d36-48b2-86b6-c34eb5023532",
             "type": "start",
-            "x": 400,
-            "y": 280,
+            "x": 300,
+            "y": 380,
             "properties": {
+                "key": "start",
                 "name": "开始",
                 "enName": "Initiator",
                 "executor": {
-                    "name": "",
-                    "code": ""
+                    "type": "Initiator",
+                    "params": []
                 },
                 "description": "",
                 "aggregation": null,
+                "branch": "One",
                 "rule": "One",
                 "actions": [
                     "Save",
                     "Submit"
-                ],
-                "key": "start"
+                ]
             },
             "text": {
-                "x": 400,
-                "y": 280,
+                "x": 300,
+                "y": 380,
                 "value": "开始"
             }
         },
         {
-            "id": "2e301e76-2462-47e4-9d56-02a6f944ca85",
-            "type": "end",
-            "x": 1110,
-            "y": 280,
-            "properties": {
-                "name": "结束",
-                "enName": "Completer",
-                "executor": null,
-                "description": "终止",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": null,
-                "key": "end"
-            },
-            "text": {
-                "x": 1110,
-                "y": 328,
-                "value": "结束"
-            }
-        },
-        {
-            "id": "21616150-0b69-498a-b990-ed00e10a69e7",
+            "id": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
             "type": "approval",
-            "x": 630,
-            "y": 280,
+            "x": 500,
+            "y": 380,
             "properties": {
+                "key": "approval1",
                 "name": "任务1",
                 "enName": "Approver",
                 "executor": {
-                    "name": "",
-                    "code": "用户1"
+                    "type": "Role",
+                    "params": [
+                        {
+                            "type": "RoleId",
+                            "value": {
+                                "value": "ProjectManager",
+                                "text": "项目经理"
+                            }
+                        },
+                        {
+                            "type": "VariableId",
+                            "value": null
+                        }
+                    ]
                 },
-                "description": "用户001",
-                "aggregation": "All",
+                "description": "",
+                "aggregation": "One",
+                "branch": "One",
                 "rule": "One",
                 "actions": [
                     "Pass",
                     "Reject",
                     "Assist"
-                ],
-                "key": "approval"
+                ]
             },
             "text": {
-                "x": 630,
-                "y": 340,
+                "x": 500,
+                "y": 440,
                 "value": "任务1"
             }
         },
         {
-            "id": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
+            "id": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
             "type": "approval",
-            "x": 860,
-            "y": 110,
+            "x": 700,
+            "y": 180,
             "properties": {
+                "key": "approval2",
                 "name": "任务2",
                 "enName": "Approver",
                 "executor": {
-                    "name": "",
-                    "code": "用户2"
+                    "type": "Variable",
+                    "params": [
+                        {
+                            "type": "VariableId",
+                            "value": {
+                                "value": "abc",
+                                "text": "变量1"
+                            }
+                        }
+                    ]
                 },
-                "description": "用户002",
-                "aggregation": "All",
+                "description": "",
+                "aggregation": "One",
+                "branch": "One",
                 "rule": "One",
                 "actions": [
                     "Pass",
                     "Reject",
                     "Assist"
-                ],
-                "key": "approval"
+                ]
             },
             "text": {
-                "x": 860,
-                "y": 170,
+                "x": 700,
+                "y": 240,
                 "value": "任务2"
             }
         },
         {
-            "id": "2e184190-7667-4cf5-be42-457c43d3824f",
+            "id": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
             "type": "approval",
-            "x": 860,
-            "y": 430,
+            "x": 700,
+            "y": 580,
             "properties": {
+                "key": "approval3",
                 "name": "任务3",
                 "enName": "Approver",
                 "executor": {
-                    "name": "",
-                    "code": "用户3"
+                    "type": "Role",
+                    "params": [
+                        {
+                            "type": "RoleId",
+                            "value": {
+                                "value": "Ceo",
+                                "text": "总裁"
+                            }
+                        },
+                        {
+                            "type": "VariableId",
+                            "value": null
+                        }
+                    ]
                 },
-                "description": "用户003",
-                "aggregation": "All",
+                "description": "",
+                "aggregation": "One",
+                "branch": "One",
                 "rule": "One",
                 "actions": [
                     "Pass",
                     "Reject",
                     "Assist"
-                ],
-                "key": "approval"
+                ]
             },
             "text": {
-                "x": 860,
-                "y": 490,
+                "x": 700,
+                "y": 640,
                 "value": "任务3"
             }
         },
         {
-            "id": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
+            "id": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
             "type": "gateway",
-            "x": 860,
-            "y": 280,
+            "x": 700,
+            "y": 380,
             "properties": {
+                "key": "gateway",
                 "name": "网关节点",
                 "enName": "Gateway",
                 "executor": null,
                 "description": "",
-                "aggregation": "All",
+                "aggregation": "One",
+                "branch": "One",
                 "rule": "One",
-                "actions": null,
-                "key": "gateway"
+                "actions": null
             },
             "text": {
-                "x": 860,
-                "y": 328,
+                "x": 700,
+                "y": 428,
                 "value": "网关节点"
+            }
+        },
+        {
+            "id": "9a32181e-f453-4047-a4d5-6f069b3c761f",
+            "type": "end",
+            "x": 900,
+            "y": 380,
+            "properties": {
+                "key": "end",
+                "name": "结束",
+                "enName": "Completer",
+                "executor": null,
+                "description": "",
+                "aggregation": "One",
+                "branch": null,
+                "rule": "One",
+                "actions": null
+            },
+            "text": {
+                "x": 900,
+                "y": 428,
+                "value": "结束"
             }
         }
     ],
     "edges": [
         {
-            "id": "6a74c017-e336-4c6d-af4e-84d1eb2982b4",
+            "id": "4acf87c2-f5a6-48a4-8aed-e923c82324e4",
             "type": "polyline",
-            "sourceNodeId": "1b1fbb85-e341-4cce-95c0-61fbfb18b82d",
-            "targetNodeId": "21616150-0b69-498a-b990-ed00e10a69e7",
+            "sourceNodeId": "909076b4-3d36-48b2-86b6-c34eb5023532",
+            "targetNodeId": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
             "startPoint": {
-                "x": 420,
-                "y": 280
+                "x": 320,
+                "y": 380
             },
             "endPoint": {
-                "x": 580,
-                "y": 280
+                "x": 450,
+                "y": 380
             },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 420,
-                    "y": 280
+                    "x": 320,
+                    "y": 380
                 },
                 {
-                    "x": 580,
-                    "y": 280
+                    "x": 450,
+                    "y": 380
                 }
             ]
         },
         {
-            "id": "bc088c42-022c-4c4f-b403-98d2f07c5a49",
+            "id": "07bf0fc9-5d63-4093-89c2-262742d70984",
             "type": "polyline",
-            "sourceNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "targetNodeId": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
+            "sourceNodeId": "3ded296d-c239-4d3b-b7dc-ef8e7400d81d",
+            "targetNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
             "startPoint": {
-                "x": 860,
-                "y": 255
+                "x": 550,
+                "y": 380
             },
             "endPoint": {
-                "x": 860,
-                "y": 145
+                "x": 675,
+                "y": 380
             },
-            "properties": {
-                "name": "条件",
-                "enName": "Condition",
-                "condition": "${abc == 1}"
-            },
-            "text": {
-                "x": 860,
-                "y": 215,
-                "value": "条件"
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 860,
-                    "y": 255
+                    "x": 550,
+                    "y": 380
                 },
                 {
-                    "x": 860,
-                    "y": 145
+                    "x": 675,
+                    "y": 380
                 }
             ]
         },
         {
-            "id": "f0e8fb59-9b5a-4c38-9ccc-261814e2e690",
+            "id": "eb5960c5-689d-42b9-b8ce-db68bba0cf85",
             "type": "polyline",
-            "sourceNodeId": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
-            "targetNodeId": "2e301e76-2462-47e4-9d56-02a6f944ca85",
+            "sourceNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
+            "targetNodeId": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
             "startPoint": {
-                "x": 910,
-                "y": 110
+                "x": 700,
+                "y": 355
             },
             "endPoint": {
-                "x": 1110,
-                "y": 260
+                "x": 700,
+                "y": 215
             },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 910,
-                    "y": 110
+                    "x": 700,
+                    "y": 355
                 },
                 {
-                    "x": 1110,
-                    "y": 110
-                },
-                {
-                    "x": 1110,
-                    "y": 260
+                    "x": 700,
+                    "y": 215
                 }
             ]
         },
         {
-            "id": "e0b3613c-f1bc-4036-bc10-f83832f5acc8",
+            "id": "d71bfb36-4d5c-40ab-8a99-6f4b322b1de1",
             "type": "polyline",
-            "sourceNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "targetNodeId": "2e184190-7667-4cf5-be42-457c43d3824f",
+            "sourceNodeId": "11ab860e-54fe-4033-9063-b6f5f7dd7e75",
+            "targetNodeId": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
             "startPoint": {
-                "x": 860,
-                "y": 305
+                "x": 700,
+                "y": 405
             },
             "endPoint": {
-                "x": 860,
-                "y": 395
+                "x": 700,
+                "y": 545
             },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 860,
-                    "y": 305
+                    "x": 700,
+                    "y": 405
                 },
                 {
-                    "x": 860,
-                    "y": 395
+                    "x": 700,
+                    "y": 545
                 }
             ]
         },
         {
-            "id": "a5136710-b0f8-4361-912c-1b24b70db884",
+            "id": "ae439e17-6722-48f2-ab6d-90c1e9e48d73",
             "type": "polyline",
-            "sourceNodeId": "21616150-0b69-498a-b990-ed00e10a69e7",
-            "targetNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
+            "sourceNodeId": "c6f5483d-0a7d-455a-8bcf-fedf0ca3f8e5",
+            "targetNodeId": "9a32181e-f453-4047-a4d5-6f069b3c761f",
             "startPoint": {
-                "x": 680,
-                "y": 280
+                "x": 750,
+                "y": 180
             },
             "endPoint": {
-                "x": 835,
-                "y": 280
+                "x": 900,
+                "y": 360
             },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 680,
-                    "y": 280
+                    "x": 750,
+                    "y": 180
                 },
                 {
-                    "x": 835,
-                    "y": 280
+                    "x": 900,
+                    "y": 180
+                },
+                {
+                    "x": 900,
+                    "y": 360
                 }
             ]
         },
         {
-            "id": "2f10655b-e18b-454b-a514-2482a29f9bbd",
+            "id": "c891f293-5c19-4544-9b2a-147abe4ded0c",
             "type": "polyline",
-            "sourceNodeId": "2e184190-7667-4cf5-be42-457c43d3824f",
-            "targetNodeId": "2e301e76-2462-47e4-9d56-02a6f944ca85",
+            "sourceNodeId": "3d7331f7-6606-42b1-b544-b8b628e72d7e",
+            "targetNodeId": "9a32181e-f453-4047-a4d5-6f069b3c761f",
             "startPoint": {
-                "x": 910,
-                "y": 430
+                "x": 750,
+                "y": 580
             },
             "endPoint": {
-                "x": 1110,
-                "y": 300
+                "x": 900,
+                "y": 400
             },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
+            "properties": {},
             "pointsList": [
                 {
-                    "x": 910,
-                    "y": 430
+                    "x": 750,
+                    "y": 580
                 },
                 {
-                    "x": 1110,
-                    "y": 430
+                    "x": 900,
+                    "y": 580
                 },
                 {
-                    "x": 1110,
-                    "y": 300
+                    "x": 900,
+                    "y": 400
                 }
             ]
         }
