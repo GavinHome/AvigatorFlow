@@ -109,23 +109,22 @@ export enum ExecutorRuleType {
 }
 
 ///1. number: ==,>,>=,<,<=,!=,
-///2. string: 包含，不包含，开始于，结束于
-///3. array： 包含
+///2. string: ==
 
 ///比较运算符号
 export enum ComparisonOperationSymbolEnum {
   ///==
-  Eq = "eq",
+  Eq = "==",
   ///>
-  Gt = "gt",
+  Gt = ">",
   ///>=
-  Gte = "gte",
+  Gte = ">=",
   ///<
-  Lt = "lt",
+  Lt = "<",
   ///<=
-  Lte = "lte",
+  Lte = "<=",
   ///!=
-  Nte = "nte",
+  Nte = "!=",
 }
 
 ///逻辑运算符号
@@ -144,8 +143,8 @@ export enum BracketSymbolEnum {
   Right = ")",
 }
 
-///条件规则类型
-export enum ConditionRuleTypeEnum {
+///条件类型
+export enum ConditionTypeEnum {
   ///默认，为空
   Default = "None",
   ///简单规则，例如${字段} == 1，
@@ -154,16 +153,41 @@ export enum ConditionRuleTypeEnum {
   Complex = "Complex",
 }
 
-///条件规则
+///规则类型
+export enum ConditionRuleTypeEnum {
+  ///括号
+  Bracket = "Bracket",
+  ///变量
+  Variable = "Variable",
+  ///比较操作
+  Operator = "Operator",
+  ///右值
+  Value = "Value",
+}
+
+///规则：${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
 export interface ConditionRuleModel {
-  type: ConditionRuleTypeEnum; ///类型
-  value: string; ///${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
+  type: ConditionRuleTypeEnum; ///规则类型
+  value: string;
+  // format?: string;
+}
+
+///条件
+export interface ConditionModel {
+  type: ConditionTypeEnum; ///类型
+  expressions: Array<ConditionRuleModel>; ///${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
 }
 
 /*************************** node properties end *****************/
 
 /*************************** edge type ***************************/
 export type EdgeNameType = "Condition";
+export const EdgeNameConst = {
+  CONDITION: "条件",
+};
+export enum EdgeNameTypeEnum {
+  Condition = "Condition",
+}
 export type EdgeType = "polyline";
 export enum EdgeNameTypeEnum {
   Polyline = "polyline",
@@ -201,7 +225,7 @@ export interface NodeSchema {
 export interface EdgeSchema {
   name: string; ///节点名称
   enName: EdgeNameType; ///英文名称
-  condition: string; ///执行规则
+  condition: ConditionModel; ///执行规则
 }
 
 ///graph data for logic flow
@@ -563,15 +587,15 @@ export const loadInitDodes = (lf: LogicFlow): void => {
 
 export const ConditionRules: Array<DataOption> = [
   {
-    value: ConditionRuleTypeEnum.Default,
+    value: ConditionTypeEnum.Default,
     text: "无",
   },
   {
-    value: ConditionRuleTypeEnum.Simple,
+    value: ConditionTypeEnum.Simple,
     text: "简单规则",
   },
   {
-    value: ConditionRuleTypeEnum.Complex,
+    value: ConditionTypeEnum.Complex,
     text: "复杂规则",
   },
 ];
@@ -600,6 +624,17 @@ export const ComparisonOperations: Array<DataOption> = [
   {
     value: ComparisonOperationSymbolEnum.Nte,
     text: "不等于",
+  },
+];
+
+export const Brackets: Array<DataOption> = [
+  {
+    value: BracketSymbolEnum.Left,
+    text: BracketSymbolEnum.Left,
+  },
+  {
+    value: BracketSymbolEnum.Right,
+    text: BracketSymbolEnum.Right,
   },
 ];
 

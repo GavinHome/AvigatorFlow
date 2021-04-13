@@ -114,7 +114,7 @@ import { SelectionSelect } from "@logicflow/extension";
 import demoData from "../example.json";
 
 @Component
-export default class ControlMenu extends Vue {
+export default class ToolbarComponent extends Vue {
   @Prop() private lf!: LogicFlow;
   undoDisable = true;
   redoDisable = true;

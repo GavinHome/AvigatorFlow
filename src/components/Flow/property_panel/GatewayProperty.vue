@@ -47,7 +47,7 @@ import {
 import { validateKeyExist } from "../common/validators";
 
 @Component
-export default class PushProperty extends Vue {
+export default class GatewayProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;

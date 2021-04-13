@@ -1,64 +1,103 @@
 <template>
   <div>
-    <el-radio-group v-model="selected" size="small">
+    <el-radio-group v-model="condition.type" size="small" @change="onChang">
       <el-radio
         :label="rule.value"
         v-for="(rule, index) in rules"
         :key="index"
+        :disabled="rule.value === 'Complex'"
         >{{ rule.text }}</el-radio
       >
     </el-radio-group>
 
-    <div v-if="selected == 'Simple'" class="m-t-20 m-b-20">
+    <div v-if="condition.type == 'Simple'" class="m-t-10">
       <el-row :gutter="10">
-        <el-col :span="8">
-          <el-select v-model="formData.field" placeholder="表单变量">
-            <el-option label="变量1" value="abc"></el-option>
-            <el-option label="变量2" value="bcd"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="8">
-          <el-select v-model="formData.operator" placeholder="比较操作">
-            <el-option
-              :label="opt.text"
-              :value="opt.value"
-              v-for="(opt, index) in operators"
-              :key="index"
-            ></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="8">
-          <el-input v-model="formData.value" placeholder="表单值"></el-input>
-        </el-col>
+        <Expression
+          :exp="exp"
+          v-for="(exp, index) in condition.expressions"
+          :key="index"
+        />
       </el-row>
     </div>
 
-    <div v-if="selected == 'Complex'">高级规则正在开发</div>
+    <div v-if="condition.type == 'Complex'" class="m-t-10">
+      <!-- <el-row :gutter="10" class="m-10 text-center">
+        <el-tooltip content="增加规则项" placement="top-start">
+          <el-button type="plain" icon="el-icon-plus" size="small"></el-button>
+        </el-tooltip>
+      </el-row> -->
+
+      <!-- <el-row :gutter="10">
+        <template v-for="(exp, index) in condition.expressions">      
+          <Expression :exp="exp" :key="index" />
+        </template>
+      </el-row> -->
+
+      <!-- <el-row :gutter="10" class="m-10 text-center">
+        <el-tooltip content="增加规则项" placement="bottom-start">
+          <el-button type="plain" icon="el-icon-plus" size="small"></el-button>
+        </el-tooltip>
+      </el-row> -->
+    </div>
+
+    <el-row v-if="condition.expressions.length" class="m-t-5">
+      <el-col :span="24">
+        规则：
+        <span v-for="(exp, index) in condition.expressions" :key="index">
+          <template v-if="exp.type === 'Variable' && exp.value">
+            {{ "${0}".replace("0", exp.value) }}
+          </template>
+          <template v-else>
+            {{ exp.value }}
+          </template>
+        </span>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import {
+  Brackets,
   ComparisonOperations,
+  ConditionModel,
   ConditionRules,
+  ConditionRuleTypeEnum,
+  ConditionTypeEnum,
   DataOption,
 } from "../common/model";
 
+import Expression from "./expression.vue";
+
 @Component({
-  components: {},
+  components: {
+    Expression,
+  },
 })
 export default class ConditionRuleSettingComponent extends Vue {
-  //eslint-disable-next-line
-  @Prop() private value!: any;
-  selected = "Simple";
+  @Prop() private condition!: ConditionModel;
   rules: Array<DataOption> = ConditionRules;
   operators: Array<DataOption> = ComparisonOperations;
-  formData = {
-    field: "abc",
-    operator: "==",
-    value: "",
-  };
+  brackets: Array<DataOption> = Brackets;
+
+  onChang(): void {
+    this.condition.expressions = [];
+    if (this.condition.type != ConditionTypeEnum.Default) {
+      this.condition.expressions.push({
+        type: ConditionRuleTypeEnum.Variable,
+        value: "",
+      });
+      this.condition.expressions.push({
+        type: ConditionRuleTypeEnum.Operator,
+        value: "==",
+      });
+      this.condition.expressions.push({
+        type: ConditionRuleTypeEnum.Value,
+        value: "",
+      });
+    }
+  }
 }
 </script>
 

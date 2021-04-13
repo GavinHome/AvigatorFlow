@@ -64,11 +64,15 @@ import {
 import { registerPolyline } from "./register_edges";
 
 import {
+  ConditionTypeEnum,
+  EdgeSchema,
   GraphConfigData,
   loadInitDodes,
   NodeSchema,
   NodesData,
   schemaAdapter,
+  EdgeNameTypeEnum,
+  FieldSchema,
 } from "./common/model";
 import { FlowData, getFlowData } from "./common/utils";
 // import demoData from "./example.json";
@@ -81,10 +85,11 @@ import { FlowData, getFlowData } from "./common/utils";
     PropertyPanel,
   },
 })
-export default class Portal extends Vue {
+export default class FlowComponent extends Vue {
   //eslint-disable-next-line
   @Prop() private bodyStyle!: any;
   @Prop() private isSilentMode!: boolean;
+  @Prop({ default: null }) private fields!: Array<FieldSchema> | null;
 
   private lf: LogicFlow | null = null;
 
@@ -281,11 +286,14 @@ export default class Portal extends Vue {
         this.dialogVisible = true;
       });
 
-      this.lf.on("edge:add", ({ data }) => {
-        var properties = {
+      this.lf.on("edge:add", ({ data }): void => {
+        var properties: EdgeSchema = {
           name: "",
-          enName: "Condition",
-          condition: "",
+          enName: EdgeNameTypeEnum.Condition,
+          condition: {
+            type: ConditionTypeEnum.Default,
+            expressions: [],
+          },
         };
         if (this.lf) {
           this.lf.setProperties(data.id, properties);

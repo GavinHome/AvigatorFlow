@@ -5,7 +5,7 @@
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
       <el-form-item label="执行规则">
-        <ConditionSetting />
+        <ConditionSetting :condition="formData.condition" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -17,7 +17,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
-import { EdgeSchema } from "../common/model";
+import {
+  ConditionTypeEnum,
+  EdgeNameTypeEnum,
+  EdgeSchema,
+} from "../common/model";
 import ConditionSetting from "../condition_setting/index.vue";
 
 @Component({
@@ -32,8 +36,11 @@ export default class EdgeProperty extends Vue {
 
   formData: EdgeSchema = {
     name: "",
-    enName: "Condition",
-    condition: "",
+    enName: EdgeNameTypeEnum.Condition,
+    condition: {
+      type: ConditionTypeEnum.Default,
+      expressions: [],
+    },
   };
 
   mounted(): void {

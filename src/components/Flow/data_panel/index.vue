@@ -15,7 +15,7 @@ import "vue-json-pretty/lib/styles.css";
     VueJsonPretty,
   },
 })
-export default class ControlMenu extends Vue {
+export default class DataPanel extends Vue {
   //eslint-disable-next-line
   @Prop() private graphData!: any;
 }

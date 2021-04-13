@@ -72,7 +72,7 @@ import {
 import { validateKeyExist } from "../common/validators";
 
 @Component
-export default class UserProperty extends Vue {
+export default class ApprovalProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
