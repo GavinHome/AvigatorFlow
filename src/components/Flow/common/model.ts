@@ -497,9 +497,9 @@ export const loadInitDodes = (lf: LogicFlow): void => {
             type: ExecutorRuleParamTypeEnum.Designator,
             value: {
               value: "user001",
-              text: "用户1"
-            }
-          }
+              text: "用户1",
+            },
+          },
         ],
       };
 
@@ -525,16 +525,16 @@ export const loadInitDodes = (lf: LogicFlow): void => {
             type: ExecutorRuleParamTypeEnum.RoleId,
             value: {
               value: "ProjectManager",
-              text: "项目经理"
-            }
-          },          
+              text: "项目经理",
+            },
+          },
           {
             type: ExecutorRuleParamTypeEnum.VariableId,
             value: {
               value: "abc",
-              text: "变量1"
-            }
-          }
+              text: "变量1",
+            },
+          },
         ],
       };
       const task2Node = lf.addNode({
@@ -554,14 +554,14 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       task3Properties.name = "任务3";
       task3Properties.executor = {
         type: ExecutorRuleType.Variable,
-        params: [        
+        params: [
           {
             type: ExecutorRuleParamTypeEnum.VariableId,
             value: {
               value: "bcd",
-              text: "变量2"
-            }
-          }
+              text: "变量2",
+            },
+          },
         ],
       };
       const task3Node = lf.addNode({
@@ -634,10 +634,10 @@ export const loadInitDodes = (lf: LogicFlow): void => {
               variable: "abc",
               varType: "",
               operator: ">",
-              value: "100000"
-            }
-          }
-        ]
+              value: "100000",
+            },
+          },
+        ],
       };
       lf.createEdge({
         type: EdgeNameTypeEnum.Polyline,
@@ -649,10 +649,10 @@ export const loadInitDodes = (lf: LogicFlow): void => {
           y: start_y - offset_y + 15,
         },
         properties: {
-          name: '金额大于10万',
+          name: "金额大于10万",
           condition: condition1,
-          enName: EdgeNameTypeEnum.Condition
-        }
+          enName: EdgeNameTypeEnum.Condition,
+        },
       });
 
       // gateway ----> task3
