@@ -607,8 +607,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: task1Node.id,
         text: {
           value: "",
-          x: start_x + 160,
-          y: start_y + 35,
+          x: start_x + 80,
+          y: start_y - 10,
         },
       });
 
@@ -619,8 +619,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: gatewayNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100,
-          y: start_y + 35,
+          x: start_x + 100 + offset_x,
+          y: start_y - 10,
         },
       });
 
@@ -662,8 +662,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: task3Node.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 50,
-          y: start_y + 70,
+          x: start_x + offset_x + 220,
+          y: start_y + offset_y,
         },
       });
 
@@ -674,8 +674,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: endNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 100,
-          y: start_y - offset_y * 2 + 35,
+          x: start_x + offset_x * 3 + 20,
+          y: start_y - offset_y,
         },
       });
 
@@ -686,8 +686,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: endNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 100,
-          y: start_y + offset_y * 2 + 35,
+          x: start_x + offset_x * 3 + 30,
+          y: start_y + offset_y,
         },
       });
     }
