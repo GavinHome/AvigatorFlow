@@ -32,9 +32,9 @@ jobs:
       - name: git pull gitee master
         run: |
           git remote add gitee ${{ secrets.GITEE_AVIGATORFLOW }}
+          git config pull.rebase false
           git remote -v
           git pull gitee master --allow-unrelated-histories
-          git config pull.rebase false
       
       # cat
       - name: ls -al
