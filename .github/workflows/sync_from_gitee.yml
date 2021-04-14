@@ -27,7 +27,12 @@ jobs:
         run: |
           git --version
           pwd
+        
+      - name: git remote add gitee https://gitee.com/gavinhome/Avigatorflow
+        run: git remote add gitee https://gitee.com/gavinhome/Avigatorflow
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: ls -al
+      - name: git remote -v
+        run: git remote -v
+      
+      
