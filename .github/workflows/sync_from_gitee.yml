@@ -41,9 +41,10 @@ jobs:
           git remote -v
           git pull gitee master --allow-unrelated-histories
       
-      # cat
-      - name: ls -al
+      - name: git push origin main
         run: |
-          ls -al
+          git add .
+          git commit -m "pull from gitee"
+          git push origin main
       
       
