@@ -8,7 +8,7 @@
   <a href="https://github.com/didi/LogicFlow">
     <img src="https://img.shields.io/badge/LogicFlow-0.3.0-brightgreen.svg" alt="LogicFlow"></a>    
   <a href="https://gitee.com/gavinhome/Avigatorflow/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/gavinhome/Avigatorflow" alt="license"></a>
+    <img src="https://img.shields.io/github/license/gavinhome/AvigatorFlow" alt="license"></a>
 </p>
 
 
