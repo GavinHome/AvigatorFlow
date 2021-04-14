@@ -1,376 +1,376 @@
 {
-    "nodes": [
-        {
-            "id": "7cf75287-e220-4511-9b4b-c5820e279f23",
-            "type": "start",
-            "x": 300,
-            "y": 380,
-            "properties": {
-                "key": "start",
-                "name": "开始",
-                "enName": "Initiator",
-                "executor": {
-                    "type": "Initiator",
-                    "params": []
-                },
-                "description": "",
-                "aggregation": null,
-                "branch": "One",
-                "rule": "One",
-                "actions": [
-                    "Save",
-                    "Submit"
-                ]
-            },
-            "text": {
-                "x": 300,
-                "y": 380,
-                "value": "开始"
-            }
-        },
-        {
-            "id": "97676a5f-38a0-44d6-89ea-b676f6407fef",
-            "type": "approval",
-            "x": 500,
-            "y": 380,
-            "properties": {
-                "key": "approval1",
-                "name": "任务1",
-                "enName": "Approver",
-                "executor": {
-                    "type": "Designator",
-                    "params": [
-                        {
-                            "type": "Designator",
-                            "value": {
-                                "value": "user001",
-                                "text": "用户1"
-                            }
-                        }
-                    ]
-                },
-                "description": "",
-                "aggregation": "One",
-                "branch": "One",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ]
-            },
-            "text": {
-                "x": 500,
-                "y": 440,
-                "value": "任务1"
-            }
-        },
-        {
-            "id": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
-            "type": "approval",
-            "x": 700,
-            "y": 180,
-            "properties": {
-                "key": "approval2",
-                "name": "任务2",
-                "enName": "Approver",
-                "executor": {
-                    "type": "Role",
-                    "params": [
-                        {
-                            "type": "RoleId",
-                            "value": {
-                                "value": "ProjectManager",
-                                "text": "项目经理"
-                            }
-                        },
-                        {
-                            "type": "VariableId",
-                            "value": {
-                                "value": "abc",
-                                "text": "变量1"
-                            }
-                        }
-                    ]
-                },
-                "description": "",
-                "aggregation": "One",
-                "branch": "One",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ]
-            },
-            "text": {
-                "x": 700,
-                "y": 240,
-                "value": "任务2"
-            }
-        },
-        {
-            "id": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
-            "type": "approval",
-            "x": 700,
-            "y": 580,
-            "properties": {
-                "key": "approval3",
-                "name": "任务3",
-                "enName": "Approver",
-                "executor": {
-                    "type": "Variable",
-                    "params": [
-                        {
-                            "type": "VariableId",
-                            "value": {
-                                "value": "bcd",
-                                "text": "变量2"
-                            }
-                        }
-                    ]
-                },
-                "description": "",
-                "aggregation": "One",
-                "branch": "One",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ]
-            },
-            "text": {
-                "x": 700,
-                "y": 640,
-                "value": "任务3"
-            }
-        },
-        {
-            "id": "2837c7c3-5177-42ad-9743-973dce197a71",
-            "type": "gateway",
-            "x": 700,
-            "y": 380,
-            "properties": {
-                "key": "gateway",
-                "name": "网关节点",
-                "enName": "Gateway",
-                "executor": null,
-                "description": "",
-                "aggregation": "One",
-                "branch": "One",
-                "rule": "One",
-                "actions": null
-            },
-            "text": {
-                "x": 700,
-                "y": 428,
-                "value": "网关节点"
-            }
-        },
-        {
-            "id": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
-            "type": "end",
-            "x": 900,
-            "y": 380,
-            "properties": {
-                "key": "end",
-                "name": "结束",
-                "enName": "Completer",
-                "executor": null,
-                "description": "",
-                "aggregation": "One",
-                "branch": null,
-                "rule": "One",
-                "actions": null
-            },
-            "text": {
-                "x": 900,
-                "y": 428,
-                "value": "结束"
-            }
-        }
-    ],
-    "edges": [
-        {
-            "id": "319e2bd7-69d0-4467-8049-f6ea667d3a05",
-            "type": "polyline",
-            "sourceNodeId": "7cf75287-e220-4511-9b4b-c5820e279f23",
-            "targetNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
-            "startPoint": {
-                "x": 320,
-                "y": 380
-            },
-            "endPoint": {
-                "x": 450,
-                "y": 380
-            },
-            "properties": {},
-            "pointsList": [
-                {
-                    "x": 320,
-                    "y": 380
-                },
-                {
-                    "x": 450,
-                    "y": 380
-                }
-            ]
-        },
-        {
-            "id": "e030143b-63fe-4f5a-97ba-5c7caaf66b10",
-            "type": "polyline",
-            "sourceNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
-            "targetNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
-            "startPoint": {
-                "x": 550,
-                "y": 380
-            },
-            "endPoint": {
-                "x": 675,
-                "y": 380
-            },
-            "properties": {},
-            "pointsList": [
-                {
-                    "x": 550,
-                    "y": 380
-                },
-                {
-                    "x": 675,
-                    "y": 380
-                }
-            ]
-        },
-        {
-            "id": "cc5333d2-8f69-468d-8c59-faef08f78a94",
-            "type": "polyline",
-            "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
-            "targetNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
-            "startPoint": {
-                "x": 700,
-                "y": 355
-            },
-            "endPoint": {
-                "x": 700,
-                "y": 215
-            },
-            "properties": {
-                "name": "金额大于10万",
-                "condition": {
-                    "type": "Simple",
-                    "expressions": [
-                        {
-                            "type": "Expression",
-                            "expression": {
-                                "variable": "abc",
-                                "varType": "",
-                                "operator": ">",
-                                "value": "100000"
-                            }
-                        }
-                    ]
-                },
-                "enName": "Condition"
-            },
-            "text": {
-                "x": 750,
-                "y": 295,
-                "value": "金额大于10万"
-            },
-            "pointsList": [
-                {
-                    "x": 700,
-                    "y": 355
-                },
-                {
-                    "x": 700,
-                    "y": 215
-                }
-            ]
-        },
-        {
-            "id": "5923f496-ec87-4076-af6a-abba7ac01438",
-            "type": "polyline",
-            "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
-            "targetNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
-            "startPoint": {
-                "x": 700,
-                "y": 405
-            },
-            "endPoint": {
-                "x": 700,
-                "y": 545
-            },
-            "properties": {},
-            "pointsList": [
-                {
-                    "x": 700,
-                    "y": 405
-                },
-                {
-                    "x": 700,
-                    "y": 545
-                }
-            ]
-        },
-        {
-            "id": "be13b9a8-80ad-4704-a5be-da6a9911f4c6",
-            "type": "polyline",
-            "sourceNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
-            "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
-            "startPoint": {
-                "x": 750,
-                "y": 180
-            },
-            "endPoint": {
-                "x": 900,
-                "y": 360
-            },
-            "properties": {},
-            "pointsList": [
-                {
-                    "x": 750,
-                    "y": 180
-                },
-                {
-                    "x": 900,
-                    "y": 180
-                },
-                {
-                    "x": 900,
-                    "y": 360
-                }
-            ]
-        },
-        {
-            "id": "67035e93-8fd9-428b-8978-b1cc90a9d330",
-            "type": "polyline",
-            "sourceNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
-            "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
-            "startPoint": {
-                "x": 750,
-                "y": 580
-            },
-            "endPoint": {
-                "x": 900,
-                "y": 400
-            },
-            "properties": {},
-            "pointsList": [
-                {
-                    "x": 750,
-                    "y": 580
-                },
-                {
-                    "x": 900,
-                    "y": 580
-                },
-                {
-                    "x": 900,
-                    "y": 400
-                }
-            ]
-        }
-    ]
+  "nodes": [
+      {
+          "id": "7cf75287-e220-4511-9b4b-c5820e279f23",
+          "type": "start",
+          "x": 300,
+          "y": 380,
+          "properties": {
+              "key": "start",
+              "name": "开始",
+              "enName": "Initiator",
+              "executor": {
+                  "type": "Initiator",
+                  "params": []
+              },
+              "description": "",
+              "aggregation": null,
+              "branch": "One",
+              "rule": "One",
+              "actions": [
+                  "Save",
+                  "Submit"
+              ]
+          },
+          "text": {
+              "x": 300,
+              "y": 380,
+              "value": "开始"
+          }
+      },
+      {
+          "id": "97676a5f-38a0-44d6-89ea-b676f6407fef",
+          "type": "approval",
+          "x": 500,
+          "y": 380,
+          "properties": {
+              "key": "approval1",
+              "name": "任务1",
+              "enName": "Approver",
+              "executor": {
+                  "type": "Designator",
+                  "params": [
+                      {
+                          "type": "Designator",
+                          "value": {
+                              "value": "user001",
+                              "text": "用户1"
+                          }
+                      }
+                  ]
+              },
+              "description": "",
+              "aggregation": "One",
+              "branch": "One",
+              "rule": "One",
+              "actions": [
+                  "Pass",
+                  "Reject",
+                  "Assist"
+              ]
+          },
+          "text": {
+              "x": 500,
+              "y": 440,
+              "value": "任务1"
+          }
+      },
+      {
+          "id": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
+          "type": "approval",
+          "x": 700,
+          "y": 180,
+          "properties": {
+              "key": "approval2",
+              "name": "任务2",
+              "enName": "Approver",
+              "executor": {
+                  "type": "Role",
+                  "params": [
+                      {
+                          "type": "RoleId",
+                          "value": {
+                              "value": "ProjectManager",
+                              "text": "项目经理"
+                          }
+                      },
+                      {
+                          "type": "VariableId",
+                          "value": {
+                              "value": "abc",
+                              "text": "变量1"
+                          }
+                      }
+                  ]
+              },
+              "description": "",
+              "aggregation": "One",
+              "branch": "One",
+              "rule": "One",
+              "actions": [
+                  "Pass",
+                  "Reject",
+                  "Assist"
+              ]
+          },
+          "text": {
+              "x": 700,
+              "y": 240,
+              "value": "任务2"
+          }
+      },
+      {
+          "id": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
+          "type": "approval",
+          "x": 700,
+          "y": 580,
+          "properties": {
+              "key": "approval3",
+              "name": "任务3",
+              "enName": "Approver",
+              "executor": {
+                  "type": "Variable",
+                  "params": [
+                      {
+                          "type": "VariableId",
+                          "value": {
+                              "value": "bcd",
+                              "text": "变量2"
+                          }
+                      }
+                  ]
+              },
+              "description": "",
+              "aggregation": "One",
+              "branch": "One",
+              "rule": "One",
+              "actions": [
+                  "Pass",
+                  "Reject",
+                  "Assist"
+              ]
+          },
+          "text": {
+              "x": 700,
+              "y": 640,
+              "value": "任务3"
+          }
+      },
+      {
+          "id": "2837c7c3-5177-42ad-9743-973dce197a71",
+          "type": "gateway",
+          "x": 700,
+          "y": 380,
+          "properties": {
+              "key": "gateway",
+              "name": "网关节点",
+              "enName": "Gateway",
+              "executor": null,
+              "description": "",
+              "aggregation": "One",
+              "branch": "One",
+              "rule": "One",
+              "actions": null
+          },
+          "text": {
+              "x": 700,
+              "y": 428,
+              "value": "网关节点"
+          }
+      },
+      {
+          "id": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
+          "type": "end",
+          "x": 900,
+          "y": 380,
+          "properties": {
+              "key": "end",
+              "name": "结束",
+              "enName": "Completer",
+              "executor": null,
+              "description": "",
+              "aggregation": "One",
+              "branch": null,
+              "rule": "One",
+              "actions": null
+          },
+          "text": {
+              "x": 900,
+              "y": 428,
+              "value": "结束"
+          }
+      }
+  ],
+  "edges": [
+      {
+          "id": "319e2bd7-69d0-4467-8049-f6ea667d3a05",
+          "type": "polyline",
+          "sourceNodeId": "7cf75287-e220-4511-9b4b-c5820e279f23",
+          "targetNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
+          "startPoint": {
+              "x": 320,
+              "y": 380
+          },
+          "endPoint": {
+              "x": 450,
+              "y": 380
+          },
+          "properties": {},
+          "pointsList": [
+              {
+                  "x": 320,
+                  "y": 380
+              },
+              {
+                  "x": 450,
+                  "y": 380
+              }
+          ]
+      },
+      {
+          "id": "e030143b-63fe-4f5a-97ba-5c7caaf66b10",
+          "type": "polyline",
+          "sourceNodeId": "97676a5f-38a0-44d6-89ea-b676f6407fef",
+          "targetNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
+          "startPoint": {
+              "x": 550,
+              "y": 380
+          },
+          "endPoint": {
+              "x": 675,
+              "y": 380
+          },
+          "properties": {},
+          "pointsList": [
+              {
+                  "x": 550,
+                  "y": 380
+              },
+              {
+                  "x": 675,
+                  "y": 380
+              }
+          ]
+      },
+      {
+          "id": "cc5333d2-8f69-468d-8c59-faef08f78a94",
+          "type": "polyline",
+          "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
+          "targetNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
+          "startPoint": {
+              "x": 700,
+              "y": 355
+          },
+          "endPoint": {
+              "x": 700,
+              "y": 215
+          },
+          "properties": {
+              "name": "金额大于10万",
+              "condition": {
+                  "type": "Simple",
+                  "expressions": [
+                      {
+                          "type": "Expression",
+                          "expression": {
+                              "variable": "abc",
+                              "varType": "",
+                              "operator": ">",
+                              "value": "100000"
+                          }
+                      }
+                  ]
+              },
+              "enName": "Condition"
+          },
+          "text": {
+              "x": 750,
+              "y": 295,
+              "value": "金额大于10万"
+          },
+          "pointsList": [
+              {
+                  "x": 700,
+                  "y": 355
+              },
+              {
+                  "x": 700,
+                  "y": 215
+              }
+          ]
+      },
+      {
+          "id": "5923f496-ec87-4076-af6a-abba7ac01438",
+          "type": "polyline",
+          "sourceNodeId": "2837c7c3-5177-42ad-9743-973dce197a71",
+          "targetNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
+          "startPoint": {
+              "x": 700,
+              "y": 405
+          },
+          "endPoint": {
+              "x": 700,
+              "y": 545
+          },
+          "properties": {},
+          "pointsList": [
+              {
+                  "x": 700,
+                  "y": 405
+              },
+              {
+                  "x": 700,
+                  "y": 545
+              }
+          ]
+      },
+      {
+          "id": "be13b9a8-80ad-4704-a5be-da6a9911f4c6",
+          "type": "polyline",
+          "sourceNodeId": "77941a96-6ef4-48c1-9889-96dcb6ef79d6",
+          "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
+          "startPoint": {
+              "x": 750,
+              "y": 180
+          },
+          "endPoint": {
+              "x": 900,
+              "y": 360
+          },
+          "properties": {},
+          "pointsList": [
+              {
+                  "x": 750,
+                  "y": 180
+              },
+              {
+                  "x": 900,
+                  "y": 180
+              },
+              {
+                  "x": 900,
+                  "y": 360
+              }
+          ]
+      },
+      {
+          "id": "67035e93-8fd9-428b-8978-b1cc90a9d330",
+          "type": "polyline",
+          "sourceNodeId": "f6acff23-254d-4fa0-bc5a-c60ea7773a88",
+          "targetNodeId": "0b9920ef-6a3d-40bc-9101-fee887d74f9c",
+          "startPoint": {
+              "x": 750,
+              "y": 580
+          },
+          "endPoint": {
+              "x": 900,
+              "y": 400
+          },
+          "properties": {},
+          "pointsList": [
+              {
+                  "x": 750,
+                  "y": 580
+              },
+              {
+                  "x": 900,
+                  "y": 580
+              },
+              {
+                  "x": 900,
+                  "y": 400
+              }
+          ]
+      }
+  ]
 }
