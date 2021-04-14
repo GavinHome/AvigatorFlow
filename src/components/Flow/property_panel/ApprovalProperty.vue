@@ -13,7 +13,7 @@
         <el-input v-model="formData.name" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="审批人员">
-        <el-input v-model="formData.executor.code"></el-input>
+        <ExecutorSetting v-model="formData.executor" />
       </el-form-item>
       <el-form-item label="审批规则">
         <el-radio-group v-model="formData.rule">
@@ -68,10 +68,19 @@ import {
   DataOption,
   NodeNameConst,
   NodeIdConst,
+  ExecutorRuleType,
+  NodeNameTypeEnum,
 } from "../common/model";
+import { validateKeyExist } from "../common/validators";
 
-@Component
-export default class UserProperty extends Vue {
+import ExecutorSetting from "./executor_rule_setting/index.vue";
+
+@Component({
+  components: {
+    ExecutorSetting,
+  },
+})
+export default class ApprovalProperty extends Vue {
   //eslint-disable-next-line
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
@@ -96,10 +105,10 @@ export default class UserProperty extends Vue {
   formData: NodeSchema = {
     key: NodeIdConst.APPROVAL,
     name: NodeNameConst.APPROVAL,
-    enName: "Approver",
+    enName: NodeNameTypeEnum.Approver,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Designator,
+      params: [],
     },
     description: "",
     aggregation: AggregationModeType.AllAgreed,
@@ -112,7 +121,15 @@ export default class UserProperty extends Vue {
   };
 
   rulesData = {
-    key: [{ required: true, message: "请输入节点标识", trigger: "blur" }],
+    key: [
+      { required: true, message: "请输入节点标识", trigger: "blur" },
+      {
+        validator: validateKeyExist,
+        flow: this.lf,
+        id: this.nodeData.id,
+        trigger: "blur",
+      },
+    ],
     name: [{ required: true, message: "请输入节点名称", trigger: "blur" }],
   };
 
@@ -128,6 +145,7 @@ export default class UserProperty extends Vue {
     (this.$refs["ruleForm"] as any).validate((valid: boolean) => {
       if (valid) {
         const { id } = this.nodeData;
+        console.log(this.formData);
         this.lf.setProperties(id, this.formData);
         this.lf.updateText(id, this.formData.name);
         this.$emit("onClose");
@@ -138,5 +156,5 @@ export default class UserProperty extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/common.scss";
+@import "../common/style.scss";
 </style>

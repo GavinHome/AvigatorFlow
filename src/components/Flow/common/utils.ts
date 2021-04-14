@@ -1,6 +1,22 @@
 import LogicFlow, { GraphConfigData } from "@logicflow/core";
 import { EdgeSchema, NodeSchema } from "./model";
 
+// export function ObjToMap(obj: any) {
+//   return obj
+//     ? Object.keys(obj).map(function (key) {
+//         return [Number(key), obj[key]];
+//       })
+//     : null;
+// }
+
+// export function MapToObj(strMap: Map<any, any>) {
+//   const obj = Object.create(null);
+//   for (const [k, v] of strMap) {
+//     obj[k] = v;
+//   }
+//   return obj;
+// }
+
 export interface FlowNodeData extends NodeSchema {
   id: string;
   type: string;

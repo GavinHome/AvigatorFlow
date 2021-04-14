@@ -42,7 +42,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 import LogicFlow, { Definition } from "@logicflow/core";
-import { Menu, SelectionSelect, Snapshot, MiniMap } from "@logicflow/extension";
+import { Menu, SelectionSelect, Snapshot } from "@logicflow/extension";
 import "@logicflow/core/dist/style/index.css";
 import "@logicflow/extension/lib/style/index.css";
 
@@ -64,12 +64,17 @@ import {
 import { registerPolyline } from "./register_edges";
 
 import {
+  ConditionTypeEnum,
+  EdgeSchema,
   GraphConfigData,
+  loadInitDodes,
   NodeSchema,
   NodesData,
   schemaAdapter,
+  EdgeNameTypeEnum,
 } from "./common/model";
-import demoData from "./example.json";
+import { FlowData, getFlowData } from "./common/utils";
+// import demoData from "./example.json";
 
 @Component({
   components: {
@@ -79,10 +84,11 @@ import demoData from "./example.json";
     PropertyPanel,
   },
 })
-export default class Portal extends Vue {
+export default class FlowComponent extends Vue {
   //eslint-disable-next-line
   @Prop() private bodyStyle!: any;
   @Prop() private isSilentMode!: boolean;
+  // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
 
   private lf: LogicFlow | null = null;
 
@@ -116,7 +122,6 @@ export default class Portal extends Vue {
     // 使用插件
     LogicFlow.use(Menu);
     LogicFlow.use(Snapshot);
-    // LogicFlow.use(MiniMap);
     LogicFlow.use(SelectionSelect);
 
     // 画布配置
@@ -137,10 +142,10 @@ export default class Portal extends Vue {
     this.registerEdges();
 
     // 加载数据
-    this.lf.render(demoData);
+    this.lf.render({});
 
     // 加载默认节点
-    // loadInitDodes(this.lf);
+    loadInitDodes(this.lf);
 
     // 注册事件
     this.register_event();
@@ -253,6 +258,25 @@ export default class Portal extends Vue {
         var properties: NodeSchema | null = n ? schemaAdapter(n) : null;
 
         if (this.lf && properties) {
+          //TODO: key自增
+          var flowData = getFlowData(this.lf);
+          var key = this.getKey(
+            flowData,
+            properties.key,
+            properties.key,
+            1,
+            data.id
+          );
+          var name = this.getName(
+            flowData,
+            properties.name,
+            properties.name,
+            1,
+            data.id
+          );
+          properties.key = key;
+          properties.name = name;
+
           this.lf.setProperties(data.id, properties);
           data = this.lf.getNodeData(data.id);
         }
@@ -261,17 +285,54 @@ export default class Portal extends Vue {
         this.dialogVisible = true;
       });
 
-      this.lf.on("edge:add", ({ data }) => {
-        var properties = {
+      this.lf.on("edge:add", ({ data }): void => {
+        var properties: EdgeSchema = {
           name: "",
-          enName: "Condition",
-          condition: "",
+          enName: EdgeNameTypeEnum.Condition,
+          condition: {
+            type: ConditionTypeEnum.Default,
+            expressions: [],
+          },
         };
         if (this.lf) {
           this.lf.setProperties(data.id, properties);
         }
       });
     }
+  }
+
+  private getKey(
+    flowData: FlowData,
+    key: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.key === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getKey(flowData, key, key + next, next + 1, id);
+  }
+
+  private getName(
+    flowData: FlowData,
+    name: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.name === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getName(flowData, name, name + next, next + 1, id);
   }
 
   //关闭弹框
@@ -289,7 +350,7 @@ export default class Portal extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "@/assets/common.scss";
+@import "./common/style.scss";
 
 .avigator-flow-view {
   height: 100vh;
@@ -298,7 +359,7 @@ export default class Portal extends Vue {
   .control-menus {
     position: absolute;
     top: 50px;
-    right: 50px;
+    right: 55px;
     z-index: 2;
   }
 

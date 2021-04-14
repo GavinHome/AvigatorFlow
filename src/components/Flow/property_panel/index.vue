@@ -63,7 +63,7 @@ export default class PropertyPanel extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/common.scss";
+@import "../common/style.scss";
 .property-dialog {
   padding: 20px;
 }

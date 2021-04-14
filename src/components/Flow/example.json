@@ -1,346 +1,378 @@
-{
-    "nodes": [
-        {
-            "id": "1b1fbb85-e341-4cce-95c0-61fbfb18b82d",
-            "type": "start",
-            "x": 400,
-            "y": 280,
-            "properties": {
-                "name": "开始",
-                "enName": "Initiator",
-                "executor": {
-                    "name": "",
-                    "code": ""
-                },
-                "description": "",
-                "aggregation": null,
-                "rule": "One",
-                "actions": [
-                    "Save",
-                    "Submit"
-                ],
-                "key": "start"
+<template>
+  <div class="avigator-flow-view">
+    <slot name="title"></slot>
+
+    <!-- 辅助工具栏 -->
+    <Control
+      class="control-menus"
+      v-if="lf"
+      :lf="lf"
+      @catData="catData"
+    ></Control>
+    <!-- 节点面板 -->
+    <NodePanel :lf="lf"></NodePanel>
+
+    <!-- 画布 -->
+    <div id="flow-view" :style="bodyStyle"></div>
+
+    <!-- 属性面板 -->
+    <el-drawer
+      title="设置节点属性"
+      :visible.sync="dialogVisible"
+      direction="rtl"
+      size="500px"
+      :before-close="closeDialog"
+    >
+      <PropertyPanel
+        v-if="dialogVisible"
+        :nodeData="clickNode"
+        :lf="lf"
+        @setPropertiesFinish="closeDialog"
+      ></PropertyPanel>
+    </el-drawer>
+
+    <!-- 数据面板 -->
+    <el-dialog title="数据" :visible.sync="dataVisible" width="50%">
+      <DataPanel :graphData="graphData"></DataPanel>
+    </el-dialog>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+import LogicFlow, { Definition } from "@logicflow/core";
+import { Menu, SelectionSelect, Snapshot } from "@logicflow/extension";
+import "@logicflow/core/dist/style/index.css";
+import "@logicflow/extension/lib/style/index.css";
+
+import { flowConfig } from "./common/config";
+import { theme } from "./common/theme";
+import Control from "./tool_bar/index.vue";
+import NodePanel from "./node_panel/index.vue";
+import DataPanel from "./data_panel/index.vue";
+import PropertyPanel from "./property_panel/index.vue";
+
+import {
+  registerStart,
+  registerApproval,
+  registerGateway,
+  registerSystem,
+  registerEnd,
+} from "./register_nodes";
+
+import { registerPolyline } from "./register_edges";
+
+import {
+  ConditionTypeEnum,
+  EdgeSchema,
+  GraphConfigData,
+  loadInitDodes,
+  NodeSchema,
+  NodesData,
+  schemaAdapter,
+  EdgeNameTypeEnum,
+} from "./common/model";
+import { FlowData, getFlowData } from "./common/utils";
+// import demoData from "./example.json";
+
+@Component({
+  components: {
+    Control,
+    NodePanel,
+    DataPanel,
+    PropertyPanel,
+  },
+})
+export default class FlowComponent extends Vue {
+  //eslint-disable-next-line
+  @Prop() private bodyStyle!: any;
+  @Prop() private isSilentMode!: boolean;
+  // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
+
+  private lf: LogicFlow | null = null;
+
+  private clickNode = null;
+  private dialogVisible = false;
+  private graphData: GraphConfigData | null = null;
+  private dataVisible = false;
+
+  mounted(): void {
+    this.init();
+  }
+
+  //eslint-disable-next-line
+  public getData(): any {
+    if (this.lf) {
+      const data = this.lf.getGraphData();
+      // console.log(JSON.stringify(data));
+      return data;
+    }
+
+    return null;
+  }
+
+  /// 初始化
+  private init() {
+    let container = document.querySelector("#flow-view") as HTMLElement;
+    if (!container) {
+      return;
+    }
+
+    // 使用插件
+    LogicFlow.use(Menu);
+    LogicFlow.use(Snapshot);
+    LogicFlow.use(SelectionSelect);
+
+    // 画布配置
+    // eslint-disable-next-line
+    const config: Definition = flowConfig(container, this.isSilentMode);
+    this.lf = new LogicFlow({ ...config });
+
+    // 设置节点菜单
+    this.setMenu();
+
+    // 设置主题
+    this.lf.setTheme(theme);
+
+    // 注册节点
+    this.registerNodes();
+
+    // 注册连接
+    this.registerEdges();
+
+    // 加载数据
+    this.lf.render({});
+
+    // 加载默认节点
+    loadInitDodes(this.lf);
+
+    // 注册事件
+    this.register_event();
+
+    // MiniMap
+    // MiniMap.show(200, 200);
+  }
+
+  /// 设置节点菜单
+  private setMenu() {
+    if (this.lf) {
+      this.lf.setMenuConfig({
+        nodeMenu: [],
+        edgeMenu: [],
+      });
+
+      // 设置节点菜单
+      if (!this.isSilentMode) {
+        const menuConfig = {
+          nodeMenu: [
+            {
+              text: "属性",
+              // eslint-disable-next-line
+              callback: (node: any) => {
+                this.clickNode = node;
+                this.dialogVisible = true;
+              },
             },
-            "text": {
-                "x": 400,
-                "y": 280,
-                "value": "开始"
-            }
-        },
-        {
-            "id": "2e301e76-2462-47e4-9d56-02a6f944ca85",
-            "type": "end",
-            "x": 1110,
-            "y": 280,
-            "properties": {
-                "name": "结束",
-                "enName": "Completer",
-                "executor": null,
-                "description": "终止",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": null,
-                "key": "end"
+            {
+              text: "删除",
+              // eslint-disable-next-line
+              callback: (node: any) => {
+                console.log("node delete: ", node);
+                this.lf && this.lf.deleteNode(node.id);
+              },
             },
-            "text": {
-                "x": 1110,
-                "y": 328,
-                "value": "结束"
-            }
-        },
-        {
-            "id": "21616150-0b69-498a-b990-ed00e10a69e7",
-            "type": "approval",
-            "x": 630,
-            "y": 280,
-            "properties": {
-                "name": "任务1",
-                "enName": "Approver",
-                "executor": {
-                    "name": "",
-                    "code": "用户1"
-                },
-                "description": "用户001",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ],
-                "key": "approval"
+          ],
+          edgeMenu: [
+            {
+              text: "属性",
+              // eslint-disable-next-line
+              callback: (edge: any) => {
+                this.clickNode = edge;
+                this.dialogVisible = true;
+              },
             },
-            "text": {
-                "x": 630,
-                "y": 340,
-                "value": "任务1"
-            }
-        },
-        {
-            "id": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
-            "type": "approval",
-            "x": 860,
-            "y": 110,
-            "properties": {
-                "name": "任务2",
-                "enName": "Approver",
-                "executor": {
-                    "name": "",
-                    "code": "用户2"
-                },
-                "description": "用户002",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ],
-                "key": "approval"
+            {
+              text: "删除",
+              // eslint-disable-next-line
+              callback: (node: any) => {
+                console.log("edge delete: ", node);
+                this.lf && this.lf.deleteEdge(node.id);
+              },
             },
-            "text": {
-                "x": 860,
-                "y": 170,
-                "value": "任务2"
-            }
-        },
-        {
-            "id": "2e184190-7667-4cf5-be42-457c43d3824f",
-            "type": "approval",
-            "x": 860,
-            "y": 430,
-            "properties": {
-                "name": "任务3",
-                "enName": "Approver",
-                "executor": {
-                    "name": "",
-                    "code": "用户3"
-                },
-                "description": "用户003",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": [
-                    "Pass",
-                    "Reject",
-                    "Assist"
-                ],
-                "key": "approval"
-            },
-            "text": {
-                "x": 860,
-                "y": 490,
-                "value": "任务3"
-            }
-        },
-        {
-            "id": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "type": "gateway",
-            "x": 860,
-            "y": 280,
-            "properties": {
-                "name": "网关节点",
-                "enName": "Gateway",
-                "executor": null,
-                "description": "",
-                "aggregation": "All",
-                "rule": "One",
-                "actions": null,
-                "key": "gateway"
-            },
-            "text": {
-                "x": 860,
-                "y": 328,
-                "value": "网关节点"
-            }
+          ],
+        };
+        this.lf.addMenuConfig(menuConfig);
+      }
+    }
+  }
+
+  /// register node
+  private registerNodes() {
+    if (this.lf) {
+      registerStart(this.lf);
+      registerApproval(this.lf);
+      registerGateway(this.lf);
+      registerSystem(this.lf);
+      registerEnd(this.lf);
+    }
+  }
+
+  /// register edges
+  private registerEdges() {
+    if (this.lf) {
+      registerPolyline(this.lf);
+    }
+  }
+
+  /// register event
+  private register_event(): void {
+    if (this.lf) {
+      this.lf.on("node:click", ({ data }) => {
+        this.clickNode = data;
+      });
+
+      this.lf.on("node:dbclick", ({ data }) => {
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:dbclick", ({ data }) => {
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:click", ({ data }) => {
+        this.clickNode = data;
+      });
+
+      this.lf.on("connection:not-allowed", (data) => {
+        this.$message({
+          type: "error",
+          message: data.msg,
+        });
+      });
+
+      this.lf.on("node:add", ({ data }) => {
+        let n = NodesData.find((n) => n.type === data.type);
+        var properties: NodeSchema | null = n ? schemaAdapter(n) : null;
+
+        if (this.lf && properties) {
+          //TODO: key自增
+          var flowData = getFlowData(this.lf);
+          var key = this.getKey(
+            flowData,
+            properties.key,
+            properties.key,
+            1,
+            data.id
+          );
+          var name = this.getName(
+            flowData,
+            properties.name,
+            properties.name,
+            1,
+            data.id
+          );
+          properties.key = key;
+          properties.name = name;
+
+          this.lf.setProperties(data.id, properties);
+          data = this.lf.getNodeData(data.id);
         }
-    ],
-    "edges": [
-        {
-            "id": "6a74c017-e336-4c6d-af4e-84d1eb2982b4",
-            "type": "polyline",
-            "sourceNodeId": "1b1fbb85-e341-4cce-95c0-61fbfb18b82d",
-            "targetNodeId": "21616150-0b69-498a-b990-ed00e10a69e7",
-            "startPoint": {
-                "x": 420,
-                "y": 280
-            },
-            "endPoint": {
-                "x": 580,
-                "y": 280
-            },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
-            "pointsList": [
-                {
-                    "x": 420,
-                    "y": 280
-                },
-                {
-                    "x": 580,
-                    "y": 280
-                }
-            ]
-        },
-        {
-            "id": "bc088c42-022c-4c4f-b403-98d2f07c5a49",
-            "type": "polyline",
-            "sourceNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "targetNodeId": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
-            "startPoint": {
-                "x": 860,
-                "y": 255
-            },
-            "endPoint": {
-                "x": 860,
-                "y": 145
-            },
-            "properties": {
-                "name": "条件",
-                "enName": "Condition",
-                "condition": "${abc == 1}"
-            },
-            "text": {
-                "x": 860,
-                "y": 215,
-                "value": "条件"
-            },
-            "pointsList": [
-                {
-                    "x": 860,
-                    "y": 255
-                },
-                {
-                    "x": 860,
-                    "y": 145
-                }
-            ]
-        },
-        {
-            "id": "f0e8fb59-9b5a-4c38-9ccc-261814e2e690",
-            "type": "polyline",
-            "sourceNodeId": "aafb7442-ca0d-417f-ae31-e9e631fe538c",
-            "targetNodeId": "2e301e76-2462-47e4-9d56-02a6f944ca85",
-            "startPoint": {
-                "x": 910,
-                "y": 110
-            },
-            "endPoint": {
-                "x": 1110,
-                "y": 260
-            },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
-            "pointsList": [
-                {
-                    "x": 910,
-                    "y": 110
-                },
-                {
-                    "x": 1110,
-                    "y": 110
-                },
-                {
-                    "x": 1110,
-                    "y": 260
-                }
-            ]
-        },
-        {
-            "id": "e0b3613c-f1bc-4036-bc10-f83832f5acc8",
-            "type": "polyline",
-            "sourceNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "targetNodeId": "2e184190-7667-4cf5-be42-457c43d3824f",
-            "startPoint": {
-                "x": 860,
-                "y": 305
-            },
-            "endPoint": {
-                "x": 860,
-                "y": 395
-            },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
-            "pointsList": [
-                {
-                    "x": 860,
-                    "y": 305
-                },
-                {
-                    "x": 860,
-                    "y": 395
-                }
-            ]
-        },
-        {
-            "id": "a5136710-b0f8-4361-912c-1b24b70db884",
-            "type": "polyline",
-            "sourceNodeId": "21616150-0b69-498a-b990-ed00e10a69e7",
-            "targetNodeId": "5c818aaf-a7d7-49d9-bb20-e6567a54e165",
-            "startPoint": {
-                "x": 680,
-                "y": 280
-            },
-            "endPoint": {
-                "x": 835,
-                "y": 280
-            },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
-            "pointsList": [
-                {
-                    "x": 680,
-                    "y": 280
-                },
-                {
-                    "x": 835,
-                    "y": 280
-                }
-            ]
-        },
-        {
-            "id": "2f10655b-e18b-454b-a514-2482a29f9bbd",
-            "type": "polyline",
-            "sourceNodeId": "2e184190-7667-4cf5-be42-457c43d3824f",
-            "targetNodeId": "2e301e76-2462-47e4-9d56-02a6f944ca85",
-            "startPoint": {
-                "x": 910,
-                "y": 430
-            },
-            "endPoint": {
-                "x": 1110,
-                "y": 300
-            },
-            "properties": {
-                "name": "",
-                "enName": "Condition",
-                "condition": ""
-            },
-            "pointsList": [
-                {
-                    "x": 910,
-                    "y": 430
-                },
-                {
-                    "x": 1110,
-                    "y": 430
-                },
-                {
-                    "x": 1110,
-                    "y": 300
-                }
-            ]
+
+        this.clickNode = data;
+        this.dialogVisible = true;
+      });
+
+      this.lf.on("edge:add", ({ data }): void => {
+        var properties: EdgeSchema = {
+          name: "",
+          enName: EdgeNameTypeEnum.Condition,
+          condition: {
+            type: ConditionTypeEnum.Default,
+            expressions: [],
+          },
+        };
+        if (this.lf) {
+          this.lf.setProperties(data.id, properties);
         }
-    ]
+      });
+    }
+  }
+
+  private getKey(
+    flowData: FlowData,
+    key: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.key === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getKey(flowData, key, key + next, next + 1, id);
+  }
+
+  private getName(
+    flowData: FlowData,
+    name: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    var count: number = flowData.Nodes.filter(
+      (n) => n.name === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getName(flowData, name, name + next, next + 1, id);
+  }
+
+  //关闭弹框
+  private closeDialog(): void {
+    this.dialogVisible = false;
+  }
+
+  // 查看数据
+  private catData() {
+    this.graphData = this.lf ? this.lf.getGraphData() : null;
+    this.dataVisible = true;
+  }
 }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+@import "./common/style.scss";
+
+.avigator-flow-view {
+  height: 100vh;
+  position: relative;
+
+  .control-menus {
+    position: absolute;
+    top: 50px;
+    right: 55px;
+    z-index: 2;
+  }
+
+  #flow-view {
+    height: 100%;
+    outline: none;
+  }
+
+  .el-drawer__body {
+    height: 80%;
+    overflow: auto;
+    margin-top: -30px;
+    z-index: 3;
+  }
+}
+</style>

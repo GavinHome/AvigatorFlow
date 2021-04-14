@@ -85,10 +85,135 @@ export enum ApprovalActionType {
   ///提交
   Submit = "Submit",
 }
+
+///审批人规则类型
+export enum ExecutorRuleType {
+  ///发起人
+  Initiator = "Initiator",
+  ///指定人，流程前确定
+  Designator = "Designator",
+  ///变量：来自表单，执行时确定
+  Variable = "Variable",
+  ///角色
+  Role = "Role",
+  ///通过接口获取，需要把表单整体传到接口中（仅开发用）
+  Api = "Api",
+}
+
+export type ExecutorRuleParamTypeConst = "Designator" | "VariableId" | "RoleId";
+
+export enum ExecutorRuleParamTypeEnum {
+  ///Initiator
+  Initiator = "Initiator",
+  ///Designator
+  Designator = "Designator",
+  ///VariableId
+  VariableId = "VariableId",
+  ///RoleId
+  RoleId = "RoleId",
+  // ///OrganizationId
+  // OrganizationId = "OrganizationId",
+  // ///Url
+  Url = "Url",
+}
+
+///执行人（审批人）规则
+export interface ExecutorRuleModel {
+  type: ExecutorRuleType;
+  // params: Map<ExecutorRuleParamTypeEnum, DataOption | null>;
+  params: Array<ExecutorRuleParamModel>;
+}
+
+export interface ExecutorRuleParamModel {
+  type: ExecutorRuleParamTypeEnum;
+  value: DataOption | null;
+}
+
+///1. number: ==,>,>=,<,<=,!=,
+///2. string: ==
+
+///比较运算符号
+export enum ComparisonOperationSymbolEnum {
+  ///==
+  Eq = "==",
+  ///>
+  Gt = ">",
+  ///>=
+  Gte = ">=",
+  ///<
+  Lt = "<",
+  ///<=
+  Lte = "<=",
+  ///!=
+  Nte = "!=",
+}
+
+///逻辑运算符号
+export enum LogicOperatorSymbolEnum {
+  ///&&，逻辑与
+  And = "&&",
+  ///||，逻辑或
+  Or = "||",
+}
+
+///逻辑运算符号
+export enum BracketSymbolEnum {
+  ///左括号：(
+  Left = "(",
+  ///右括号：)
+  Right = ")",
+}
+
+///条件类型
+export enum ConditionTypeEnum {
+  ///默认，为空
+  Default = "None",
+  ///简单规则，例如${字段} == 1，
+  Simple = "Simple",
+  ///复杂表达式，多个简单表达式的复合形式
+  Complex = "Complex",
+}
+
+///规则类型
+export enum ConditionRuleTypeEnum {
+  ///括号符号
+  Bracket = "Bracket",
+  ///逻辑符号
+  Logic = "Logic",
+  ///表达式
+  Expression = "Expression",
+}
+
+///表达式项
+export interface ConditionExpressionModel {
+  variable: string; //表单字段
+  varType: string; //字段类型
+  operator: string; //比较操作
+  value: string | number | null; //右值
+}
+
+///规则：${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
+export interface ConditionRuleModel {
+  type: ConditionRuleTypeEnum; ///规则类型
+  expression: ConditionExpressionModel | string | null; ///表达式项
+}
+
+///条件
+export interface ConditionModel {
+  type: ConditionTypeEnum; ///类型
+  expressions: Array<ConditionRuleModel>; ///${abc}==1, (${abc}>1&&${bcd}<3)||${cde}!=3
+}
+
 /*************************** node properties end *****************/
 
 /*************************** edge type ***************************/
 export type EdgeNameType = "Condition";
+export const EdgeNameConst = {
+  CONDITION: "条件",
+};
+export enum EdgeNameTypeEnum {
+  Condition = "Condition",
+}
 export type EdgeType = "polyline";
 export enum EdgeNameTypeEnum {
   Polyline = "polyline",
@@ -96,8 +221,8 @@ export enum EdgeNameTypeEnum {
 /*************************** edge type end ***********************/
 
 /*************************** declare interface ***************************/
-///审批人结构
-export interface ExecutorModel {
+///用户信息
+export interface UserModel {
   name: string; ///姓名
   code: string; ///编号
 }
@@ -114,7 +239,7 @@ export interface NodeSchema {
   key: string;
   name: string; ///节点名称
   enName: NodeNameType; ///英文名称
-  executor: ExecutorModel | null; ///审批人员, 为空时自动处理
+  executor: ExecutorRuleModel | null; ///审批人员, 为空时自动处理
   description: string; ///节点描述
   aggregation?: AggregationModeType | null; ///聚合方式
   branch?: BranchModeType | null;
@@ -126,7 +251,7 @@ export interface NodeSchema {
 export interface EdgeSchema {
   name: string; ///节点名称
   enName: EdgeNameType; ///英文名称
-  condition: string; ///执行规则
+  condition: ConditionModel; ///执行规则
 }
 
 ///graph data for logic flow
@@ -167,6 +292,26 @@ export const nodeAdapter = (data: NodeData): NodeModel => {
     class: data.class,
   };
 };
+
+// export const executorAdapter = (data: ExecutorRuleModel): any => {
+//   return  {
+//     type: data.type,
+//     params: MapToObj(data.params),
+//   }
+// }
+
+// export const propertiesAdapter = (data: NodeSchema): any => {
+//   return {
+//     key: data.key,
+//     name: data.name,
+//     enName: data.enName,
+//     executor: data.executor ? executorAdapter(data.executor) : data.executor,
+//     description: data.description,
+//     aggregation: data.aggregation,
+//     rule: data.rule,
+//     actions: data.actions,
+//   }
+// }
 /*************************** schema Adapter end ***********************/
 
 /*************************** data common ******************************/
@@ -235,8 +380,8 @@ export const NodesData: Array<NodeData> = [
     name: NodeNameConst.START,
     enName: NodeNameTypeEnum.Initiator,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Initiator,
+      params: [],
     },
     description: "",
     aggregation: null,
@@ -252,8 +397,8 @@ export const NodesData: Array<NodeData> = [
     name: NodeNameConst.APPROVAL,
     enName: NodeNameTypeEnum.Approver,
     executor: {
-      name: "",
-      code: "",
+      type: ExecutorRuleType.Designator,
+      params: [],
     },
     description: "",
     aggregation: AggregationModeType.OneAgreed,
@@ -310,8 +455,8 @@ export const NodesData: Array<NodeData> = [
 ];
 
 export const loadInitDodes = (lf: LogicFlow): void => {
-  const start_x = 400,
-    start_y = 300,
+  const start_x = 300,
+    start_y = 380,
     offset_x = 200,
     offset_y = 100;
   if (lf) {
@@ -334,39 +479,112 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         type: NodeTypeEnum.Start,
         x: start_x,
         y: start_y,
-        text: startData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: startData.text,
+        },
         properties: { ...schemaAdapter(startData) },
       });
+
+      const task1Properties = schemaAdapter(task1Data);
+      task1Properties.key = "approval1";
+      task1Properties.name = "任务1";
+      task1Properties.executor = {
+        type: ExecutorRuleType.Designator,
+        params: [
+          {
+            type: ExecutorRuleParamTypeEnum.Designator,
+            value: {
+              value: "user001",
+              text: "用户1",
+            },
+          },
+        ],
+      };
 
       const task1Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x,
         y: start_y,
-        text: task1Data.text,
-        properties: { ...schemaAdapter(task1Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task1Properties.name,
+        },
+        properties: { ...task1Properties },
       });
 
+      const task2Properties = schemaAdapter(task2Data);
+      task2Properties.key = "approval2";
+      task2Properties.name = "任务2";
+      task2Properties.executor = {
+        type: ExecutorRuleType.Role,
+        params: [
+          {
+            type: ExecutorRuleParamTypeEnum.RoleId,
+            value: {
+              value: "ProjectManager",
+              text: "项目经理",
+            },
+          },
+          {
+            type: ExecutorRuleParamTypeEnum.VariableId,
+            value: {
+              value: "abc",
+              text: "变量1",
+            },
+          },
+        ],
+      };
       const task2Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
         y: start_y - offset_y * 2,
-        text: task2Data.text,
-        properties: { ...schemaAdapter(task2Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task2Properties.name,
+        },
+        properties: { ...task2Properties },
       });
 
+      const task3Properties = schemaAdapter(task3Data);
+      task3Properties.key = "approval3";
+      task3Properties.name = "任务3";
+      task3Properties.executor = {
+        type: ExecutorRuleType.Variable,
+        params: [
+          {
+            type: ExecutorRuleParamTypeEnum.VariableId,
+            value: {
+              value: "bcd",
+              text: "变量2",
+            },
+          },
+        ],
+      };
       const task3Node = lf.addNode({
         type: NodeTypeEnum.Approval,
         x: start_x + offset_x * 2,
         y: start_y + offset_y * 2,
-        text: task3Data.text,
-        properties: { ...schemaAdapter(task3Data) },
+        text: {
+          x: 1,
+          y: 1,
+          value: task3Properties.name,
+        },
+        properties: { ...task3Properties },
       });
 
       const gatewayNode = lf.addNode({
         type: NodeTypeEnum.Gateway,
         x: start_x + offset_x * 2,
         y: start_y,
-        text: gatewayData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: gatewayData.text,
+        },
         properties: { ...schemaAdapter(gatewayData) },
       });
 
@@ -374,7 +592,11 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         type: NodeTypeEnum.End,
         x: start_x + offset_x * 3,
         y: start_y,
-        text: endData.text,
+        text: {
+          x: 1,
+          y: 1,
+          value: endData.text,
+        },
         properties: { ...schemaAdapter(endData) },
       });
 
@@ -385,8 +607,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: task1Node.id,
         text: {
           value: "",
-          x: start_x + 160,
-          y: start_y + 35,
+          x: start_x + 80,
+          y: start_y - 10,
         },
       });
 
@@ -397,20 +619,39 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: gatewayNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100,
-          y: start_y + 35,
+          x: start_x + 100 + offset_x,
+          y: start_y - 10,
         },
       });
 
       // gateway ----> task2
+      const condition1: ConditionModel = {
+        type: ConditionTypeEnum.Simple,
+        expressions: [
+          {
+            type: ConditionRuleTypeEnum.Expression,
+            expression: {
+              variable: "abc",
+              varType: "",
+              operator: ">",
+              value: "100000",
+            },
+          },
+        ],
+      };
       lf.createEdge({
         type: EdgeNameTypeEnum.Polyline,
         sourceNodeId: gatewayNode.id,
         targetNodeId: task2Node.id,
         text: {
-          value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 50,
-          y: start_y,
+          value: "金额大于10万",
+          x: start_x + offset_x + 250,
+          y: start_y - offset_y + 15,
+        },
+        properties: {
+          name: "金额大于10万",
+          condition: condition1,
+          enName: EdgeNameTypeEnum.Condition,
         },
       });
 
@@ -418,11 +659,11 @@ export const loadInitDodes = (lf: LogicFlow): void => {
       lf.createEdge({
         type: EdgeNameTypeEnum.Polyline,
         sourceNodeId: gatewayNode.id,
-        targetNodeId: task2Node.id,
+        targetNodeId: task3Node.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 50,
-          y: start_y + 70,
+          x: start_x + offset_x + 220,
+          y: start_y + offset_y,
         },
       });
 
@@ -433,8 +674,8 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: endNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 100,
-          y: start_y - offset_y * 2 + 35,
+          x: start_x + offset_x * 3 + 20,
+          y: start_y - offset_y,
         },
       });
 
@@ -445,11 +686,101 @@ export const loadInitDodes = (lf: LogicFlow): void => {
         targetNodeId: endNode.id,
         text: {
           value: "",
-          x: start_x + 160 + offset_x + 100 + offset_x + 100,
-          y: start_y + offset_y * 2 + 35,
+          x: start_x + offset_x * 3 + 30,
+          y: start_y + offset_y,
         },
       });
     }
   }
 };
+
+export const ConditionRules: Array<DataOption> = [
+  {
+    value: ConditionTypeEnum.Default,
+    text: "无",
+  },
+  {
+    value: ConditionTypeEnum.Simple,
+    text: "简单规则",
+  },
+  {
+    value: ConditionTypeEnum.Complex,
+    text: "复杂规则",
+  },
+];
+
+export const ComparisonOperations: Array<DataOption> = [
+  {
+    value: ComparisonOperationSymbolEnum.Eq,
+    text: "等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Gt,
+    text: "大于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Gte,
+    text: "大于等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Lt,
+    text: "小于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Lte,
+    text: "小于等于",
+  },
+  {
+    value: ComparisonOperationSymbolEnum.Nte,
+    text: "不等于",
+  },
+];
+
+export const Brackets: Array<DataOption> = [
+  {
+    value: BracketSymbolEnum.Left,
+    text: BracketSymbolEnum.Left,
+  },
+  {
+    value: BracketSymbolEnum.Right,
+    text: BracketSymbolEnum.Right,
+  },
+];
+
+export const ExecutorRules: Array<DataOption> = [
+  {
+    value: ExecutorRuleType.Designator,
+    text: "全员",
+  },
+  {
+    value: ExecutorRuleType.Variable,
+    text: "表单变量",
+  },
+  {
+    value: ExecutorRuleType.Role,
+    text: "角色",
+  },
+  {
+    value: ExecutorRuleType.Api,
+    text: "接口",
+  },
+];
+
 /*************************** data common end ***************************/
+
+/*************************** form *******************************/
+export enum FieldTypeEnum {
+  Number = "number",
+  String = "string",
+  CheckBox = "checkbox",
+  RadioBox = "radiobox",
+  Select = "select",
+}
+
+export interface FieldSchema {
+  key: string;
+  name: string;
+  type: FieldTypeEnum;
+  options?: Array<DataOption>; //array type
+}
+/*************************** form end ***************************/
