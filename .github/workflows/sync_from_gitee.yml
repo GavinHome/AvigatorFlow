@@ -41,10 +41,20 @@ jobs:
           git remote -v
           git pull gitee master --allow-unrelated-histories
       
-      - name: git push origin main
+      - name: git add
         run: |
           git add .
+      
+      - name: git commit
+        run: |
           git commit -m "pull from gitee"
+      
+      - name: git branch
+        run: |
+          git branch
+      
+      - name: git push origin main
+        run: |
           git push
       
       
