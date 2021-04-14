@@ -28,11 +28,15 @@ jobs:
           git --version
           pwd
         
-      - name: git remote add gitee https://gitee.com/gavinhome/Avigatorflow
-        run: git remote add gitee https://gitee.com/gavinhome/Avigatorflow
-
-      # Runs a set of commands using the runners shell
-      - name: git remote -v
-        run: git remote -v
+      # git pull from gitee
+      - name: git pull gitee master
+        run: |
+          git remote add gitee https://gitee.com/gavinhome/Avigatorflow,          
+          git pull gitee master
+      
+      # cat
+      - name: ls -al
+        run: |
+          ls -al
       
       
