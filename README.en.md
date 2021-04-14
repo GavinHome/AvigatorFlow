@@ -12,7 +12,7 @@
 </p>
 
 
-[Simplified Chinese]((./README.md)) | English
+[Simplified Chinese](./README.md) | English
 
 The AvigatorFlow developed base on [vue](https://github.com/vuejs/vue) and [element-ui](https://github.com/ElemeFE/element), and using the [logicflow](https://github.com/didi/LogicFlow) as a graphic design engine, all of those are aimed at making developmemt simpler, and convenient, and more efficiently.
 
