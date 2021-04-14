@@ -17,7 +17,7 @@
 基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element) 实现的可视化流程设计器，使用了[LogicFlow](https://github.com/didi/LogicFlow)作为绘图设计引擎，可以让流程设计简单而便捷。
 
 
-* [在线预览](http://)
+* [在线预览](https://gavinhome.gitee.io/avigatorflow)
 * [开发指南](/docs/guide.zh-CN.md)
 * [流程组件](/docs/component.zh-CN.md)
 
