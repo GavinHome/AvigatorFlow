@@ -43,15 +43,7 @@ jobs:
       
       - name: git add
         run: |
-          git add .
-      
-      - name: git commit
-        run: |
-          git commit -m "pull from gitee"
-      
-      - name: git branch
-        run: |
-          git branch
+          git add .      
       
       - name: git push origin main
         run: |
