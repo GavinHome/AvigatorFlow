@@ -39,7 +39,7 @@ jobs:
           git remote add gitee ${{ secrets.GITEE_AVIGATORFLOW }}
           git config pull.rebase false
           git remote -v
-          git pull gitee master
+          git pull gitee master --allow-unrelated-histories
       
       - name: git push origin main
         run: |
