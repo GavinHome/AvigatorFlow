@@ -33,6 +33,7 @@ jobs:
         run: |
           git remote add gitee ${{ secrets.GITEE_AVIGATORFLOW }}
           git remote -v
+          git pull gitee master
       
       # cat
       - name: ls -al
