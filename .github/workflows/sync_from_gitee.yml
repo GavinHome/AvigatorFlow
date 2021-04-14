@@ -31,7 +31,7 @@ jobs:
       # git pull from gitee
       - name: git pull gitee master
         run: |
-          git remote add gitee ${{ secrets.gitee_avigatorflow }},
+          git remote add gitee ${{ secrets.GITEE_AVIGATORFLOW }},
           git pull gitee master
       
       # cat
