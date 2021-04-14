@@ -45,6 +45,6 @@ jobs:
         run: |
           git add .
           git commit -m "pull from gitee"
-          git push origin main
+          git push
       
       
