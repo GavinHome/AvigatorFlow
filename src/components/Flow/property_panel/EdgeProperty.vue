@@ -22,7 +22,7 @@ import {
   EdgeNameTypeEnum,
   EdgeSchema,
 } from "../common/model";
-import ConditionSetting from "../condition_setting/index.vue";
+import ConditionSetting from "./condition_rule_setting/index.vue";
 
 @Component({
   components: {

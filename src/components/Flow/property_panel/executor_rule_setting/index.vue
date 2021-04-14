@@ -62,7 +62,7 @@ import {
   ExecutorRules,
   ExecutorRuleType,
   FieldSchema,
-} from "../common/model";
+} from "../../common/model";
 
 import UserFetch from "./user_fetch.vue";
 import RoleFetch from "./role_fetch.vue";
@@ -170,7 +170,7 @@ export default class ExecutorRuleSettingComponent extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../common/style.scss";
+@import "../../common/style.scss";
 
 .el-card {
   border: none;

@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator";
-import { DataOption, FieldSchema } from "../common/model";
+import { DataOption, FieldSchema } from "../../common/model";
 
 @Component({
   model: {
@@ -49,7 +49,7 @@ export default class ExecutorRuleSettingComponent extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../common/style.scss";
+@import "../../common/style.scss";
 .option-left {
   color: #8492a6;
   font-size: 13px;

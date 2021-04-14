@@ -51,7 +51,7 @@ import {
   ConditionRules,
   DataOption,
   FieldSchema,
-} from "../common/model";
+} from "../../common/model";
 
 @Component({
   components: {},
@@ -70,5 +70,5 @@ export default class ExpressionComponent extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../common/style.scss";
+@import "../../common/style.scss";
 </style>

@@ -76,7 +76,7 @@ import {
   ConditionRuleTypeEnum,
   ConditionTypeEnum,
   DataOption,
-} from "../common/model";
+} from "../../common/model";
 
 import Expression from "./expression.vue";
 
@@ -109,5 +109,5 @@ export default class ConditionRuleSettingComponent extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../common/style.scss";
+@import "../../common/style.scss";
 </style>

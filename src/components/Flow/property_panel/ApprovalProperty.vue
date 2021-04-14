@@ -73,7 +73,7 @@ import {
 } from "../common/model";
 import { validateKeyExist } from "../common/validators";
 
-import ExecutorSetting from "../executor_setting/index.vue";
+import ExecutorSetting from "./executor_rule_setting/index.vue";
 
 @Component({
   components: {
