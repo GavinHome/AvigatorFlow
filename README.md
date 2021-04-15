@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/element--ui-2.15.1-brightgreen.svg" alt="element-ui"></a>
   <a href="https://github.com/didi/LogicFlow">
     <img src="https://img.shields.io/badge/LogicFlow-0.3.0-brightgreen.svg" alt="LogicFlow"></a>    
-  <a href="https://gitee.com/gavinhome/Avigatorflow/blob/master/LICENSE">
+  <a href="https://gitee.com/gavinhome/AvigatorFlow/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/gavinhome/AvigatorFlow" alt="license"></a>
 </p>
 
@@ -49,4 +49,4 @@ yarn serve
 
 [LGPL-3.0](https://opensource.org/licenses/LGPL-3.0)
 
-您可以将 AvigatorFlow 源码用于 LGPL 协议的开源项目中，并保留版权信息（Powered by <a target="_blank" href="https://gitee.com/gavinhome/Avigatorflow">AvigatorFlow</a>）
+您可以将 AvigatorFlow 源码用于 LGPL 协议的开源项目中，并保留版权信息（Powered by <a target="_blank" href="https://gitee.com/gavinhome/AvigatorFlow">AvigatorFlow</a>）
