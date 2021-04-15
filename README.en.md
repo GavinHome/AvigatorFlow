@@ -16,9 +16,9 @@
 
 The AvigatorFlow developed base on [vue](https://github.com/vuejs/vue) and [element-ui](https://github.com/ElemeFE/element), and using the [logicflow](https://github.com/didi/LogicFlow) as a graphic design engine, all of those are aimed at making developmemt simpler, and convenient, and more efficiently.
 
-* [Preview](https://gavinhome.gitee.io/avigatorflow)
-* [Development](/docs/guide.md)
-* [Components](/docs/component.md)
+* [Preview](https://gavinhome.github.io/AvigatorFlow/)
+* [Development](/docs/guide_en.md)
+* [Components](/docs/component_en.md)
 
 ## Feature
 
