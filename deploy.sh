@@ -1,9 +1,9 @@
 #! /bin/sh
-# VERSION='0.1'
+# VERSION='0.2'
 VERSION=$1
 GH_PAGES_FOLDER='gh-pages'
 mkdir $GH_PAGES_FOLDER 
-git clone --depth 1 -b gh-pages --single-branch https://gitee.com/gavinhome/Avigatorflow.git $GH_PAGES_FOLDER
+git clone --depth 1 -b gh-pages --single-branch https://gitee.com/gavinhome/AvigatorFlow.git $GH_PAGES_FOLDER
 cd $GH_PAGES_FOLDER
 
 # build version folder
