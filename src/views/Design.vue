@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName">
+  <el-tabs v-model="activeName" stretch>
     <el-tab-pane label="表单设计" name="form">
       <Form />
     </el-tab-pane>
