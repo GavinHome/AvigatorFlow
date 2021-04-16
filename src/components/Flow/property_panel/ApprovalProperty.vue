@@ -25,16 +25,6 @@
           >
         </el-radio-group>
       </el-form-item>
-      <!-- <el-form-item label="聚合方式">
-        <el-radio-group v-model="formData.aggregation">
-          <el-radio-button
-            v-for="(option, index) in aggregations"
-            :label="option.value"
-            :key="index"
-            >{{ option.text }}</el-radio-button
-          >
-        </el-radio-group>
-      </el-form-item> -->
       <el-form-item label="审批动作">
         <el-checkbox-group v-model="formData.actions">
           <el-checkbox-button
@@ -59,12 +49,10 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
 import {
-  AggregationModeType,
   ApprovalActionType,
   ApprovalRuleType,
   NodeSchema,
   ApprovalRules,
-  AggregationModes,
   DataOption,
   NodeNameConst,
   NodeIdConst,
@@ -86,18 +74,17 @@ export default class ApprovalProperty extends Vue {
   @Prop() private lf!: LogicFlow;
 
   rules = ApprovalRules;
-  aggregations = AggregationModes;
   actions: Array<DataOption> = [
     {
-      value: "Pass",
+      value: ApprovalActionType.Pass,
       text: "同意",
     },
     {
-      value: "Reject",
+      value: ApprovalActionType.Reject,
       text: "拒绝",
     },
     {
-      value: "Assist",
+      value: ApprovalActionType.Assist,
       text: "协审",
     },
   ];
@@ -111,7 +98,6 @@ export default class ApprovalProperty extends Vue {
       params: [],
     },
     description: "",
-    aggregation: AggregationModeType.AllAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: [
       ApprovalActionType.Pass,

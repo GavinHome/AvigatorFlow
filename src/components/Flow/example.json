@@ -14,7 +14,6 @@
                   "params": []
               },
               "description": "",
-              "aggregation": null,
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -50,7 +49,6 @@
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -94,7 +92,6 @@
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -131,7 +128,6 @@
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -157,7 +153,6 @@
               "enName": "Gateway",
               "executor": null,
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": null
@@ -179,7 +174,6 @@
               "enName": "Completer",
               "executor": null,
               "description": "",
-              "aggregation": "One",
               "branch": null,
               "rule": "One",
               "actions": null
