@@ -5,12 +5,13 @@
     <!-- 辅助工具栏 -->
     <Control
       class="control-menus"
+      :style="controlStyle"
       v-if="lf"
       :lf="lf"
       @catData="catData"
     ></Control>
     <!-- 节点面板 -->
-    <NodePanel :lf="lf"></NodePanel>
+    <NodePanel :lf="lf" :style="nodeStyle"></NodePanel>
 
     <!-- 画布 -->
     <div id="flow-view" :style="bodyStyle"></div>
@@ -87,6 +88,10 @@ import { FlowData, getFlowData } from "./common/utils";
 export default class FlowComponent extends Vue {
   //eslint-disable-next-line
   @Prop() private bodyStyle!: any;
+  //eslint-disable-next-line
+  @Prop() private controlStyle!: any;
+  //eslint-disable-next-line
+  @Prop() private nodeStyle!: any;
   @Prop() private isSilentMode!: boolean;
   // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
 
