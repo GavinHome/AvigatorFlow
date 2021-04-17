@@ -7,7 +7,7 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class FlowComponent extends Vue {
+export default class FormComponent extends Vue {
   //eslint-disable-next-line
 //   @Prop() private bodyStyle!: any;
 }
