@@ -1,0 +1,24 @@
+@import "../common/var.scss";
+
+$height: calc(100vh - #{$header-height * 2});
+$padding: 10px;
+
+.layout {
+  .base{
+    height: $height;
+    padding: $padding;
+    background-color: white;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border-radius: $border-radius;
+    overflow-y: auto;
+  }
+  .left {
+    @extend .base;
+  }
+  .middle {
+    @extend .base;
+  }
+  .right {
+    @extend .base;
+  }
+}

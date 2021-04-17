@@ -10,6 +10,8 @@
   "dependencies": {
     "@logicflow/core": "^0.3.0-beta.3",
     "@logicflow/extension": "^0.3.0-beta.3",
+    "@vue/composition-api": "^1.0.0-rc.6",
+    "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
