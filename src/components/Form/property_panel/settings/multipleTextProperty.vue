@@ -1,11 +1,3 @@
-<!--
-  - Copyright (c) QJJS. All rights reserved.
-  - ProjectName: Qjps.Configuration.Web
-  - FileName : multipleTextProperty.vue
-  - Author : yangxiaomin
-  - Date : 2020-06-09 08:02:43
-  -->
-
 <template>
   <div>
     <a-form-model
