@@ -4,26 +4,17 @@
       <template #left>
         <Card>
           <template #title> 组件列表 </template>
-          <a-row>
-            <a-col :span="24">
-              <WidgetPanel :column="2" />
-            </a-col>
-          </a-row>
+          <WidgetPanel :column="2" />
         </Card>
       </template>
       <template #middle>
         <div>
-          <!-- <Card>
-            <template #title>
-              <div class="flexBetween">
-                <span class="left">功能区</span>
-              </div>
-            </template>
+          <Card>
+            <template #title> 功能区 </template>
             <a-row>
-              <a-col :span="24">
-              </a-col>
+              <a-col :span="24"> </a-col>
             </a-row>
-          </Card> -->
+          </Card>
 
           <!-- <div class="center">
             <a-button type="primary">保存并新增</a-button>

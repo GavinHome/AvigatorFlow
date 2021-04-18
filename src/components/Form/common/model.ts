@@ -49,9 +49,11 @@ export interface WidgetSchema {
   icon: string;
   name: string;
   title: string;
-  placeHolder: string;
+  // placeHolder: string;
   prompt: string;
   description: string;
+  isRequired: boolean; //是否必填
+  isReadonly: boolean; //是否只读
   setting: FieldSettingModel;
   //eslint-disable-next-line
   value?: any;
@@ -64,8 +66,6 @@ export interface DataOption {
 }
 
 export interface FieldSettingModel {
-  isRequired: boolean; //是否必填
-  isReadonly: boolean; //是否只读
   isMultipleSelect?: boolean; //是否为多选，仅Select有效
   maxStringLength?: number; //长度（文本）
   maxNumberValue?: number; //最大值（数字）

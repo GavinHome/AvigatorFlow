@@ -69,13 +69,13 @@ export default class ComponentsToolbox extends Vue {
       name: data.name,
       icon: data.icon,
       title: data.text,
-      placeHolder: "",
+      // placeHolder: "",
       prompt: "",
       description: "",
+      isRequired: true,
+      isReadonly: false,
       setting: {
         isMultipleSelect: false,
-        isRequired: true,
-        isReadonly: false,
       },
       value: null,
     };
