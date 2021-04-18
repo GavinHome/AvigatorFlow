@@ -70,6 +70,7 @@ export default class ComponentsToolbox extends Vue {
       icon: data.icon,
       title: data.text,
       // placeHolder: "",
+      cols: 4,
       prompt: "",
       description: "",
       isRequired: true,

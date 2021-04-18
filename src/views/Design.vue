@@ -1,7 +1,7 @@
 <template>
   <el-tabs v-model="activeName" stretch>
     <el-tab-pane label="表单设计" name="form">
-      <Form :fields="[]"/>
+      <Form :fields="[]" />
     </el-tab-pane>
     <el-tab-pane label="流程设计" name="flow">
       <Flow

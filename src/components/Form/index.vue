@@ -46,12 +46,12 @@ import PagePanel from "./page_panel/index.vue";
     Card,
     WidgetPanel,
     PropertyPanel,
-    PagePanel
+    PagePanel,
   },
 })
 export default class FormComponent extends Vue {
   @Prop() selectItem!: WidgetSchema;
-  @Prop() fields!:Array<WidgetSchema>;
+  @Prop() fields!: Array<WidgetSchema>;
 }
 </script>
 

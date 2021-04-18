@@ -44,17 +44,18 @@ export interface WidgetNodeModel {
 
 export interface WidgetSchema {
   id: string;
-  code: string;
   type: WidgetTypeEnum;
   icon: string;
   name: string;
   title: string;
+  code: string;
   // placeHolder: string;
   prompt: string;
   description: string;
   isRequired: boolean; //是否必填
   isReadonly: boolean; //是否只读
   setting: FieldSettingModel;
+  cols: number; //列号
   //eslint-disable-next-line
   value?: any;
 }
@@ -188,3 +189,19 @@ export function getFieldTypeIcon(type: WidgetTypeEnum): string {
 //         },
 //     };
 // }
+
+/****************************** page form start ********************************/
+
+export interface PageModel {
+  name: string; //页面名称
+  description: string; //页面描述
+  rows: Array<FormRowModel>; //行元素
+}
+
+export interface FormRowModel {
+  fields: FieldSchema[]; //列元素, 字段集合
+}
+
+export type FieldSchema = WidgetSchema;
+
+/****************************** page form end ********************************/
