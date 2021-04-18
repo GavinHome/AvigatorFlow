@@ -1,7 +1,7 @@
 <template>
   <el-tabs v-model="activeName" stretch>
     <el-tab-pane label="表单设计" name="form">
-      <Form />
+      <Form :fields="[]"/>
     </el-tab-pane>
     <el-tab-pane label="流程设计" name="flow">
       <Flow
@@ -37,7 +37,7 @@ import Flow from "../components/Flow/index.vue";
   },
 })
 export default class FlowComponent extends Vue {
-  activeName = "flow";
+  activeName = "form";
 
   @Provide()
   fields = [

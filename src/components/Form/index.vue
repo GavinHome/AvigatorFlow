@@ -11,9 +11,7 @@
         <div>
           <Card>
             <template #title> 功能区 </template>
-            <a-row>
-              <a-col :span="24"> </a-col>
-            </a-row>
+            <PagePanel :fields="fields" @addField="handleAddField" />
           </Card>
 
           <!-- <div class="center">
@@ -28,33 +26,32 @@
         </div>
       </template>
       <template #right>
-        <!-- <component
-          :is="getPropertyComponentName"
-          ref="propertyPage"
-          :key="selectItem.fieldType"
-          :selectItem="selectItem"
-          :isFieldEditAction="isFieldEditAction"
-        /> -->
+        <PropertyPanel :widget="selectItem" />
       </template>
     </Layout>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { WidgetSchema } from "./common/model";
 import Layout from "./layout/index";
 import Card from "./common/card.vue";
 import WidgetPanel from "./widget_panel/index.vue";
+import PropertyPanel from "./property_panel/index.vue";
+import PagePanel from "./page_panel/index.vue";
 @Component({
   components: {
     Layout,
     Card,
     WidgetPanel,
+    PropertyPanel,
+    PagePanel
   },
 })
 export default class FormComponent extends Vue {
-  //eslint-disable-next-line
-//   @Prop() private bodyStyle!: any;
+  @Prop() selectItem!: WidgetSchema;
+  @Prop() fields!:Array<WidgetSchema>;
 }
 </script>
 

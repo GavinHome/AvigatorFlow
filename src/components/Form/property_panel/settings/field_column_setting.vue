@@ -31,3 +31,6 @@ export default class FieldClumns extends Vue {
   }
 }
 </script>
+<style scoped lang="scss">
+@import "../../common/style.scss";
+</style>

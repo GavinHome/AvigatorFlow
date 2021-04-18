@@ -1,39 +1,23 @@
-/*
- * Copyright (c) QJJS. All rights reserved.
- * ProjectName: Qinyin.Web
- * FileName : index.ts
- * Author : liyuhang
- * Date : 2020-03-03 17:13:23
- */
-
-import DefaultProperty from "@/views/pagePlan/builder/propertyConfig/components/defaultProperty.vue";
-import SingleTextProperty from "@/views/pagePlan/builder/propertyConfig/components/singleTextProperty.vue";
-import LabelProperty from "@/views/pagePlan/builder/propertyConfig/components/labelProperty.vue";
-import MultipleTextProperty from "@/views/pagePlan/builder/propertyConfig/components/multipleTextProperty.vue";
-import SwitchProperty from "@/views/pagePlan/builder/propertyConfig/components/switchProperty.vue";
-import NumberProperty from "@/views/pagePlan/builder/propertyConfig/components/numberProperty.vue";
-import DateProperty from "@/views/pagePlan/builder/propertyConfig/components/dateProperty.vue";
-import DateRangeProperty from "@/views/pagePlan/builder/propertyConfig/components/dateRangeProperty.vue";
-import SelectProperty from "@/views/pagePlan/builder/propertyConfig/components/selectProperty.vue";
-import TreeSelectProperty from "@/views/pagePlan/builder/propertyConfig/components/treeSelectProperty.vue";
-import RadioProperty from "@/views/pagePlan/builder/propertyConfig/components/radioProperty.vue";
-import CheckBoxProperty from "@/views/pagePlan/builder/propertyConfig/components/checkBoxProperty.vue";
-import CustomProperty from "@/views/pagePlan/builder/propertyConfig/components/customProperty.vue";
-import FileProperty from "@/views/pagePlan/builder/propertyConfig/components/fileProperty.vue";
+import DefaultProperty from "./settings/defaultProperty.vue";
+import SingleTextProperty from "./settings/singleTextProperty.vue";
+import LabelProperty from "./settings/labelProperty.vue";
+import MultipleTextProperty from "./settings/multipleTextProperty.vue";
+import NumberProperty from "./settings/numberProperty.vue";
+import DateProperty from "./settings/dateProperty.vue";
+import DateRangeProperty from "./settings/dateRangeProperty.vue";
+import SelectProperty from "./settings/selectProperty.vue";
+import RadioProperty from "./settings/radioProperty.vue";
+import CheckBoxProperty from "./settings/checkBoxProperty.vue";
 
 export {
   DefaultProperty,
   LabelProperty,
   SingleTextProperty,
   MultipleTextProperty,
-  SwitchProperty,
   NumberProperty,
   DateProperty,
   DateRangeProperty,
   SelectProperty,
-  TreeSelectProperty,
   RadioProperty,
   CheckBoxProperty,
-  CustomProperty,
-  FileProperty,
 };

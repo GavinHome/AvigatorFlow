@@ -4,7 +4,7 @@
       labelAlign="right"
       :rules="rules"
       :ref="formRef"
-      :model="selectItem"
+      :model="field"
       :label-col="{ span: 8 }"
       :wrapper-col="{ span: 16 }"
     >
@@ -14,7 +14,7 @@
           <a-col :span="24">
             <a-form-model-item has-feedback label="标题" prop="title">
               <a-input
-                v-model="selectItem.title"
+                v-model="fieldtitle"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_15"
@@ -23,7 +23,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="标识" prop="code">
               <a-input
-                v-model="selectItem.code"
+                v-model="fieldcode"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_10"
@@ -32,7 +32,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="提示" prop="prompt">
               <a-input
-                v-model="selectItem.prompt"
+                v-model="fieldprompt"
                 type="input"
                 :maxLength="INPUT_MAX_LENGTH_50"
                 autocomplete="off"
@@ -41,7 +41,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="描述" prop="description">
               <a-textarea
-                v-model="selectItem.description"
+                v-model="fielddescription"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_50"
@@ -49,21 +49,21 @@
               />
             </a-form-model-item>
             <a-form-model-item has-feedback label="字段列宽" prop="isRequired">
-              <FieldColumnSetting v-model="selectItem.column" />
+              <FieldColumnSetting v-model="fieldcolumn" />
             </a-form-model-item>
             <a-form-model-item has-feedback label="是否必填" prop="isRequired">
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="selectItem.isRequired"
+                v-model="fieldisRequired"
               />
             </a-form-model-item>
             <a-form-model-item has-feedback label="是否只读" prop="isReadonly">
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="selectItem.isReadonly"
-                :disabled="selectItem.isDisabled"
+                v-model="fieldisReadonly"
+                :disabled="fieldisDisabled"
               />
             </a-form-model-item>
             <a-form-model-item
@@ -74,7 +74,7 @@
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="selectItem.setting.isMultipleSelect"
+                v-model="fieldsetting.isMultipleSelect"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -85,7 +85,7 @@
         <template #title> 数据源 </template>
         <!-- <a-row>
           <a-col :span="24">
-            <DataSourceConfig :selectItem="selectItem" :disabled="readonly" />
+            <DataSourceConfig :field="field" :disabled="readonly" />
           </a-col>
         </a-row> -->
       </Card>
@@ -106,7 +106,7 @@ import FieldColumnSetting from "./field_column_setting.vue";
   },
 })
 export default class LabelProperty extends Vue {
-  @Prop() selectItem!: WidgetSchema;
+  @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
   formRef = "form";
   rules = !this.readonly
@@ -114,7 +114,7 @@ export default class LabelProperty extends Vue {
         // title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
         // code: [
         //   this.getRequireRule("请输入标识"),
-        //   this.getRemoteRule(API_FIELD_CHECK_CODE, this.selectItem, "标识重复"),
+        //   this.getRemoteRule(API_FIELD_CHECK_CODE, this.field, "标识重复"),
         //   this.getNonChineseRule(),
         //   this.getNonSpaceRule(),
         // ],
@@ -124,3 +124,6 @@ export default class LabelProperty extends Vue {
     : {};
 }
 </script>
+<style scoped lang="scss">
+@import "../../common/style.scss";
+</style>
