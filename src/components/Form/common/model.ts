@@ -46,6 +46,8 @@ export interface WidgetSchema {
   id: string;
   code: string;
   type: WidgetTypeEnum;
+  icon: string;
+  name: string;
   title: string;
   placeHolder: string;
   prompt: string;
@@ -77,7 +79,7 @@ export interface FieldSettingModel {
   options?: DataOption[];
 }
 
-export const componentsData: WidgetNodeModel[] = [
+export const WidgetsData: WidgetNodeModel[] = [
   {
     type: WidgetTypeEnum.Label,
     icon: "label_icon.png",
@@ -139,7 +141,7 @@ export function getComponentName(type: WidgetTypeEnum): string {
     return "";
   }
 
-  const comp = componentsData.filter((x) => x.type == type)[0];
+  const comp = WidgetsData.filter((x) => x.type == type)[0];
   return comp ? comp.name : "";
 }
 
@@ -167,7 +169,7 @@ export function getFieldTypeIcon(type: WidgetTypeEnum): string {
   //     return "custom_icon.png";
   // }
 
-  const comp = componentsData.filter((x) => x.type == type)[0];
+  const comp = WidgetsData.filter((x) => x.type == type)[0];
   return comp ? comp.icon : "";
 }
 
