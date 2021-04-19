@@ -1,61 +1,112 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { WidgetSchema } from "../common/model";
-import RenderField from "./renderField";
+import { FieldSchema, FormRowModel, PageModel } from "../common/model";
+import Container from "./container/index.vue";
 import draggable from "vuedraggable";
+import { openConfirmModal, openInfoModal } from "../common/modal";
 
 @Component({
   components: {
     draggable,
-    RenderField,
+    Container,
   },
 })
-export default class DraggleContainer extends Vue {
-  @Prop() fields!: Array<WidgetSchema>;
-  newIndex = 0;
-  draggable = true;
-  // displayName(field: FieldModel) {
-  //   if (field.fieldType === FieldTypeEnum.Number && field.setting.unitTypeId) {
-  //     const unit = this.unitCodes.find((x) => x.id === field.setting.unitTypeId);
-  //     return field.name ? field.name + (field.setting.unitTypeId && unit ? `（${unit.name}）` : "") + "：" : "";
-  //   }
+export default class PagePanel extends Vue {
+  @Prop() page!: PageModel;
+  selectRow: FormRowModel | null = null;
+  selectItem: FieldSchema | null = null;
 
-  //   return field.name ? field.name : "";
-  // }
+  pageFormRef = "pageForm";
+  loading = false;
 
-  // unitName(field: FieldModel) {
-  //   let unitName = "";
-  //   if (field.fieldType === FieldTypeEnum.Number && field.setting.unitTypeId) {
-  //     const unit = this.unitCodes.find((x) => x.id === field.setting.unitTypeId);
-  //     if (field.name && unit) {
-  //       unitName = unit.name;
-  //     }
-  //   }
-  //   return unitName;
-  // }
-
-  // 新增
-  handleAdd(res: any) {
-    this.newIndex = res.newIndex;
-    this.$emit("addField", this.fields[res.newIndex]);
+  //事件-增加行
+  async handleAddRow(): Promise<void> {
+    this.page.rows.push({
+      fields: [],
+    });
   }
 
-  // 选中
-  handleFormItemClick(index: number) {
-    this.$emit("selectedField", this.fields[index]);
+  //事件-选中行
+  async handleSelectRowClick(row: FormRowModel): Promise<void> {
+    this.selectRow = row;
   }
 
-  // changed
-  changed(e: any) {
-    if (e.added) {
-      console.log("added");
+  // 事件-删除行
+  async handleDeleteRow(row: FormRowModel): Promise<void> {
+    if (row.fields.length > 0) {
+      // 检查是否被公式引用
+      // if (!this.validIsRef(row.fields, group.groupName)) return;
+      openConfirmModal("提示", "是否删除该行？", () => this.deleteRow(row));
+    } else {
+      this.deleteRow(row);
     }
   }
 
-  // getComponentName(type: FieldTypeEnum) {
-  //   return getComponentName(type);
-  // }
+  //事件-新增字段
+  async handleAddField(row: FormRowModel, field: FieldSchema): Promise<void> {
+    if (row.fields.length >= 4) {
+      openInfoModal("提示", "本行已有四列，禁止拖放");
+    } else {
+      try {
+        this.addField(row, field);
+      } catch (error) {
+        console.log("新增字段出错： " + error);
+      }
+    }
+  }
 
-  // get draggable() {
-  //   return this.canDrag;
-  // }
+  //事件-选中字段
+  async handleSelectField(
+    row: FormRowModel,
+    field: FieldSchema
+  ): Promise<void> {
+    this.selectItem = field;
+    // this.selectItemMaxCols = 4 - row.fields.map((x) => x.columnNumber).reduce((sum, x) => sum + x) + this.selectItem.columnNumber;
+    this.$emit("selectedField", field);
+  }
+
+  //事件-移除字段
+  async handleRemoveField(
+    row: FormRowModel,
+    field: FieldSchema
+  ): Promise<void> {
+    this.deleteField(row, field);
+  }
+
+  //事件-移除字段
+  async handleDeleteField(
+    row: FormRowModel,
+    field: FieldSchema
+  ): Promise<void> {
+    this.deleteField(row, field);
+  }
+
+  // 删除行
+  private deleteRow(row: FormRowModel): void {
+    const index = this.page.rows.indexOf(row);
+    if (index !== -1) {
+      this.page.rows.splice(index, 1);
+    }
+  }
+
+  // 删除字段
+  private deleteField(row: FormRowModel, field: FieldSchema): void {
+    const index = row.fields.indexOf(field);
+    if (index !== -1) {
+      row.fields.splice(index, 1);
+    }
+  }
+
+  // 增加字段
+  private addField(row: FormRowModel, field: FieldSchema): void {
+    const item: FieldSchema = Object.assign({}, field);
+    row.fields.push(item);
+    //处理列数
+    // if (row.fields.map((x) => x.columnNumber).reduce((sum, x) => sum + x) > 4) {
+    //   row.fields.forEach((e, index) => {
+    //     e.columnNumber = this.getColumns(row.fields.length, index + 1);
+    //   });
+    // }
+
+    this.handleSelectField(row, item);
+  }
 }

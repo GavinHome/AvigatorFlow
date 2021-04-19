@@ -5,8 +5,8 @@
       :rules="rules"
       :ref="formRef"
       :model="field"
-      :label-col="{ span: 8 }"
-      :wrapper-col="{ span: 16 }"
+      :label-col="{ span: 6 }"
+      :wrapper-col="{ span: 18 }"
     >
       <Card>
         <template #title> 基本属性 </template>
@@ -14,7 +14,7 @@
           <a-col :span="24">
             <a-form-model-item has-feedback label="标题" prop="title">
               <a-input
-                v-model="fieldtitle"
+                v-model="field.title"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_15"
@@ -23,21 +23,21 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="标识" prop="code">
               <a-input
-                v-model="fieldcode"
+                v-model="field.code"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_10"
                 :disabled="readonly"
               />
             </a-form-model-item>
-            <a-form-model-item has-feedback label="字段列宽" prop="isRequired">
-              <FieldColumnSetting v-model="fieldcolumn" />
+            <a-form-model-item has-feedback label="占比" prop="isRequired">
+              <FieldColumnSetting v-model="field.column" :disabled="readonly" />
             </a-form-model-item>
             <a-form-model-item has-feedback label="是否必填" prop="isRequired">
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="fieldisRequired"
+                v-model="field.isRequired"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -45,7 +45,7 @@
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="fieldisReadonly"
+                v-model="field.isReadonly"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -55,7 +55,7 @@
               prop="setting.maxStringLength"
             >
               <a-input-number
-                v-model="fieldsetting.maxStringLength"
+                v-model="field.setting.maxStringLength"
                 :min="1"
                 :max="INPUT_MAX_NUMBER"
                 :step="1"
@@ -66,7 +66,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="描述" prop="description">
               <a-textarea
-                v-model="fielddescription"
+                v-model="field.description"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_50"
@@ -75,7 +75,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="提示" prop="prompt">
               <a-input
-                v-model="fieldprompt"
+                v-model="field.prompt"
                 type="input"
                 :maxLength="INPUT_MAX_LENGTH_50"
                 autocomplete="off"
@@ -90,10 +90,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
 import { WidgetSchema } from "../../common/model";
 import Card from "../../common/card.vue";
 import FieldColumnSetting from "./field_column_setting.vue";
+import FormMixin from "../minxins/formMixin";
 
 @Component({
   components: {
@@ -101,7 +102,7 @@ import FieldColumnSetting from "./field_column_setting.vue";
     FieldColumnSetting,
   },
 })
-export default class LabelProperty extends Vue {
+export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
   formRef = "form";

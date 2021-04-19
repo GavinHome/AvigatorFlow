@@ -1,7 +1,7 @@
 <template>
   <el-tabs v-model="activeName" stretch>
     <el-tab-pane label="表单设计" name="form">
-      <Form :fields="[]" />
+      <Form :page="page" />
     </el-tab-pane>
     <el-tab-pane label="流程设计" name="flow">
       <Flow
@@ -29,6 +29,7 @@
 import { Component, Provide, Vue } from "vue-property-decorator";
 import Form from "../components/Form/index.vue";
 import Flow from "../components/Flow/index.vue";
+import { PageModel, WidgetTypeEnum } from "@/components/Form/common/model";
 
 @Component({
   components: {
@@ -134,6 +135,32 @@ export default class FlowComponent extends Vue {
       text: "用户3",
     },
   ];
+
+  page: PageModel = {
+    name: "",
+    description: "",
+    rows: [
+      {
+        fields: [
+          {
+            id: "",
+            type: WidgetTypeEnum.SingleText,
+            icon: "",
+            name: "",
+            title: "单行文本",
+            code: "",
+            placeHolder: "",
+            prompt: "",
+            description: "",
+            isRequired: false,
+            isReadonly: false,
+            setting: {},
+            cols: 4,
+          },
+        ],
+      },
+    ],
+  };
 }
 </script>
 

@@ -5,8 +5,8 @@
       :rules="rules"
       :ref="formRef"
       :model="field"
-      :label-col="{ span: 8 }"
-      :wrapper-col="{ span: 16 }"
+      :label-col="{ span: 6 }"
+      :wrapper-col="{ span: 18 }"
     >
       <Card>
         <template #title> 基本属性 </template>
@@ -14,7 +14,7 @@
           <a-col :span="24">
             <a-form-model-item has-feedback label="标题" prop="title">
               <a-input
-                v-model="fieldtitle"
+                v-model="field.title"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_15"
@@ -23,7 +23,7 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="标识" prop="code">
               <a-input
-                v-model="fieldcode"
+                v-model="field.code"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_10"
@@ -32,19 +32,19 @@
             </a-form-model-item>
             <a-form-model-item has-feedback label="提示" prop="prompt">
               <a-input
-                v-model="fieldprompt"
+                v-model="field.prompt"
                 type="input"
                 :maxLength="INPUT_MAX_LENGTH_50"
                 autocomplete="off"
                 :disabled="readonly"
               />
             </a-form-model-item>
-            <a-form-model-item has-feedback label="字段列宽" prop="isRequired">
-              <FieldColumnSetting v-model="fieldcolumn" />
+            <a-form-model-item has-feedback label="占比" prop="isRequired">
+              <FieldColumnSetting v-model="field.column" :disabled="readonly" />
             </a-form-model-item>
             <a-form-model-item has-feedback label="描述" prop="description">
               <a-textarea
-                v-model="fielddescription"
+                v-model="field.description"
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_50"
@@ -55,15 +55,16 @@
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="fieldisRequired"
+                v-model="field.isRequired"
+                :disabled="readonly"
               />
             </a-form-model-item>
             <a-form-model-item has-feedback label="是否只读" prop="isReadonly">
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="fieldisReadonly"
-                :disabled="fieldisDisabled"
+                v-model="field.isReadonly"
+                :disabled="readonly"
               />
             </a-form-model-item>
             <a-form-model-item
@@ -74,7 +75,7 @@
               <a-switch
                 checked-children="是"
                 un-checked-children="否"
-                v-model="fieldsetting.isPercentage"
+                v-model="field.setting.isPercentage"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -84,7 +85,7 @@
               prop="setting.maxNumberValue"
             >
               <a-input-number
-                v-model="fieldsetting.maxNumberValue"
+                v-model="field.setting.maxNumberValue"
                 :step="1"
                 :precision="0"
                 class="input-number-property"
@@ -100,7 +101,7 @@
               prop="setting.minNumberValue"
             >
               <a-input-number
-                v-model="fieldsetting.minNumberValue"
+                v-model="field.setting.minNumberValue"
                 :step="1"
                 :precision="0"
                 :min="INPUT_NUMBER_MAX * -1"
@@ -116,7 +117,7 @@
               prop="setting.numberDigits"
             >
               <a-input-number
-                v-model="fieldsetting.numberDigits"
+                v-model="field.setting.numberDigits"
                 :min="0"
                 :max="9"
                 :step="1"
@@ -125,17 +126,17 @@
                 :disabled="readonly"
               />
             </a-form-model-item>
-            <a-form-model-item
+            <!-- <a-form-model-item
               has-feedback
               label="单位"
               prop="setting.unitTypeId"
             >
               <a-select
-                v-model="fieldsetting.unitTypeId"
+                v-model="field.setting.unitTypeId"
                 :options="unitTypeOptions"
                 :disabled="readonly"
               />
-            </a-form-model-item>
+            </a-form-model-item> -->
           </a-col>
         </a-row>
       </Card>
@@ -148,10 +149,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
 import { WidgetSchema } from "../../common/model";
 import Card from "../../common/card.vue";
 import FieldColumnSetting from "./field_column_setting.vue";
+import FormMixin from "../minxins/formMixin";
 
 @Component({
   components: {
@@ -159,7 +161,7 @@ import FieldColumnSetting from "./field_column_setting.vue";
     FieldColumnSetting,
   },
 })
-export default class LabelProperty extends Vue {
+export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
   formRef = "form";

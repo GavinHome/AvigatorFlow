@@ -49,7 +49,7 @@ export interface WidgetSchema {
   name: string;
   title: string;
   code: string;
-  // placeHolder: string;
+  placeHolder?: string;
   prompt: string;
   description: string;
   isRequired: boolean; //是否必填
@@ -76,8 +76,12 @@ export interface FieldSettingModel {
   isPercentage?: boolean; //百分比（数字）
   //eslint-disable-next-line
   defaultValue?: any; //默认值
-  // dataSourceType?: WidgetDataSourceTypeEnum;
+  dataSourceType?: WidgetDataSourceTypeEnum;
   options?: DataOption[];
+}
+
+export enum WidgetDataSourceTypeEnum {
+  Basic = "Basic",
 }
 
 export const WidgetsData: WidgetNodeModel[] = [

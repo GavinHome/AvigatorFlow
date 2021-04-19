@@ -35,14 +35,14 @@ import {
     CheckBoxProperty,
   },
 })
-export default class FormComponent extends Vue {
+export default class PropertyPanel extends Vue {
   @Prop() widget!: WidgetSchema;
 
-  get widgetType() {
+  get widgetType(): string {
     return this.widget && this.widget.type ? this.widget.type : "default";
   }
 
-  get widgetPropertyComponentName() {
+  get widgetPropertyComponentName(): string {
     return `${this.widgetType}Property`;
   }
 }

@@ -8,7 +8,7 @@ export default class Layout extends Vue {
   @Prop({ default: 8, type: Number }) readonly right!: number;
   @Prop({ default: 8, type: Number }) readonly gutter!: number;
 
-  render() {
+  render(): JSX.Element | undefined {
     return (
       <div class={"layout"}>
         <a-row gutter={this.gutter}>

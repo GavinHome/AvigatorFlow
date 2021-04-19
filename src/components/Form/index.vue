@@ -10,19 +10,17 @@
       <template #middle>
         <div>
           <Card>
-            <template #title> 功能区 </template>
-            <PagePanel :fields="fields" @addField="handleAddField" />
+            <template #title>
+              <span class="text-left"> 页面布局 </span>
+              <span class="float-right">
+                <a-button class="m-l-10" @click="() => {}"> 预览 </a-button>
+                <a-button class="m-l-10" @click="() => {}" type="primary">
+                  保存
+                </a-button>
+              </span>
+            </template>
+            <PagePanel :page="page" @selectedField="handleSelectedField" />
           </Card>
-
-          <!-- <div class="center">
-            <a-button type="primary">保存并新增</a-button>
-            <a-button class="m-l-10" type="primary"
-              >保存并退出</a-button
-            >
-            <a-button class="m-l-10" type="default"
-              >取消</a-button
-            >
-          </div> -->
         </div>
       </template>
       <template #right>
@@ -34,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { WidgetSchema } from "./common/model";
+import { PageModel, FieldSchema } from "./common/model";
 import Layout from "./layout/index";
 import Card from "./common/card.vue";
 import WidgetPanel from "./widget_panel/index.vue";
@@ -50,8 +48,13 @@ import PagePanel from "./page_panel/index.vue";
   },
 })
 export default class FormComponent extends Vue {
-  @Prop() selectItem!: WidgetSchema;
-  @Prop() fields!: Array<WidgetSchema>;
+  @Prop() page!: PageModel;
+  selectItem: FieldSchema | null = null;
+
+  // 事件-选中字段
+  handleSelectedField(field: FieldSchema): void {
+    this.selectItem = field;
+  }
 }
 </script>
 
