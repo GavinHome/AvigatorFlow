@@ -1,0 +1,50 @@
+{
+    "name": "",
+    "description": "",
+    "rows": [
+        {
+            "fields": [
+                {
+                    "id": "9ded1746-0949-4368-0699-98b359dc399d",
+                    "code": "",
+                    "type": "SingleText",
+                    "name": "a-input",
+                    "icon": "single_text_icon.png",
+                    "title": "单行文本",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "44f2c8ed-a990-f431-a487-b29774d28561",
+                    "code": "321",
+                    "type": "Label",
+                    "name": "label",
+                    "icon": "label_icon.png",
+                    "title": "描述文本",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "321",
+                    "description": "231",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "value": null
+                }
+            ]
+        }
+    ]
+}

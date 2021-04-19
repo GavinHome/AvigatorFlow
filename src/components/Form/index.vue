@@ -13,13 +13,16 @@
             <template #title>
               <span class="text-left"> 页面布局 </span>
               <span class="float-right">
+                <a-button class="m-l-10" @click="loadData"> 加载示例 </a-button>
                 <a-button class="m-l-10" @click="() => (dataVisible = true)">
                   数据
                 </a-button>
-                <a-button class="m-l-10" @click="() => {}"> 预览 </a-button>
-                <a-button class="m-l-10" @click="() => {}" type="primary">
-                  保存
+                <a-button class="m-l-10" @click="onPreview" type="primary">
+                  预览
                 </a-button>
+                <!-- <a-button class="m-l-10" @click="() => {}" type="primary">
+                  保存
+                </a-button> -->
               </span>
             </template>
             <PagePanel :page="page" @selectedField="handleSelectedField" />
@@ -56,6 +59,7 @@ import PropertyPanel from "./property_panel/index.vue";
 import PagePanel from "./page_panel/index.vue";
 import DataPanel from "./data_panel/index.vue";
 import Dialog from "./common/dialog.vue";
+import demoData from "./example.json";
 @Component({
   components: {
     Layout,
@@ -80,15 +84,23 @@ export default class FormComponent extends Vue {
     console.log("selectItemMaxCols", this.selectItemMaxCols);
   }
 
+  // 加载示例
+  loadData(): void {
+    this.page.name = demoData.name;
+    this.page.description = demoData.description;
+    this.page.rows = demoData.rows;
+  }
+
   catData(): void {
     this.dataVisible = true;
   }
+
+  onPreview(): void {}
 }
 </script>
 
 <style scoped lang="scss">
 @import "./common/style.scss";
-
 .avigator-form-view {
   height: 100vh;
   position: relative;
