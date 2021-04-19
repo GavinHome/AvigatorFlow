@@ -60,8 +60,7 @@ export default class PagePanel extends Vue {
     field: FieldSchema
   ): Promise<void> {
     this.selectItem = field;
-    // this.selectItemMaxCols = 4 - row.fields.map((x) => x.columnNumber).reduce((sum, x) => sum + x) + this.selectItem.columnNumber;
-    this.$emit("selectedField", field);
+    this.$emit("selectedField", row, field);
   }
 
   //事件-移除字段
@@ -101,12 +100,21 @@ export default class PagePanel extends Vue {
     const item: FieldSchema = Object.assign({}, field);
     row.fields.push(item);
     //处理列数
-    // if (row.fields.map((x) => x.columnNumber).reduce((sum, x) => sum + x) > 4) {
-    //   row.fields.forEach((e, index) => {
-    //     e.columnNumber = this.getColumns(row.fields.length, index + 1);
-    //   });
-    // }
+    if (row.fields.map((x) => x.cols).reduce((sum, x) => sum + x) > 4) {
+      row.fields.forEach((e, index) => {
+        e.cols = this.getColumns(row.fields.length, index + 1);
+      });
+    }
 
     this.handleSelectField(row, item);
+  }
+
+  private getColumns(fieldsCount: number, fieldIndex: number): number {
+    const count = fieldsCount === 3 ? 4 : fieldsCount;
+    if (fieldsCount === 3 && fieldIndex === 3) {
+      return (24 / (count * 6)) * 2;
+    } else {
+      return 24 / (count * 6);
+    }
   }
 }

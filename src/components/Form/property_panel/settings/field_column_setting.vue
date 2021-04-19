@@ -9,6 +9,7 @@
       :value="option.value"
       v-for="option of options"
       :key="option.value"
+      :disabled="option.disabled"
       >{{ option.text }}</a-radio-button
     >
   </a-radio-group>
@@ -26,6 +27,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   components: {},
 })
 export default class FieldClumns extends Vue {
+  @Prop({ default: 4 }) maxCols!: number;
   @Prop() columns!: number;
   @Prop() readonly!: boolean;
   cols: number = this.columns | 4;
@@ -35,15 +37,14 @@ export default class FieldClumns extends Vue {
       Object({
         value: col,
         text: `${col * 25}%`,
+        disabled: col <= this.maxCols ? false : true,
       })
     );
-
     return options;
   }
 
   //eslint-disable-next-line
   onChange(e: any): void {
-    debugger;
     this.$emit("change", e.target.value);
   }
 }

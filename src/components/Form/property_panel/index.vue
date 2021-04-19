@@ -3,11 +3,12 @@
     :is="widgetPropertyComponentName"
     :key="widgetType"
     :field="widget"
+    :maxCols="maxCols"
   />
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Provide, Vue } from "vue-property-decorator";
 import { WidgetSchema } from "../common/model";
 import {
   DefaultProperty,
@@ -37,6 +38,10 @@ import {
 })
 export default class PropertyPanel extends Vue {
   @Prop() widget!: WidgetSchema;
+
+  @Provide("maxCols")
+  @Prop()
+  maxCols!: number;
 
   get widgetType(): string {
     return this.widget && this.widget.type ? this.widget.type : "default";

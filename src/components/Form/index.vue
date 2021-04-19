@@ -27,7 +27,7 @@
         </div>
       </template>
       <template #right>
-        <PropertyPanel :widget="selectItem" />
+        <PropertyPanel :widget="selectItem" :maxCols="selectItemMaxCols" />
       </template>
     </Layout>
 
@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { PageModel, FieldSchema } from "./common/model";
+import { PageModel, FieldSchema, FormRowModel } from "./common/model";
 import Layout from "./layout/index";
 import Card from "./common/card.vue";
 import WidgetPanel from "./widget_panel/index.vue";
@@ -69,10 +69,14 @@ import Dialog from "./common/dialog.vue";
 export default class FormComponent extends Vue {
   @Prop() page!: PageModel;
   selectItem: FieldSchema | null = null;
+  selectItemMaxCols: number | null = null;
   dataVisible = false;
   // 事件-选中字段
-  handleSelectedField(field: FieldSchema): void {
+  handleSelectedField(row: FormRowModel, field: FieldSchema): void {
     this.selectItem = field;
+    const exist = row.fields.map((x) => x.cols).reduce((sum, x) => sum + x);
+    this.selectItemMaxCols = 4 - exist + this.selectItem.cols;
+    debugger;
   }
 
   catData(): void {

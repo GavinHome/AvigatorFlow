@@ -58,15 +58,6 @@
   }
 }
 
-// .drag-item {
-//   &:hover {
-//     border: 1px solid #1890ff;
-//     .delete-icon {
-//       display: block !important;
-//     }
-//   }
-// }
-
 .drag-item-display {
   padding: 0px 10px;
 }

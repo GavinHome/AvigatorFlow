@@ -49,7 +49,11 @@
               />
             </a-form-model-item>
             <a-form-model-item has-feedback label="占比" prop="isRequired">
-              <FieldColumnSetting v-model="field.cols" :disabled="readonly" />
+              <FieldColumnSetting
+                v-model="field.cols"
+                :disabled="readonly"
+                :maxCols="maxCols"
+              />
             </a-form-model-item>
             <a-form-model-item has-feedback label="是否必填" prop="isRequired">
               <a-switch
@@ -105,6 +109,7 @@ import FormMixin from "../minxins/formMixin";
 export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
+  @Prop({ default: 4 }) maxCols!: number;
   formRef = "form";
   rules = !this.readonly
     ? {

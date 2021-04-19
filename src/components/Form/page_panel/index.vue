@@ -27,7 +27,7 @@
               <a-tooltip placement="bottom" slot="actions" :title="'删除字段'">
                 <a-icon
                   type="delete"
-                  @click="handleDeleteField(field, row)"
+                  @click="handleDeleteField(row, field)"
                   class="text-right p-remove-icon"
                 />
               </a-tooltip>
