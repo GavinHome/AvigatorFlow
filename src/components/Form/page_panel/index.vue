@@ -9,7 +9,7 @@
         <template>
           <a-col
             v-for="(field, fieldIndex) of row.fields"
-            :span="field.column * 6"
+            :span="field.cols * 6"
             :class="'p-form-col'"
             :key="fieldIndex"
           >

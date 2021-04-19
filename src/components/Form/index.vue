@@ -13,6 +13,9 @@
             <template #title>
               <span class="text-left"> 页面布局 </span>
               <span class="float-right">
+                <a-button class="m-l-10" @click="() => (dataVisible = true)">
+                  数据
+                </a-button>
                 <a-button class="m-l-10" @click="() => {}"> 预览 </a-button>
                 <a-button class="m-l-10" @click="() => {}" type="primary">
                   保存
@@ -27,6 +30,18 @@
         <PropertyPanel :widget="selectItem" />
       </template>
     </Layout>
+
+    <!-- 数据面板 -->
+    <Dialog
+      :visible.sync="dataVisible"
+      :width="1000"
+      title="数据"
+      @cancel="dataVisible = false"
+      @ok="dataVisible = false"
+      okText="确定"
+    >
+      <DataPanel :graphData="page"></DataPanel>
+    </Dialog>
   </div>
 </template>
 
@@ -38,6 +53,8 @@ import Card from "./common/card.vue";
 import WidgetPanel from "./widget_panel/index.vue";
 import PropertyPanel from "./property_panel/index.vue";
 import PagePanel from "./page_panel/index.vue";
+import DataPanel from "./data_panel/index.vue";
+import Dialog from "./common/dialog.vue";
 @Component({
   components: {
     Layout,
@@ -45,15 +62,21 @@ import PagePanel from "./page_panel/index.vue";
     WidgetPanel,
     PropertyPanel,
     PagePanel,
+    Dialog,
+    DataPanel,
   },
 })
 export default class FormComponent extends Vue {
   @Prop() page!: PageModel;
   selectItem: FieldSchema | null = null;
-
+  dataVisible = false;
   // 事件-选中字段
   handleSelectedField(field: FieldSchema): void {
     this.selectItem = field;
+  }
+
+  catData(): void {
+    this.dataVisible = true;
   }
 }
 </script>

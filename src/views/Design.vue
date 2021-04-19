@@ -29,7 +29,7 @@
 import { Component, Provide, Vue } from "vue-property-decorator";
 import Form from "../components/Form/index.vue";
 import Flow from "../components/Flow/index.vue";
-import { PageModel, WidgetTypeEnum } from "@/components/Form/common/model";
+import { PageModel } from "@/components/Form/common/model";
 
 @Component({
   components: {
@@ -141,23 +141,7 @@ export default class FlowComponent extends Vue {
     description: "",
     rows: [
       {
-        fields: [
-          {
-            id: "",
-            type: WidgetTypeEnum.SingleText,
-            icon: "",
-            name: "",
-            title: "单行文本",
-            code: "",
-            placeHolder: "",
-            prompt: "",
-            description: "",
-            isRequired: false,
-            isReadonly: false,
-            setting: {},
-            cols: 4,
-          },
-        ],
+        fields: [],
       },
     ],
   };

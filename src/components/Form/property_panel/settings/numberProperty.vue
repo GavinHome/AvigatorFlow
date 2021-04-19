@@ -40,7 +40,7 @@
               />
             </a-form-model-item>
             <a-form-model-item has-feedback label="占比" prop="isRequired">
-              <FieldColumnSetting v-model="field.column" :disabled="readonly" />
+              <FieldColumnSetting v-model="field.cols" :disabled="readonly" />
             </a-form-model-item>
             <a-form-model-item has-feedback label="描述" prop="description">
               <a-textarea

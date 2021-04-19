@@ -252,10 +252,10 @@ export default class FlowComponent extends Vue {
       });
 
       this.lf.on("connection:not-allowed", (data) => {
-        this.$message({
-          type: "error",
-          message: data.msg,
-        });
+        // this.$message({
+        //   type: "error",
+        //   message: data.msg,
+        // });
       });
 
       this.lf.on("node:add", ({ data }) => {

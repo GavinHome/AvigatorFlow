@@ -1,5 +1,10 @@
 <template>
-  <a-radio-group v-model="column" button-style="solid" :disabled="readonly">
+  <a-radio-group
+    v-model="cols"
+    button-style="solid"
+    :disabled="readonly"
+    @change="onChange"
+  >
     <a-radio-button
       :value="option.value"
       v-for="option of options"
@@ -14,11 +19,16 @@ import { DataOption } from "../../common/model";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({
+  model: {
+    prop: "columns",
+    event: "change",
+  },
   components: {},
 })
 export default class FieldClumns extends Vue {
-  @Prop() column!: number;
+  @Prop() columns!: number;
   @Prop() readonly!: boolean;
+  cols: number = this.columns | 4;
 
   get options(): Array<DataOption> {
     const options = [1, 2, 3, 4].map((col) =>
@@ -29,6 +39,12 @@ export default class FieldClumns extends Vue {
     );
 
     return options;
+  }
+
+  //eslint-disable-next-line
+  onChange(e: any): void {
+    debugger;
+    this.$emit("change", e.target.value);
   }
 }
 </script>
