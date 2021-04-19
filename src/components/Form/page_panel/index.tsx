@@ -105,7 +105,6 @@ export default class PagePanel extends Vue {
         e.cols = this.getColumns(row.fields.length, index + 1);
       });
     }
-
     this.handleSelectField(row, item);
   }
 

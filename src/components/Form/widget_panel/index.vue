@@ -61,7 +61,6 @@ export default class ComponentsToolbox extends Vue {
   @Prop({ default: 2 }) column!: number;
   widgets: Array<WidgetNodeModel> = WidgetsData;
   cloneComponent(data: WidgetNodeModel): WidgetSchema {
-    console.log("widget node = ", data);
     return {
       id: NewId(),
       code: "",
@@ -69,7 +68,7 @@ export default class ComponentsToolbox extends Vue {
       name: data.name,
       icon: data.icon,
       title: data.text,
-      // placeHolder: "",
+      placeHolder: "",
       cols: 4,
       prompt: "",
       description: "",

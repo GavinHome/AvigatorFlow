@@ -35,6 +35,7 @@
     <Dialog
       :visible.sync="dataVisible"
       :width="1000"
+      :height="600"
       title="数据"
       @cancel="dataVisible = false"
       @ok="dataVisible = false"
@@ -75,8 +76,8 @@ export default class FormComponent extends Vue {
   handleSelectedField(row: FormRowModel, field: FieldSchema): void {
     this.selectItem = field;
     const exist = row.fields.map((x) => x.cols).reduce((sum, x) => sum + x);
-    this.selectItemMaxCols = 4 - exist + this.selectItem.cols;
-    debugger;
+    this.selectItemMaxCols = 4 - exist + field.cols;
+    console.log("selectItemMaxCols", this.selectItemMaxCols);
   }
 
   catData(): void {
