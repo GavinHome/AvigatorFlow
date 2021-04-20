@@ -1,0 +1,19 @@
+@import "./common/style.scss";
+
+$form-filed-min-height: 32px;
+
+.inputNumber {
+  width: 100%;
+}
+.calendarPicker {
+  width: 100%;
+}
+
+.a-custom-description {
+  min-height: $form-filed-min-height;
+  padding: 0px 10px;
+}
+
+.a-custom-label {
+  min-height: $form-filed-min-height;
+}

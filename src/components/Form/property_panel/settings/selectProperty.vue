@@ -112,19 +112,19 @@ export default class LabelProperty extends Mixins(FormMixin) {
   formRef = "form";
   rules = !this.readonly
     ? {
-        // title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
-        // code: [
-        //   this.getRequireRule("请输入标识"),
-        //   this.getRemoteRule(API_FIELD_CHECK_CODE, this.field, "标识重复"),
-        //   this.getNonChineseRule(),
-        //   this.getNonSpaceRule(),
-        // ],
-        // "setting.dataSourceType": [this.getRequireRule("请选择数据来源")],
-        // "setting.sourceTypeId": [this.getRequireRule("请选择基础参数")],
+        title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
+        code: [
+          this.getRequireRule("请输入标识"),
+          this.getUniqueRule(this.field, "标识重复"),
+          this.getNonChineseRule(),
+          this.getNonSpaceRule(),
+        ],
+        "setting.dataSourceType": [this.getRequireRule("请选择数据来源")],
+        "setting.sourceTypeId": [this.getRequireRule("请选择基础参数")],
       }
     : {};
 }
 </script>
 <style scoped lang="scss">
-@import "../../common/style.scss";
+@import "../../form.scss";
 </style>

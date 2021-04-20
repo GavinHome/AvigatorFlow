@@ -60,7 +60,7 @@
                 :max="INPUT_MAX_NUMBER"
                 :step="1"
                 :precision="0"
-                class="input-number-property"
+                class="inputNumber"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -106,20 +106,28 @@ export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
   formRef = "form";
+
+  get minStringLength(): number {
+    return this.field.setting.maxStringLength || 1;
+  }
+
   rules = !this.readonly
     ? {
-        // title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
-        // code: [
-        //   this.getRequireRule("请输入标识"),
-        //   this.getRemoteRule(API_FIELD_CHECK_CODE, this.field, "标识重复"),
-        //   this.getNonChineseRule(),
-        //   this.getNonSpaceRule(),
-        // ],
-        // "setting.maxStringLength": [this.getRequireRule("请输入最大长度")],
+        title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
+        code: [
+          this.getRequireRule("请输入标识"),
+          this.getUniqueRule(this.field, "标识重复"),
+          this.getNonChineseRule(),
+          this.getNonSpaceRule(),
+        ],
+        "setting.maxStringLength": [
+          this.getRequireRule("请输入最大长度"),
+          this.getNumberMinRule(this.minStringLength),
+        ],
       }
     : {};
 }
 </script>
 <style scoped lang="scss">
-@import "../../common/style.scss";
+@import "../../form.scss";
 </style>

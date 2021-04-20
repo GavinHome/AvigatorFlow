@@ -1,4 +1,5 @@
 export enum WidgetTypeEnum {
+  Description = "Description",
   Label = "Label",
   SingleText = "SingleText",
   MultipleText = "MultipleText",
@@ -12,12 +13,14 @@ export enum WidgetTypeEnum {
 
 export function toWidgetText(type: WidgetTypeEnum): string {
   switch (type) {
-    case WidgetTypeEnum.Label:
+    case WidgetTypeEnum.Description:
       return "描述文本";
+    case WidgetTypeEnum.Label:
+      return "静态文本";
     case WidgetTypeEnum.SingleText:
-      return "单行文本";
+      return "单行输入";
     case WidgetTypeEnum.MultipleText:
-      return "多行文本";
+      return "多行输入";
     case WidgetTypeEnum.Number:
       return "数字";
     case WidgetTypeEnum.Date:
@@ -55,9 +58,14 @@ export interface WidgetSchema {
   isRequired: boolean; //是否必填
   isReadonly: boolean; //是否只读
   setting: FieldSettingModel;
+  style?: StyleSettingModel;
   cols: number; //列号
   //eslint-disable-next-line
   value?: any;
+}
+
+export interface StyleSettingModel {
+  fontSize?: number;
 }
 
 ///选项类型
@@ -85,6 +93,12 @@ export enum WidgetDataSourceTypeEnum {
 }
 
 export const WidgetsData: WidgetNodeModel[] = [
+  {
+    type: WidgetTypeEnum.Description,
+    icon: "label_icon.png",
+    text: toWidgetText(WidgetTypeEnum.Description),
+    name: "a-description",
+  },
   {
     type: WidgetTypeEnum.Label,
     icon: "label_icon.png",
@@ -170,29 +184,9 @@ export function getFieldTypeIcon(type: WidgetTypeEnum): string {
     return "";
   }
 
-  // if (type == WidgetTypeEnum.Custom) {
-  //     return "custom_icon.png";
-  // }
-
   const comp = WidgetsData.filter((x) => x.type == type)[0];
   return comp ? comp.icon : "";
 }
-
-// export function getEmptyFieldInfo() {
-//     return {
-//         id: "",
-//         name: "",
-//         code: "",
-//         description: "",
-//         placeHolder: "",
-//         prompt: "",
-//         setting: {
-//             isMultipleSelect: false,
-//             isPercentage: false,
-//             options: [],
-//         },
-//     };
-// }
 
 /****************************** page form start ********************************/
 

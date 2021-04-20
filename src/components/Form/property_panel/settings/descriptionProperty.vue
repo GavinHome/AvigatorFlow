@@ -9,7 +9,7 @@
       :wrapper-col="{ span: 18 }"
     >
       <Card>
-        <template #title>基本属性</template>
+        <template #title> 基本属性 </template>
         <a-row>
           <a-col :span="24">
             <a-form-model-item has-feedback label="标题" prop="title">
@@ -21,7 +21,7 @@
                 :disabled="readonly"
               />
             </a-form-model-item>
-            <a-form-model-item has-feedback label="标识" prop="code">
+            <!-- <a-form-model-item has-feedback label="标识" prop="code">
               <a-input
                 v-model="field.code"
                 type="input"
@@ -29,8 +29,8 @@
                 :maxLength="INPUT_MAX_LENGTH_10"
                 :disabled="readonly"
               />
-            </a-form-model-item>
-            <a-form-model-item has-feedback label="提示" prop="prompt">
+            </a-form-model-item> -->
+            <!-- <a-form-model-item has-feedback label="提示" prop="prompt">
               <a-input
                 v-model="field.prompt"
                 type="input"
@@ -38,7 +38,7 @@
                 autocomplete="off"
                 :disabled="readonly"
               />
-            </a-form-model-item>
+            </a-form-model-item> -->
             <a-form-model-item has-feedback label="描述" prop="description">
               <a-textarea
                 v-model="field.description"
@@ -51,21 +51,19 @@
             <a-form-model-item has-feedback label="占比" prop="isRequired">
               <FieldColumnSetting v-model="field.cols" :disabled="readonly" />
             </a-form-model-item>
-            <a-form-model-item has-feedback label="是否必填" prop="isRequired">
-              <a-switch
-                checked-children="是"
-                un-checked-children="否"
-                v-model="field.isRequired"
+            <a-form-model-item has-feedback label="字号" prop="style.fontSize">
+              <a-radio-group
+                v-model="field.style.fontSize"
+                button-style="solid"
                 :disabled="readonly"
-              />
-            </a-form-model-item>
-            <a-form-model-item has-feedback label="是否只读" prop="isReadonly">
-              <a-switch
-                checked-children="是"
-                un-checked-children="否"
-                v-model="field.isReadonly"
-                :disabled="readonly"
-              />
+              >
+                <a-radio-button
+                  :value="value"
+                  v-for="value of [12, 14, 16, 18, 20]"
+                  :key="value"
+                  >{{ value }}</a-radio-button
+                >
+              </a-radio-group>
             </a-form-model-item>
           </a-col>
         </a-row>
@@ -76,8 +74,8 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from "vue-property-decorator";
-import Card from "../../common/card.vue";
 import { WidgetSchema } from "../../common/model";
+import Card from "../../common/card.vue";
 import FieldColumnSetting from "./field_column_setting.vue";
 import FormMixin from "../minxins/formMixin";
 
@@ -87,7 +85,7 @@ import FormMixin from "../minxins/formMixin";
     FieldColumnSetting,
   },
 })
-export default class DateProperty extends Mixins(FormMixin) {
+export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
   @Prop() readonly!: boolean;
   formRef = "form";
@@ -100,6 +98,7 @@ export default class DateProperty extends Mixins(FormMixin) {
           this.getNonChineseRule(),
           this.getNonSpaceRule(),
         ],
+        defaultValue: [this.getRequireRule("请输入字段内容")],
       }
     : {};
 }

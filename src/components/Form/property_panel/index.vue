@@ -21,6 +21,7 @@ import {
   SelectProperty,
   RadioProperty,
   CheckBoxProperty,
+  DescriptionProperty,
 } from "./index";
 @Component({
   components: {
@@ -34,6 +35,7 @@ import {
     SelectProperty,
     RadioProperty,
     CheckBoxProperty,
+    DescriptionProperty,
   },
 })
 export default class PropertyPanel extends Vue {

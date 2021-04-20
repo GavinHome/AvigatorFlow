@@ -74,6 +74,9 @@ export default class ComponentsToolbox extends Vue {
       description: "",
       isRequired: true,
       isReadonly: false,
+      style: {
+        fontSize: 14,
+      },
       setting: {
         isMultipleSelect: false,
       },

@@ -1,3 +1,4 @@
+/*eslint-disable */
 import { Component, Vue } from "vue-property-decorator";
 import {
   REGEX_NO_SPACE,
@@ -14,6 +15,13 @@ import {
   FORM_LAYOUT,
 } from "../../common/const";
 import { FormModel } from "ant-design-vue";
+import {
+  getMaxLengthRule,
+  getNonChineseRule,
+  getNonSpaceRule,
+  getNumberMinRule,
+  getRequireRule,
+} from "../../common/validators";
 @Component
 export default class FormMixin extends Vue {
   REGEX_NO_SPACE: string = REGEX_NO_SPACE;
@@ -64,5 +72,30 @@ export default class FormMixin extends Vue {
 
   form(refName: string): FormModel {
     return this.$refs[refName] as FormModel;
+  }
+
+  getMaxLengthRule(maxLength: number, msg?: string) {
+    return getMaxLengthRule(maxLength, msg);
+  }
+
+  getRequireRule(msg: string) {
+    return getRequireRule(msg);
+  }
+
+  getNonChineseRule(msg?: string) {
+    return getNonChineseRule(msg);
+  }
+
+  getNonSpaceRule(msg?: string) {
+    return getNonSpaceRule(msg);
+  }
+
+  getNumberMinRule(min: number, msg?: string) {
+    return getNumberMinRule(min, msg);
+  }
+
+  getUniqueRule(data: any, msg?: string) {
+    // return getRemoteRule(url, data, msg);
+    return false;
   }
 }

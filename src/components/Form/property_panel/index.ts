@@ -8,6 +8,7 @@ import DateRangeProperty from "./settings/dateRangeProperty.vue";
 import SelectProperty from "./settings/selectProperty.vue";
 import RadioProperty from "./settings/radioProperty.vue";
 import CheckBoxProperty from "./settings/checkBoxProperty.vue";
+import DescriptionProperty from "./settings/descriptionProperty.vue";
 
 export {
   DefaultProperty,
@@ -20,4 +21,5 @@ export {
   SelectProperty,
   RadioProperty,
   CheckBoxProperty,
+  DescriptionProperty,
 };

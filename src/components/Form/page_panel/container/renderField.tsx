@@ -31,31 +31,48 @@ export default class RenderField extends Vue {
     }
 
     switch (this.field.type) {
+      case WidgetTypeEnum.Description:
+        return this.renderDescription(this.field);
       case WidgetTypeEnum.Label:
         return this.renderLabel(this.field);
       case WidgetTypeEnum.SingleText:
         return this.renderSingleText(this.field);
       case WidgetTypeEnum.MultipleText:
         return this.renderMultipleText(this.field);
+      case WidgetTypeEnum.Number:
+        return this.renderNumber(this.field);
+      case WidgetTypeEnum.Date:
+        return this.renderDate(this.field);
+      case WidgetTypeEnum.DateRange:
+        return this.renderDateRange(this.field);
       case WidgetTypeEnum.Select:
         return this.renderSelect(this.field);
       case WidgetTypeEnum.Radio:
         return this.renderRadio(this.field);
       case WidgetTypeEnum.CheckBox:
         return this.renderCheckBox(this.field);
-      case WidgetTypeEnum.Date:
-        return this.renderDate(this.field);
-      case WidgetTypeEnum.DateRange:
-        return this.renderDateRange(this.field);
-      case WidgetTypeEnum.Number:
-        return this.renderNumber(this.field);
       default:
-        throw new Error("field type is error");
+        throw new Error("组件类型错误");
     }
   }
 
+  renderDescription(field: FieldSchema): JSX.Element | undefined {
+    const style = {
+      "font-size": field.style?.fontSize + "px",
+    };
+    return (
+      <div class="a-custom-description">
+        <span style={style}>{field.title}</span>
+      </div>
+    );
+  }
+
   renderLabel(field: FieldSchema): JSX.Element | undefined {
-    return <label>{field.value}</label>;
+    return (
+      <div class="a-custom-label">
+        <label>{field.value}</label>
+      </div>
+    );
   }
 
   renderSingleText(field: FieldSchema): JSX.Element | undefined {
@@ -77,6 +94,53 @@ export default class RenderField extends Vue {
         rows={1}
         placeholder={field.placeHolder}
         maxLength={Number(field.setting?.maxStringLength) || INPUT_MAX_NUMBER}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      />
+    );
+  }
+
+  renderNumber(field: FieldSchema): JSX.Element | undefined {
+    return (
+      <a-input-number
+        class={"inputNumber"}
+        max={Number(field.setting.maxNumberValue) || INPUT_NUMBER_MAX}
+        min={Number(field.setting.minNumberValue) || INPUT_NUMBER_MIN}
+        precision={Number(field.setting.numberDigits) || 0}
+        formatter={(value: number) =>
+          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+        parser={(value: string) => value.replace(/$s?|(,*)/g, "")}
+        placeholder={field.placeHolder}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      />
+    );
+  }
+
+  renderDate(field: FieldSchema): JSX.Element | undefined {
+    return (
+      <a-date-picker
+        class={"calendarPicker"}
+        placeholder={field.placeHolder}
+        format={DATE_FORMAT_NO_TIME}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      />
+    );
+  }
+
+  renderDateRange(field: FieldSchema): JSX.Element | undefined {
+    return (
+      <a-range-picker
+        class={"calendarPicker"}
+        format={DATE_FORMAT_NO_TIME}
         v-decorator={[
           `${field.code}`,
           { rules: getRules(field), initialValue: field.value },
@@ -117,18 +181,6 @@ export default class RenderField extends Vue {
         </a-select>
       );
     }
-  }
-
-  // eslint-disable-next-line
-  renderSwitch(field: FieldSchema): JSX.Element | undefined {
-    return (
-      <a-switch
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
-      />
-    );
   }
 
   renderRadio(field: FieldSchema): JSX.Element | undefined {
@@ -189,53 +241,5 @@ export default class RenderField extends Vue {
         </a-checkbox-group>
       );
     }
-  }
-
-  renderDate(field: FieldSchema): JSX.Element | undefined {
-    return (
-      <a-date-picker
-        class={"calendarPicker"}
-        placeholder={field.placeHolder}
-        format={DATE_FORMAT_NO_TIME}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
-      />
-    );
-  }
-
-  // eslint-disable-next-line
-  renderDateRange(field: FieldSchema): JSX.Element | undefined {
-    return (
-      <a-range-picker
-        class={"calendarPicker"}
-        format={DATE_FORMAT_NO_TIME}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
-      />
-    );
-  }
-
-  renderNumber(field: FieldSchema): JSX.Element | undefined {
-    return (
-      <a-input-number
-        class={"inputNumber"}
-        max={Number(field.setting.maxNumberValue) || INPUT_NUMBER_MAX}
-        min={Number(field.setting.minNumberValue) || INPUT_NUMBER_MIN}
-        precision={Number(field.setting.numberDigits) || 0}
-        formatter={(value: number) =>
-          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
-        parser={(value: string) => value.replace(/$s?|(,*)/g, "")}
-        placeholder={field.placeHolder}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
-      />
-    );
   }
 }

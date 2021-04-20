@@ -88,7 +88,7 @@
                 v-model="field.setting.maxNumberValue"
                 :step="1"
                 :precision="0"
-                class="input-number-property"
+                class="inputNumber"
                 :max="INPUT_NUMBER_MAX"
                 :formatter="formatter"
                 :parser="parser"
@@ -105,7 +105,7 @@
                 :step="1"
                 :precision="0"
                 :min="INPUT_NUMBER_MAX * -1"
-                class="input-number-property"
+                class="inputNumber"
                 :formatter="formatter"
                 :parser="parser"
                 :disabled="readonly"
@@ -122,7 +122,7 @@
                 :max="9"
                 :step="1"
                 :precision="0"
-                class="input-number-property"
+                class="inputNumber"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -167,16 +167,22 @@ export default class LabelProperty extends Mixins(FormMixin) {
   formRef = "form";
   rules = !this.readonly
     ? {
-        // title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
-        // code: [
-        //   this.getRequireRule("请输入标识"),
-        //   this.getRemoteRule(API_FIELD_CHECK_CODE, this.field, "标识重复"),
-        //   this.getNonChineseRule(),
-        //   this.getNonSpaceRule(),
-        // ],
-        // "setting.maxNumberValue": [this.getRequireRule("请输入最大数值"), this.getMaxGreetThanMinRule("不能小于最小值")],
-        // "setting.minNumberValue": [this.getRequireRule("请输入最小数值"), this.getMinLessThanMaxRule("不能大于最大值")],
-        // "setting.numberDigits": [this.getRequireRule("请输入字段精度")],
+        title: [this.getRequireRule("请输入标题"), this.getNonSpaceRule()],
+        code: [
+          this.getRequireRule("请输入标识"),
+          this.getUniqueRule(this.field, "标识重复"),
+          this.getNonChineseRule(),
+          this.getNonSpaceRule(),
+        ],
+        "setting.maxNumberValue": [
+          this.getRequireRule("请输入最大数值"),
+          this.getMaxGreetThanMinRule("不能小于最小值"),
+        ],
+        "setting.minNumberValue": [
+          this.getRequireRule("请输入最小数值"),
+          this.getMinLessThanMaxRule("不能大于最大值"),
+        ],
+        "setting.numberDigits": [this.getRequireRule("请输入字段精度")],
       }
     : {};
 
@@ -258,5 +264,5 @@ export default class LabelProperty extends Mixins(FormMixin) {
 }
 </script>
 <style scoped lang="scss">
-@import "../../common/style.scss";
+@import "../../form.scss";
 </style>
