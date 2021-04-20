@@ -40,8 +40,8 @@ export default class Container extends Vue {
       field.setting &&
       field.setting.unit
     ) {
-      // const unit = (field.setting.unit ? `（${field.setting.unit}）` : "");
-      return field.title ? `${field.title}${field.setting.unit}：` : "";
+      const unit = field.setting.unit ? `（${field.setting.unit}）` : "";
+      return field.title ? `${field.title}${unit}：` : "";
     }
 
     return field.title ? `${field.title}：` : "";

@@ -89,8 +89,40 @@ export interface FieldSettingModel {
 }
 
 export enum WidgetDataSourceTypeEnum {
+  Simple = "Simple",
   Basic = "Basic",
+  Dynamic = "Dynamic",
 }
+
+export function toWidgetDataSourceTypeEnumString(
+  type: WidgetDataSourceTypeEnum
+): string {
+  switch (type) {
+    case WidgetDataSourceTypeEnum.Simple:
+      return "简单来源";
+    case WidgetDataSourceTypeEnum.Basic:
+      return "基础参数";
+    case WidgetDataSourceTypeEnum.Dynamic:
+      return "动态来源";
+    default:
+      throw new Error("field dataSource type enum error");
+  }
+}
+
+export const WidgetDataSourceTypeData: DataOption[] = [
+  {
+    value: WidgetDataSourceTypeEnum.Simple,
+    text: toWidgetDataSourceTypeEnumString(WidgetDataSourceTypeEnum.Simple),
+  },
+  {
+    value: WidgetDataSourceTypeEnum.Basic,
+    text: toWidgetDataSourceTypeEnumString(WidgetDataSourceTypeEnum.Basic),
+  },
+  {
+    value: WidgetDataSourceTypeEnum.Dynamic,
+    text: toWidgetDataSourceTypeEnumString(WidgetDataSourceTypeEnum.Dynamic),
+  },
+];
 
 export const WidgetsData: WidgetNodeModel[] = [
   {

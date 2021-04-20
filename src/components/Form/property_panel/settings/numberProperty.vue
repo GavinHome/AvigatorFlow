@@ -126,17 +126,15 @@
                 :disabled="readonly"
               />
             </a-form-model-item>
-            <!-- <a-form-model-item
-              has-feedback
-              label="单位"
-              prop="setting.unitTypeId"
-            >
-              <a-select
-                v-model="field.setting.unitTypeId"
-                :options="unitTypeOptions"
+            <a-form-model-item has-feedback label="单位" prop="setting.unit">
+              <a-input
+                v-model="field.setting.unit"
+                type="input"
+                autocomplete="off"
+                :maxLength="INPUT_MAX_LENGTH_15"
                 :disabled="readonly"
               />
-            </a-form-model-item> -->
+            </a-form-model-item>
           </a-col>
         </a-row>
       </Card>

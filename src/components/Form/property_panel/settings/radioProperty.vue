@@ -72,11 +72,7 @@
       </Card>
       <Card>
         <template #title> 数据源 </template>
-        <!-- <a-row>
-          <a-col :span="24">
-            <DataSourceConfig :field="field" :disabled="readonly" />
-          </a-col>
-        </a-row> -->
+        <DataSourceSetting :field="field" :disabled="readonly" />
       </Card>
     </a-form-model>
   </div>
@@ -87,12 +83,14 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import { WidgetSchema } from "../../common/model";
 import Card from "../../common/card.vue";
 import FieldColumnSetting from "./field_column_setting.vue";
+import DataSourceSetting from "./data_source_setting/index.vue";
 import FormMixin from "../minxins/formMixin";
 
 @Component({
   components: {
     Card,
     FieldColumnSetting,
+    DataSourceSetting,
   },
 })
 export default class LabelProperty extends Mixins(FormMixin) {
