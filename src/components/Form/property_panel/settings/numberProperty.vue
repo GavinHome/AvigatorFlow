@@ -140,7 +140,7 @@
       </Card>
       <Card>
         <template #title> 计算规则 </template>
-        <!-- <Expression :field="field" :page="page" /> -->
+        <Expression :field="field" :page="page" />
       </Card>
     </a-form-model>
   </div>
@@ -148,19 +148,22 @@
 
 <script lang="ts">
 import { Component, Prop, Mixins } from "vue-property-decorator";
-import { WidgetSchema } from "../../common/model";
+import { PageModel, WidgetSchema } from "../../common/model";
 import Card from "../../common/card.vue";
 import FieldColumnSetting from "./field_column_setting.vue";
 import FormMixin from "../minxins/formMixin";
+import Expression from "./expression/index.vue";
 
 @Component({
   components: {
     Card,
     FieldColumnSetting,
+    Expression,
   },
 })
 export default class LabelProperty extends Mixins(FormMixin) {
   @Prop() field!: WidgetSchema;
+  @Prop() page!: PageModel;
   @Prop() readonly!: boolean;
   formRef = "form";
   rules = !this.readonly

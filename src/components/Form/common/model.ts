@@ -59,6 +59,7 @@ export interface WidgetSchema {
   isReadonly: boolean; //是否只读
   setting: FieldSettingModel;
   style?: StyleSettingModel;
+  expression: ExpressionModel[];
   cols: number; //列号
   //eslint-disable-next-line
   value?: any;
@@ -235,3 +236,20 @@ export interface FormRowModel {
 export type FieldSchema = WidgetSchema;
 
 /****************************** page form end ********************************/
+
+export enum ExpressionType {
+  Field = "Field",
+  Ops = "Ops",
+  Number = "Number",
+}
+
+export interface ExpressionModel {
+  type: ExpressionType;
+  value: string;
+}
+
+export interface ExpressionDetailModel extends ExpressionModel {
+  name: string;
+  unit?: string;
+  editable?: boolean;
+}

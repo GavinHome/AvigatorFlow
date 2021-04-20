@@ -4,12 +4,13 @@
     :key="widgetType"
     :field="widget"
     :maxCols="maxCols"
+    :page="page"
   />
 </template>
 
 <script lang="ts">
 import { Component, Prop, Provide, Vue } from "vue-property-decorator";
-import { WidgetSchema } from "../common/model";
+import { PageModel, WidgetSchema } from "../common/model";
 import {
   DefaultProperty,
   LabelProperty,
@@ -40,6 +41,7 @@ import {
 })
 export default class PropertyPanel extends Vue {
   @Prop() widget!: WidgetSchema;
+  @Prop() page!: PageModel;
 
   @Provide("maxCols")
   @Prop()

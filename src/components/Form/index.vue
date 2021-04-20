@@ -30,7 +30,11 @@
         </div>
       </template>
       <template #right>
-        <PropertyPanel :widget="selectItem" :maxCols="selectItemMaxCols" />
+        <PropertyPanel
+          :widget="selectItem"
+          :maxCols="selectItemMaxCols"
+          :page="page"
+        />
       </template>
     </Layout>
 

@@ -80,6 +80,7 @@ export default class ComponentsToolbox extends Vue {
       setting: {
         isMultipleSelect: false,
       },
+      expression: [],
       value: null,
     };
   }
