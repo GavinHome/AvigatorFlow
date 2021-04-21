@@ -60,7 +60,7 @@
                 :max="INPUT_MAX_NUMBER"
                 :step="1"
                 :precision="0"
-                class="inputNumber"
+                class="p-input-number"
                 :disabled="readonly"
               />
             </a-form-model-item>

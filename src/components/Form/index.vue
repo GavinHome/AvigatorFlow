@@ -17,12 +17,13 @@
                 <a-button class="m-l-10" @click="() => (dataVisible = true)">
                   数据
                 </a-button>
-                <a-button class="m-l-10" @click="onPreview" type="primary">
+                <a-button
+                  class="m-l-10"
+                  @click="() => (preview = true)"
+                  type="primary"
+                >
                   预览
                 </a-button>
-                <!-- <a-button class="m-l-10" @click="() => {}" type="primary">
-                  保存
-                </a-button> -->
               </span>
             </template>
             <PagePanel :page="page" @selectedField="handleSelectedField" />
@@ -50,6 +51,9 @@
     >
       <DataPanel :graphData="page"></DataPanel>
     </Dialog>
+
+    <!-- 预览 -->
+    <PagePreview :page="page" v-if="preview" @close="() => (preview = false)" />
   </div>
 </template>
 
@@ -64,6 +68,8 @@ import PagePanel from "./page_panel/index.vue";
 import DataPanel from "./data_panel/index.vue";
 import Dialog from "./common/dialog.vue";
 import demoData from "./example.json";
+import PagePreview from "./preview/index.vue";
+
 @Component({
   components: {
     Layout,
@@ -73,6 +79,7 @@ import demoData from "./example.json";
     PagePanel,
     Dialog,
     DataPanel,
+    PagePreview,
   },
 })
 export default class FormComponent extends Vue {
@@ -80,6 +87,7 @@ export default class FormComponent extends Vue {
   selectItem: FieldSchema | null = null;
   selectItemMaxCols: number | null = null;
   dataVisible = false;
+  preview = false;
   // 事件-选中字段
   handleSelectedField(row: FormRowModel, field: FieldSchema): void {
     this.selectItem = field;
@@ -94,12 +102,6 @@ export default class FormComponent extends Vue {
     this.page.description = demoData.description;
     this.page.rows = demoData.rows;
   }
-
-  catData(): void {
-    this.dataVisible = true;
-  }
-
-  onPreview(): void {}
 }
 </script>
 

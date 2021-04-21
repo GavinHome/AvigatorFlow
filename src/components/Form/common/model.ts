@@ -253,3 +253,8 @@ export interface ExpressionDetailModel extends ExpressionModel {
   unit?: string;
   editable?: boolean;
 }
+
+export interface FieldFormulaModel {
+  fieldCode: string;
+  formulas: string[];
+}

@@ -38,6 +38,14 @@ export default class Container extends Vue {
     if (
       field.type === WidgetTypeEnum.Number &&
       field.setting &&
+      field.setting.isPercentage
+    ) {
+      return field.title ? `${field.title}（%）：` : "";
+    }
+
+    if (
+      field.type === WidgetTypeEnum.Number &&
+      field.setting &&
       field.setting.unit
     ) {
       const unit = field.setting.unit ? `（${field.setting.unit}）` : "";

@@ -88,7 +88,7 @@
                 v-model="field.setting.maxNumberValue"
                 :step="1"
                 :precision="0"
-                class="inputNumber"
+                class="p-input-number"
                 :max="INPUT_NUMBER_MAX"
                 :formatter="formatter"
                 :parser="parser"
@@ -105,7 +105,7 @@
                 :step="1"
                 :precision="0"
                 :min="INPUT_NUMBER_MAX * -1"
-                class="inputNumber"
+                class="p-input-number"
                 :formatter="formatter"
                 :parser="parser"
                 :disabled="readonly"
@@ -122,7 +122,7 @@
                 :max="9"
                 :step="1"
                 :precision="0"
-                class="inputNumber"
+                class="p-input-number"
                 :disabled="readonly"
               />
             </a-form-model-item>
@@ -132,7 +132,7 @@
                 type="input"
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_15"
-                :disabled="readonly"
+                :disabled="readonly || field.setting.isPercentage"
               />
             </a-form-model-item>
           </a-col>

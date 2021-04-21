@@ -105,7 +105,7 @@ export default class RenderField extends Vue {
   renderNumber(field: FieldSchema): JSX.Element | undefined {
     return (
       <a-input-number
-        class={"inputNumber"}
+        class={"p-input-number"}
         max={Number(field.setting.maxNumberValue) || INPUT_NUMBER_MAX}
         min={Number(field.setting.minNumberValue) || INPUT_NUMBER_MIN}
         precision={Number(field.setting.numberDigits) || 0}
