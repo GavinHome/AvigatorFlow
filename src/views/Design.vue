@@ -1,40 +1,68 @@
 <template>
-  <el-tabs v-model="activeName" stretch>
-    <el-tab-pane label="表单设计" name="form">
-      <Form :page="page" />
-    </el-tab-pane>
-    <el-tab-pane label="流程设计" name="flow">
-      <Flow
-        :isSilentMode="false"
-        :bodyStyle="{
-          height: '85%',
-        }"
-        :controlStyle="{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          'z-index': '2',
-        }"
-        :nodeStyle="{
-          left: '15px',
-        }"
-      >
-      </Flow>
-    </el-tab-pane>
-    <el-tab-pane label="权限设置" name="auth">权限设置</el-tab-pane>
-    <el-tab-pane label="应用设置" name="app">应用设置</el-tab-pane>
-  </el-tabs>
+  <div class="design">
+    <el-tabs v-model="activeName" stretch>
+      <el-tab-pane label="表单设计" name="form">
+        <Form :page="page" />
+      </el-tab-pane>
+
+      <el-tab-pane label="流程设计" name="flow">
+        <Flow
+          :isSilentMode="false"
+          :bodyStyle="{
+            height: '85%',
+          }"
+          :controlStyle="{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            'z-index': '2',
+          }"
+          :nodeStyle="{
+            left: '15px',
+          }"
+        >
+        </Flow>
+      </el-tab-pane>
+
+      <el-tab-pane label="列表设计" name="list">
+        <List />
+      </el-tab-pane>
+
+      <el-tab-pane label="权限设置" name="auth">
+        权限设置：发起，导入，导出，报表
+      </el-tab-pane>
+
+      <!-- <el-tab-pane label="报表设计" name="report">
+        <ReportDesign />
+      </el-tab-pane> -->
+
+      <!-- <el-tab-pane label="扩展设置" name="extend">
+        扩展设置，包括提交设置，提醒设置，自动化设置
+      </el-tab-pane> -->
+
+      <el-tab-pane label="应用发布" name="publish">
+        <App :app="app" />
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Provide, Vue } from "vue-property-decorator";
-import Form from "../components/Form/index.vue";
+import App from "../components/App/index.vue";
 import Flow from "../components/Flow/index.vue";
+import Form from "../components/Form/index.vue";
+import List from "../components/List/index.vue";
+import ReportDesign from "../components/ReportDesign/index.vue";
 import { PageModel } from "@/components/Form/common/model";
+import { AppModel } from "@/components/App/model";
 
 @Component({
   components: {
     Form,
     Flow,
+    List,
+    ReportDesign,
+    App,
   },
 })
 export default class FlowComponent extends Vue {
@@ -145,7 +173,18 @@ export default class FlowComponent extends Vue {
       },
     ],
   };
+
+  app: AppModel = {
+    id: "",
+    title: "发票管理",
+    description: "申请开票",
+  };
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.design {
+  padding: 20px 50px;
+  // background: red;
+}
+</style>
