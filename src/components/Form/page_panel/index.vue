@@ -75,17 +75,17 @@
 <style lang="scss" scoped>
 @import "../common/style.scss";
 
-.p-form-row {
-  &:first-child {
-    border-top: 1px dashed #888;
-  }
-}
+// .p-form-row {
+//   &:first-child {
+//     border-top: 1px dashed #888;
+//   }
+// }
 
-.p-form-col {
-  border-bottom: 1px dashed #888;
-  border-left: 1px dashed #888;
-  border-right: 1px dashed #888;
-}
+// .p-form-col {
+//   border-bottom: 1px dashed #888;
+//   border-left: 1px dashed #888;
+//   border-right: 1px dashed #888;
+// }
 
 .p-form-col + .p-form-col {
   border-left: none;

@@ -1,19 +1,28 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import {
-  DATE_FORMAT_NO_TIME,
-  INPUT_MAX_NUMBER,
+  INPUT_MAX_LENGTH_50,
   INPUT_NUMBER_MAX,
   INPUT_NUMBER_MIN,
 } from "../../common/const";
-import {
-  FieldSchema,
-  WidgetDataSourceTypeEnum,
-  WidgetTypeEnum,
-} from "../../common/model";
+import { FieldSchema, WidgetTypeEnum } from "../../common/model";
 import { getRules } from "../../common/validators";
 
+import {
+  DatePicker,
+  DateRangePicker,
+  Label,
+  Number,
+  Description,
+} from "../../widgets/index";
+
 @Component({
-  components: {},
+  components: {
+    DatePicker,
+    DateRangePicker,
+    Label,
+    Number,
+    Description,
+  },
 })
 export default class RenderField extends Vue {
   @Prop() field!: FieldSchema;
@@ -57,21 +66,18 @@ export default class RenderField extends Vue {
   }
 
   renderDescription(field: FieldSchema): JSX.Element | undefined {
-    const style = {
-      "font-size": field.style?.fontSize + "px",
-    };
     return (
-      <div class="a-custom-description">
-        <span style={style}>{field.title}</span>
-      </div>
+      <Description
+        font-size={field.style?.fontSize}
+        v-model={field.title}
+        v-decorator={[`${field.code}`, { initialValue: field.title }]}
+      />
     );
   }
 
   renderLabel(field: FieldSchema): JSX.Element | undefined {
     return (
-      <div class="a-custom-label">
-        <label>{field.value}</label>
-      </div>
+      <Label v-decorator={[`${field.code}`, { initialValue: field.value }]} />
     );
   }
 
@@ -79,7 +85,8 @@ export default class RenderField extends Vue {
     return (
       <a-input
         placeholder={field.placeHolder}
-        maxLength={Number(field.setting?.maxStringLength) || INPUT_MAX_NUMBER}
+        max-length={field.setting?.maxStringLength || INPUT_MAX_LENGTH_50}
+        disabled={field.isReadonly}
         v-decorator={[
           `${field.code}`,
           { rules: getRules(field), initialValue: field.value },
@@ -93,7 +100,8 @@ export default class RenderField extends Vue {
       <a-textarea
         rows={1}
         placeholder={field.placeHolder}
-        maxLength={Number(field.setting?.maxStringLength) || INPUT_MAX_NUMBER}
+        disabled={field.isReadonly}
+        maxLength={field.setting?.maxStringLength || INPUT_MAX_LENGTH_50}
         v-decorator={[
           `${field.code}`,
           { rules: getRules(field), initialValue: field.value },
@@ -103,143 +111,105 @@ export default class RenderField extends Vue {
   }
 
   renderNumber(field: FieldSchema): JSX.Element | undefined {
+    /* eslint-disable */
+    let maxNumberValue = INPUT_NUMBER_MAX;
+    let minNumberValue = INPUT_NUMBER_MIN;
+    let precision = 2;
+    if (field.setting && field.setting.maxNumberValue != null) {
+      maxNumberValue = field.setting.maxNumberValue;
+    }
+
+    if (field.setting && field.setting.minNumberValue != null) {
+      minNumberValue = field.setting.minNumberValue;
+    }
+
+    if (field.setting && field.setting.numberDigits != null) {
+      precision = field.setting.numberDigits;
+    }
+
     return (
-      <a-input-number
-        class={"p-input-number"}
-        max={Number(field.setting.maxNumberValue) || INPUT_NUMBER_MAX}
-        min={Number(field.setting.minNumberValue) || INPUT_NUMBER_MIN}
-        precision={Number(field.setting.numberDigits) || 0}
-        formatter={(value: number) =>
-          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
-        parser={(value: string) => value.replace(/$s?|(,*)/g, "")}
+      <Number
+        // @ts-ignore
+        maxNumberValue={maxNumberValue}
+        minNumberValue={minNumberValue}
+        precision={precision}
         placeholder={field.placeHolder}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
+        disabled={field.isReadonly}
+        isPercentage={field.setting?.isPercentage || false}
+        v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
       />
     );
   }
 
   renderDate(field: FieldSchema): JSX.Element | undefined {
     return (
-      <a-date-picker
-        class={"calendarPicker"}
+      <DatePicker
+        // @ts-ignore
         placeholder={field.placeHolder}
-        format={DATE_FORMAT_NO_TIME}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
+        disabled={field.isReadonly}
+        v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
       />
     );
   }
 
   renderDateRange(field: FieldSchema): JSX.Element | undefined {
     return (
-      <a-range-picker
-        class={"calendarPicker"}
-        format={DATE_FORMAT_NO_TIME}
-        v-decorator={[
-          `${field.code}`,
-          { rules: getRules(field), initialValue: field.value },
-        ]}
+      <DateRangePicker
+        // @ts-ignore
+        placeholder={field.placeHolder}
+        disabled={field.isReadonly}
+        v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
       />
     );
   }
 
   renderSelect(field: FieldSchema): JSX.Element | undefined {
-    if (field.setting.dataSourceType == WidgetDataSourceTypeEnum.Basic) {
-      return (
-        <a-select
-          placeholder={field.placeHolder}
-          mode={field.setting.isMultipleSelect ? "multiple" : "default"}
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getRemoteItemSource.map((s) => (
-            <a-select-option value={s.value}>{s.text}</a-select-option>
-          ))} */}
-        </a-select>
-      );
-    } else {
-      return (
-        <a-select
-          placeholder={field.placeHolder}
-          mode={field.setting.isMultipleSelect ? "multiple" : "default"}
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getItemSourceFilter(this.getSimpleItemSource(field)).map((s) => (
-            <a-select-option value={s.value}>{s.text}</a-select-option>
-          ))} */}
-        </a-select>
-      );
-    }
+    return (
+      <a-select
+        placeholder={field.placeHolder}
+        disabled={field.isReadonly}
+        mode={field.setting.isMultipleSelect ? "multiple" : "default"}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      >
+        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+          <a-select-option value={s.value}>{s.text}</a-select-option>
+        ))} */}
+      </a-select>
+    );
   }
 
   renderRadio(field: FieldSchema): JSX.Element | undefined {
-    if (field.setting.dataSourceType == WidgetDataSourceTypeEnum.Basic) {
-      return (
-        <a-radio-group
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getRemoteItemSource.map((s) => (
-            <a-radio value={s.value}>{s.text}</a-radio>
-          ))} */}
-        </a-radio-group>
-      );
-    } else {
-      return (
-        <a-radio-group
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getItemSourceFilter(this.getSimpleItemSource(field)).map((s) => (
-            <a-radio value={s.value}>{s.text}</a-radio>
-          ))} */}
-        </a-radio-group>
-      );
-    }
+    return (
+      <a-radio-group
+        disabled={field.isReadonly}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      >
+        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+          <a-radio value={s.value}>{s.text}</a-radio>
+        ))} */}
+      </a-radio-group>
+    );
   }
 
   renderCheckBox(field: FieldSchema): JSX.Element | undefined {
-    if (field.setting.dataSourceType == WidgetDataSourceTypeEnum.Basic) {
-      return (
-        <a-checkbox-group
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getRemoteItemSource.map((s) => (
-            <a-checkbox value={s.value}>{s.text}</a-checkbox>
-          ))} */}
-        </a-checkbox-group>
-      );
-    } else {
-      return (
-        <a-checkbox-group
-          v-decorator={[
-            `${field.code}`,
-            { rules: getRules(field), initialValue: field.value },
-          ]}
-        >
-          {/* {this.getItemSourceFilter(this.getSimpleItemSource(field)).map((s) => (
-            <a-radio value={s.value}>{s.text}</a-radio>
-          ))} */}
-        </a-checkbox-group>
-      );
-    }
+    return (
+      <a-checkbox-group
+        disabled={field.isReadonly}
+        v-decorator={[
+          `${field.code}`,
+          { rules: getRules(field), initialValue: field.value },
+        ]}
+      >
+        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+          <a-checkbox value={s.value}>{s.text}</a-checkbox>
+        ))} */}
+      </a-checkbox-group>
+    );
   }
 }

@@ -29,16 +29,16 @@
       </el-tab-pane>
 
       <el-tab-pane label="权限设置" name="auth">
-        权限设置：发起，导入，导出，报表
+        <Auth />
       </el-tab-pane>
 
-      <!-- <el-tab-pane label="报表设计" name="report">
-        <ReportDesign />
-      </el-tab-pane> -->
+      <el-tab-pane label="报表设计" name="report">
+        <Report />
+      </el-tab-pane>
 
-      <!-- <el-tab-pane label="扩展设置" name="extend">
-        扩展设置，包括提交设置，提醒设置，自动化设置
-      </el-tab-pane> -->
+      <el-tab-pane label="扩展设置" name="extend">
+        <Extend />
+      </el-tab-pane>
 
       <el-tab-pane label="应用发布" name="publish">
         <App :app="app" />
@@ -48,20 +48,24 @@
 </template>
 <script lang="ts">
 import { Component, Provide, Vue } from "vue-property-decorator";
-import App from "../components/App/index.vue";
 import Flow from "../components/Flow/index.vue";
 import Form from "../components/Form/index.vue";
 import List from "../components/List/index.vue";
-import ReportDesign from "../components/ReportDesign/index.vue";
-import { PageModel } from "@/components/Form/common/model";
-import { AppModel } from "@/components/App/model";
+import Auth from "../components/Auth/index.vue";
+import Report from "../components/Report/index.vue";
+import Extend from "../components/Auth/index.vue";
+import App from "../components/App/index.vue";
+import { PageModel } from "../components/Form/common/model";
+import { AppModel } from "../common/model";
 
 @Component({
   components: {
     Form,
     Flow,
     List,
-    ReportDesign,
+    Auth,
+    Report,
+    Extend,
     App,
   },
 })

@@ -19,9 +19,10 @@
                 autocomplete="off"
                 :maxLength="INPUT_MAX_LENGTH_15"
                 :disabled="readonly"
+                @change="field.value = field.title"
               />
             </a-form-model-item>
-            <!-- <a-form-model-item has-feedback label="标识" prop="code">
+            <a-form-model-item has-feedback label="标识" prop="code">
               <a-input
                 v-model="field.code"
                 type="input"
@@ -29,7 +30,7 @@
                 :maxLength="INPUT_MAX_LENGTH_10"
                 :disabled="readonly"
               />
-            </a-form-model-item> -->
+            </a-form-model-item>
             <!-- <a-form-model-item has-feedback label="提示" prop="prompt">
               <a-input
                 v-model="field.prompt"

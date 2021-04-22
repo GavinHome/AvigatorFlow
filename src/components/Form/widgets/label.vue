@@ -1,6 +1,6 @@
 <template>
-  <div class="customLabel">
-    <label class="renderContent">{{ showValue }}</label>
+  <div class="a-custom-label">
+    <label>{{ showValue }}</label>
   </div>
 </template>
 
@@ -24,3 +24,10 @@ export default class Label extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+$form-filed-min-height: 32px;
+.a-custom-label {
+  min-height: $form-filed-min-height;
+}
+</style>

@@ -47,7 +47,12 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import draggable from "vuedraggable";
-import { WidgetsData, WidgetNodeModel, WidgetSchema } from "../common/model";
+import {
+  WidgetsData,
+  WidgetNodeModel,
+  WidgetSchema,
+  WidgetTypeEnum,
+} from "../common/model";
 import { NewId } from "../common/utils";
 import Card from "../common/card.vue";
 
@@ -72,7 +77,11 @@ export default class ComponentsToolbox extends Vue {
       cols: 4,
       prompt: "",
       description: "",
-      isRequired: true,
+      isRequired:
+        data.type == WidgetTypeEnum.Description ||
+        data.type == WidgetTypeEnum.Label
+          ? false
+          : true,
       isReadonly: false,
       style: {
         fontSize: 14,

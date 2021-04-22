@@ -16,6 +16,7 @@ import {
   DateRangePicker,
   Label,
   Number,
+  Description,
 } from "../../widgets/index";
 import { getRules } from "../../common/validators";
 import {
@@ -32,6 +33,7 @@ import { getFieldFormula, getNumberExpression } from "../../common/utils";
     DateRangePicker,
     Label,
     Number,
+    Description,
   },
 })
 export default class RenderInterface extends Vue {
@@ -89,7 +91,9 @@ export default class RenderInterface extends Vue {
             <a-col span={field.cols * 6}>
               {
                 <a-form-item {...this.formItemLayout}>
-                  {this.renderTitle(field)}
+                  {field.type != WidgetTypeEnum.Description
+                    ? this.renderTitle(field)
+                    : ""}
                   {this.renderField(field)}
                 </a-form-item>
               }
@@ -100,37 +104,43 @@ export default class RenderInterface extends Vue {
     );
   }
 
-  renderField(fieldDetail: FieldSchema): JSX.Element | undefined {
-    switch (fieldDetail.type) {
+  renderField(field: FieldSchema): JSX.Element | undefined {
+    switch (field.type) {
       case WidgetTypeEnum.Description:
+        // const style = {
+        //   "font-size": field.style?.fontSize + "px",
+        // };
+
+        // return (
+        //   <Label
+        //     v-decorator={[
+        //       `${field.code}`,
+        //       { initialValue: field.value },
+        //     ]}
+        //   />
+        // );
         return (
-          <Label
-            v-decorator={[
-              `${fieldDetail.code}`,
-              { initialValue: fieldDetail.value },
-            ]}
+          <Description
+            font-size={field.style?.fontSize}
+            v-model={field.title}
+            v-decorator={[`${field.code}`, { initialValue: field.title }]}
           />
         );
       case WidgetTypeEnum.Label:
         return (
           <Label
-            v-decorator={[
-              `${fieldDetail.code}`,
-              { initialValue: fieldDetail.value },
-            ]}
+            v-decorator={[`${field.code}`, { initialValue: field.value }]}
           />
         );
       case WidgetTypeEnum.SingleText:
         return (
           <a-input
-            placeholder={fieldDetail.placeHolder}
-            max-length={
-              fieldDetail.setting?.maxStringLength || INPUT_MAX_LENGTH_50
-            }
-            disabled={fieldDetail.isReadonly}
+            placeholder={field.placeHolder}
+            max-length={field.setting?.maxStringLength || INPUT_MAX_LENGTH_50}
+            disabled={field.isReadonly}
             v-decorator={[
-              `${fieldDetail.code}`,
-              { rules: getRules(fieldDetail), initialValue: fieldDetail.value },
+              `${field.code}`,
+              { rules: getRules(field), initialValue: field.value },
             ]}
           />
         );
@@ -138,14 +148,12 @@ export default class RenderInterface extends Vue {
         return (
           <a-textarea
             rows={3}
-            placeholder={fieldDetail.placeHolder}
-            disabled={fieldDetail.isReadonly}
-            max-length={
-              fieldDetail.setting?.maxStringLength || INPUT_MAX_LENGTH_50
-            }
+            placeholder={field.placeHolder}
+            disabled={field.isReadonly}
+            max-length={field.setting?.maxStringLength || INPUT_MAX_LENGTH_50}
             v-decorator={[
-              `${fieldDetail.code}`,
-              { rules: getRules(fieldDetail), initialValue: fieldDetail.value },
+              `${field.code}`,
+              { rules: getRules(field), initialValue: field.value },
             ]}
           />
         );
@@ -154,16 +162,16 @@ export default class RenderInterface extends Vue {
         let maxNumberValue = INPUT_NUMBER_MAX;
         let minNumberValue = INPUT_NUMBER_MIN;
         let precision = 2;
-        if (fieldDetail.setting && fieldDetail.setting.maxNumberValue != null) {
-          maxNumberValue = fieldDetail.setting.maxNumberValue;
+        if (field.setting && field.setting.maxNumberValue != null) {
+          maxNumberValue = field.setting.maxNumberValue;
         }
 
-        if (fieldDetail.setting && fieldDetail.setting.minNumberValue != null) {
-          minNumberValue = fieldDetail.setting.minNumberValue;
+        if (field.setting && field.setting.minNumberValue != null) {
+          minNumberValue = field.setting.minNumberValue;
         }
 
-        if (fieldDetail.setting && fieldDetail.setting.numberDigits != null) {
-          precision = fieldDetail.setting.numberDigits;
+        if (field.setting && field.setting.numberDigits != null) {
+          precision = field.setting.numberDigits;
         }
 
         return (
@@ -172,39 +180,39 @@ export default class RenderInterface extends Vue {
             maxNumberValue={maxNumberValue}
             minNumberValue={minNumberValue}
             precision={precision}
-            placeholder={fieldDetail.placeHolder}
-            disabled={fieldDetail.isReadonly}
-            isPercentage={fieldDetail.setting?.isPercentage || false}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
-            on-formula={(value: any) => this.handleFormulaEvent(value, fieldDetail.code)}
+            placeholder={field.placeHolder}
+            disabled={field.isReadonly}
+            isPercentage={field.setting?.isPercentage || false}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
+            on-formula={(value: any) => this.handleFormulaEvent(value, field.code)}
           />
         );
       case WidgetTypeEnum.Date:
         return (
           <DatePicker
             // @ts-ignore
-            placeholder={fieldDetail.placeHolder}
-            disabled={fieldDetail.isReadonly}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
+            placeholder={field.placeHolder}
+            disabled={field.isReadonly}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           />
         );
       case WidgetTypeEnum.DateRange:
         return (
           <DateRangePicker
             // @ts-ignore
-            placeholder={fieldDetail.placeHolder}
-            disabled={fieldDetail.isReadonly}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
+            placeholder={field.placeHolder}
+            disabled={field.isReadonly}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           />
         );
       case WidgetTypeEnum.Select:
         return (
           <a-select
-            placeholder={fieldDetail.placeHolder}
-            disabled={fieldDetail.isReadonly}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
+            placeholder={field.placeHolder}
+            disabled={field.isReadonly}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
-            {/* {getItemSource(fieldDetail, this.fieldDataSource).map((s) => (
+            {/* {getItemSource(field, this.fieldDataSource).map((s) => (
               <a-select-option value={s.value}>{s.text}</a-select-option>
             ))} */}
           </a-select>
@@ -212,10 +220,10 @@ export default class RenderInterface extends Vue {
       case WidgetTypeEnum.Radio:
         return (
           <a-radio-group
-            disabled={fieldDetail.isReadonly}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
+            disabled={field.isReadonly}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
-            {/* {getItemSource(fieldDetail, this.fieldDataSource).map((s) => (
+            {/* {getItemSource(field, this.fieldDataSource).map((s) => (
               <a-radio value={s.value}>{s.text}</a-radio>
             ))} */}
           </a-radio-group>
@@ -223,11 +231,11 @@ export default class RenderInterface extends Vue {
       case WidgetTypeEnum.CheckBox:
         return (
           <a-checkbox-group
-            disabled={fieldDetail.isReadonly}
-            v-decorator={[`${fieldDetail.code}`, { rules: getRules(fieldDetail), initialValue: fieldDetail.value }]}
+            disabled={field.isReadonly}
+            v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
             <a-row>
-              {/* {getItemSource(fieldDetail, this.fieldDataSource).map((s) => (
+              {/* {getItemSource(field, this.fieldDataSource).map((s) => (
                 <a-col span={8}>
                   <a-checkbox value={s.value}>{s.text}</a-checkbox>
                 </a-col>
@@ -251,7 +259,7 @@ export default class RenderInterface extends Vue {
     }
 
     let fieldTip = this.renderTip(field);
-
+    debugger
     return <span slot={"label"}>
       {title}
       {fieldTip && (

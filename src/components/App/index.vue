@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { AppModel } from "./model";
+import { AppModel } from "../../common/model";
 import Setting from "./setting.vue";
 
 @Component({

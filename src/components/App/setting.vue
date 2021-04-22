@@ -29,17 +29,17 @@
           />
         </a-form-model-item>
       </a-card>
-
-      <a-form-item class="text-right">
-        <a-button type="primary" html-type="submit"> 发布 </a-button>
-      </a-form-item>
     </a-form-model>
+
+    <div class="publish">
+      <a-button type="primary" html-type="submit" size="large"> 发布 </a-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { AppModel } from "./model";
+import { AppModel } from "../../common/model";
 @Component({
   components: {},
 })
@@ -56,4 +56,9 @@ export default class AppSettingComponent extends Vue {
     : {};
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.publish {
+  margin-top: 20px;
+  text-align: center;
+}
+</style>

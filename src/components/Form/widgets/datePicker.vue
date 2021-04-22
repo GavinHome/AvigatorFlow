@@ -1,6 +1,7 @@
 <template>
   <div class="datePicker">
     <a-date-picker
+      class="p-calendar-picker"
       :allowClear="false"
       :placeholder="placeholder"
       :format="format"
@@ -59,3 +60,9 @@ export default class DatePicker extends Vue {
   @Emit("change") triggerChange(value: string): void {}
 }
 </script>
+
+<style lang="scss" scoped>
+.p-calendar-picker {
+  width: 100%;
+}
+</style>

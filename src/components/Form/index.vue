@@ -68,7 +68,7 @@ import PagePanel from "./page_panel/index.vue";
 import DataPanel from "./data_panel/index.vue";
 import Dialog from "./common/dialog.vue";
 import demoData from "./example.json";
-import PagePreview from "./preview/index.vue";
+import PagePreview from "./preview_panel/index.vue";
 
 @Component({
   components: {

@@ -3,7 +3,7 @@ export interface AppModel {
   id: string;
   title: string;
   description: string;
-  form?: any;
+  page?: any;
   flow?: any;
   list?: any;
   auth?: any;

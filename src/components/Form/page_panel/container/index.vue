@@ -52,6 +52,11 @@
   min-height: 90px;
   text-align: center;
   padding: 34px 0px;
+  border: 1px dashed #888;
+}
+
+.p-empty-field + .p-empty-field {
+  border-top: 0px dashed white;
 }
 
 .drag-item {

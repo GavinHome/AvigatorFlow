@@ -1,6 +1,7 @@
 <template>
   <div class="dateRangePicker">
     <a-range-picker
+      class="p-calendar-picker"
       :allowClear="false"
       :format="format"
       :disabled="disabled"
@@ -61,3 +62,8 @@ export default class DateRangePicker extends Vue {
   @Emit("change") triggerChange(value: string[] | null): void {}
 }
 </script>
+<style lang="scss" scoped>
+.p-calendar-picker {
+  width: 100%;
+}
+</style>
