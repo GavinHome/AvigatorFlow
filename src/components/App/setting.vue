@@ -30,12 +30,9 @@
         </a-form-model-item>
       </a-card>
 
-      <!-- <a-card type="inner" bordered hoverable>
-        <template #title> 列表属性 </template>
-        <a-row>
-          <a-col :span="24"> 列表属性 </a-col>
-        </a-row>
-      </a-card> -->
+      <a-form-item class="text-right">
+        <a-button type="primary" html-type="submit"> 发布 </a-button>
+      </a-form-item>
     </a-form-model>
   </div>
 </template>
