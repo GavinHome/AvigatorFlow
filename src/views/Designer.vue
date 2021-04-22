@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { AppModel } from "../common/model";
-import { Component, Provide, Vue } from "vue-property-decorator";
+import { Component, Provide, Vue, Watch } from "vue-property-decorator";
 import App from "../components/App/index.vue";
 import Flow from "../components/Flow/index.vue";
 import Form from "../components/Form/index.vue";
@@ -97,7 +97,14 @@ export default class DesignerComponent extends Vue {
     return this.current >= step ? "process" : "wait";
   }
 
-  // @Provide()
+  @Provide()
+  fields = [
+    {
+      key: "abc",
+      name: "变量1",
+      type: "string",
+    },
+  ];
   // fieldsFunc = () => {
   //   const arr: Array<any> = [];
   //   this.app.page?.rows
@@ -151,6 +158,23 @@ export default class DesignerComponent extends Vue {
       text: "用户3",
     },
   ];
+
+  @Watch("app", { immediate: true, deep: true }) appDataChanged() {
+    const fields: Array<any> = [];
+    this.app.page?.rows
+      .filter((r: any) => r.fields.length > 0)
+      .forEach((r: any) => {
+        r.fields.forEach((f: any) => {
+          fields.push({
+            key: f.code,
+            name: f.title,
+            type: f.type,
+          });
+        });
+      });
+    this.fields = fields;
+    debugger
+  }
 }
 </script>
 <style lang="scss" scoped>
