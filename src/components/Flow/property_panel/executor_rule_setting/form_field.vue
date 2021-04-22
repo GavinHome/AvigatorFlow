@@ -47,7 +47,7 @@ export default class ExecutorRuleSettingComponent extends Vue {
   }
 
   @Watch("fields", { immediate: true, deep: true })
-  fieldsChanged(): void {
+  fieldsChanged(val: any, oldval: any): void {
     this.options = this.fields;
     debugger
   }

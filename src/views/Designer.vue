@@ -98,30 +98,7 @@ export default class DesignerComponent extends Vue {
   }
 
   @Provide()
-  fields = [
-    {
-      key: "abc",
-      name: "变量1",
-      type: "string",
-    },
-  ];
-  // fieldsFunc = () => {
-  //   const arr: Array<any> = [];
-  //   this.app.page?.rows
-  //     .filter((r: any) => r.fields.length > 0)
-  //     .forEach((r: any) => {
-  //       r.fields.forEach((f: any) => {
-  //         arr.push({
-  //           key: f.code,
-  //           name: f.title,
-  //           type: f.type,
-  //         });
-  //       });
-  //     });
-
-  //   debugger;
-  //   return arr;
-  // };
+  fields = [];
 
   @Provide()
   roles = [
@@ -172,7 +149,7 @@ export default class DesignerComponent extends Vue {
           });
         });
       });
-    this.fields = fields;
+    this.fields = fields as Array<never>;
     debugger
   }
 }
