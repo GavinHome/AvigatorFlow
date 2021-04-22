@@ -19,7 +19,6 @@ export default class Label extends Vue {
     val: string,
     oldVal: string
   ): void {
-    debugger;
     if (val !== oldVal) {
       this.showValue = val;
     }

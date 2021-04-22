@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { AppModel } from "../common/model";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Provide, Vue } from "vue-property-decorator";
 import App from "../components/App/index.vue";
 import Flow from "../components/Flow/index.vue";
 import Form from "../components/Form/index.vue";
@@ -96,6 +96,61 @@ export default class DesignerComponent extends Vue {
   getStatus(step: number): string {
     return this.current >= step ? "process" : "wait";
   }
+
+  // @Provide()
+  // fieldsFunc = () => {
+  //   const arr: Array<any> = [];
+  //   this.app.page?.rows
+  //     .filter((r: any) => r.fields.length > 0)
+  //     .forEach((r: any) => {
+  //       r.fields.forEach((f: any) => {
+  //         arr.push({
+  //           key: f.code,
+  //           name: f.title,
+  //           type: f.type,
+  //         });
+  //       });
+  //     });
+
+  //   debugger;
+  //   return arr;
+  // };
+
+  @Provide()
+  roles = [
+    {
+      value: "ProjectManager",
+      text: "项目经理",
+    },
+    {
+      value: "DepartmentManager",
+      text: "部门经理",
+    },
+    {
+      value: "Cash",
+      text: "出纳",
+    },
+    {
+      value: "Ceo",
+      text: "总裁",
+    },
+  ];
+
+  @Provide()
+  users = [
+    {
+      value: "user001",
+      text: "用户1",
+    },
+    {
+      value: "user002",
+      text: "用户2",
+    },
+    {
+      value: "user003",
+      text: "用户3",
+    },
+  ];
 }
 </script>
 <style lang="scss" scoped>

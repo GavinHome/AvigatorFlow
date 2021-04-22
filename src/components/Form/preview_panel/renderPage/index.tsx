@@ -259,7 +259,6 @@ export default class RenderInterface extends Vue {
     }
 
     let fieldTip = this.renderTip(field);
-    debugger
     return <span slot={"label"}>
       {title}
       {fieldTip && (
