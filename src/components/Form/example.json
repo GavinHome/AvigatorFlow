@@ -6,7 +6,7 @@
             "fields": [
                 {
                     "id": "fae42340-552e-e231-fd63-95f1f14d120d",
-                    "code": "",
+                    "code": "group1",
                     "type": "Description",
                     "name": "a-description",
                     "icon": "label_icon.png",
@@ -32,7 +32,7 @@
             "fields": [
                 {
                     "id": "1f217e5f-8bde-c6a4-a585-f4d3117e5767",
-                    "code": "项目规模",
+                    "code": "field0",
                     "type": "Label",
                     "name": "label",
                     "icon": "label_icon.png",
@@ -188,7 +188,7 @@
             "fields": [
                 {
                     "id": "78d86bfc-ee0e-a7b4-0eb1-c6f65e6dd7ab",
-                    "code": "",
+                    "code": "group2",
                     "type": "Description",
                     "name": "a-description",
                     "icon": "label_icon.png",
@@ -233,8 +233,12 @@
                         "dataSourceType": "Simple",
                         "options": [
                             {
-                                "text": "",
-                                "value": ""
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
                             }
                         ]
                     },
@@ -266,8 +270,12 @@
                         "dataSourceType": "Simple",
                         "options": [
                             {
-                                "text": "",
-                                "value": ""
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
                             }
                         ]
                     },
@@ -299,8 +307,12 @@
                         "dataSourceType": "Simple",
                         "options": [
                             {
-                                "text": "",
-                                "value": ""
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
                             }
                         ]
                     },

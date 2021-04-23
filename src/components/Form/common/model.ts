@@ -77,10 +77,10 @@ export interface DataOption {
 
 export interface FieldSettingModel {
   isMultipleSelect?: boolean; //是否为多选，仅Select有效
-  maxStringLength?: number; //长度（文本）
-  maxNumberValue?: number; //最大值（数字）
-  minNumberValue?: number; //最小值（数字）
-  numberDigits?: number; //精度（数字）
+  maxStringLength?: number | null; //长度（文本）
+  maxNumberValue?: number | null; //最大值（数字）
+  minNumberValue?: number | null; //最小值（数字）
+  numberDigits?: number | null; //精度（数字）
   unit?: string; //单位（数字）
   isPercentage?: boolean; //百分比（数字）
   //eslint-disable-next-line

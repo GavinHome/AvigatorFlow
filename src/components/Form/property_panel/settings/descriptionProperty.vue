@@ -27,7 +27,7 @@
                 v-model="field.code"
                 type="input"
                 autocomplete="off"
-                :maxLength="INPUT_MAX_LENGTH_10"
+                :maxLength="INPUT_MAX_LENGTH_15"
                 :disabled="readonly"
               />
             </a-form-model-item>

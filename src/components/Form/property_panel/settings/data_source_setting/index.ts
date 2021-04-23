@@ -23,8 +23,8 @@ export default class DataSourceConfig extends Vue {
       this.field.setting.dataSourceType = WidgetDataSourceTypeEnum.Simple;
       this.field.setting.options = [];
       this.field.setting.options.push({
-        text: "",
-        value: "",
+        text: "选项1",
+        value: "选项1",
       });
     }
   }

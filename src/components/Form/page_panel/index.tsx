@@ -3,6 +3,7 @@ import { FieldSchema, FormRowModel, PageModel } from "../common/model";
 import Container from "./container/index.vue";
 import draggable from "vuedraggable";
 import { openConfirmModal, openInfoModal } from "../common/modal";
+import { getPageFields } from "../common/utils";
 
 @Component({
   components: {
@@ -97,6 +98,10 @@ export default class PagePanel extends Vue {
 
   // 增加字段
   private addField(row: FormRowModel, field: FieldSchema): void {
+    //TODO: title and code
+    const fields = getPageFields(this.page);
+    field.title = this.getTitle(fields, field.title, field.title, 1, field.id);
+    field.code = this.getCode(fields, field.code, field.code, 1, field.id);
     const item: FieldSchema = Object.assign({}, field);
     row.fields.push(item);
     //处理列数
@@ -115,5 +120,39 @@ export default class PagePanel extends Vue {
     } else {
       return 24 / (count * 6);
     }
+  }
+
+  private getCode(
+    fields: Array<FieldSchema>,
+    code: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    const count: number = fields.filter(
+      (n) => n.code === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getCode(fields, code, code + next, next + 1, id);
+  }
+
+  private getTitle(
+    fields: Array<FieldSchema>,
+    title: string,
+    current: string,
+    next: number,
+    id: string
+  ): string {
+    const count: number = fields.filter(
+      (n) => n.title === current && n.id !== id
+    ).length;
+    if (count === 0) {
+      return current;
+    }
+
+    return this.getTitle(fields, title, title + next, next + 1, id);
   }
 }

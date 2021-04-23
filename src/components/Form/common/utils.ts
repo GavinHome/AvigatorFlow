@@ -71,3 +71,15 @@ export const formatDateTime = (date: Date, format?: string) => {
     return dateFormat;
   }
 };
+
+export const getPageFields = (page: PageModel): Array<FieldSchema> => {
+  const fields: FieldSchema[] = [];
+  page.rows
+    .filter((r) => r.fields.length > 0)
+    .forEach((r) => {
+      r.fields.forEach((f) => {
+        fields.push(f);
+      });
+    });
+  return fields;
+}

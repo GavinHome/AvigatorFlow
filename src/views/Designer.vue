@@ -64,7 +64,7 @@ import { AppModel } from "../common/model";
   },
 })
 export default class DesignerComponent extends Vue {
-  height = "86vh";
+  height = "calc(100vh - 120px)";
   current = 0;
   stepStyle = {
     boxShadow: "0px -1px 0 0 #e8e8e8 inset",

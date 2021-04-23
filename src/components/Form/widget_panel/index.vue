@@ -68,7 +68,7 @@ export default class ComponentsToolbox extends Vue {
   cloneComponent(data: WidgetNodeModel): WidgetSchema {
     return {
       id: NewId(),
-      code: "",
+      code: data.type.toString(),
       type: data.type,
       name: data.name,
       icon: data.icon,
@@ -88,6 +88,25 @@ export default class ComponentsToolbox extends Vue {
       },
       setting: {
         isMultipleSelect: false,
+        maxStringLength:
+          data.type == WidgetTypeEnum.SingleText ||
+          data.type == WidgetTypeEnum.MultipleText
+            ? 50
+            : null,
+        maxNumberValue: data.type == WidgetTypeEnum.Number ? 999999 : null,
+        minNumberValue: data.type == WidgetTypeEnum.Number ? 0 : null,
+        numberDigits: data.type == WidgetTypeEnum.Number ? 2 : null,
+        options:
+          data.type == WidgetTypeEnum.Select ||
+          data.type == WidgetTypeEnum.Radio ||
+          data.type == WidgetTypeEnum.CheckBox
+            ? [
+                {
+                  value: "选项1",
+                  text: "选项1",
+                },
+              ]
+            : [],
       },
       expression: [],
       value: null,
