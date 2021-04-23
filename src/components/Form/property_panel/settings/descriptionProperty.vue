@@ -57,6 +57,7 @@
                 v-model="field.style.fontSize"
                 button-style="solid"
                 :disabled="readonly"
+                size="small"
               >
                 <a-radio-button
                   :value="value"

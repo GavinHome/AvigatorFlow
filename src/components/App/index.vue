@@ -1,5 +1,5 @@
 <template>
-  <div class="avigator-app-view">
+  <div class="avigator-app-view" :style="viewStyle">
     <Setting :app="app" />
   </div>
 </template>
@@ -16,6 +16,8 @@ import Setting from "./setting.vue";
 })
 export default class AppComponent extends Vue {
   @Prop() app!: AppModel;
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
 }
 </script>
 

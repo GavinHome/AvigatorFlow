@@ -1,14 +1,17 @@
 <template>
-  <div class="avigator-report-view">报表设计</div>
+  <div class="avigator-report-view" :style="viewStyle">报表设计</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {},
 })
-export default class ReportComponent extends Vue {}
+export default class ReportComponent extends Vue {
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
+}
 </script>
 
 <style scoped lang="scss">

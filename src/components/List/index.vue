@@ -1,11 +1,11 @@
 <template>
-  <div class="avigator-list-view">
+  <div class="avigator-list-view" :style="viewStyle">
     <SettingComponent :data="{}" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import SettingComponent from "./setting.vue";
 
 @Component({
@@ -13,7 +13,10 @@ import SettingComponent from "./setting.vue";
     SettingComponent,
   },
 })
-export default class ListComponent extends Vue {}
+export default class ListComponent extends Vue {
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
+}
 </script>
 
 <style scoped lang="scss">

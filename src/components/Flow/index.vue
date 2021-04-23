@@ -1,5 +1,5 @@
 <template>
-  <div class="avigator-flow-view">
+  <div class="avigator-flow-view" :style="viewStyle">
     <slot name="title"></slot>
 
     <!-- 辅助工具栏 -->
@@ -92,6 +92,8 @@ export default class FlowComponent extends Vue {
   @Prop() private controlStyle!: any;
   //eslint-disable-next-line
   @Prop() private nodeStyle!: any;
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
   @Prop() private isSilentMode!: boolean;
   // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
 

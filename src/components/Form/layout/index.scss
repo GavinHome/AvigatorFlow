@@ -12,13 +12,13 @@ $padding: 10px;
     border-radius: $border-radius;
     overflow-y: auto;
   }
-  .left {
+  .left-layout {
     @extend .base;
   }
-  .middle {
+  .middle-layout {
     @extend .base;
   }
-  .right {
+  .right-layout {
     @extend .base;
   }
 }

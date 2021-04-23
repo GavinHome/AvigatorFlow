@@ -13,13 +13,13 @@ export default class Layout extends Vue {
       <div class={"layout"}>
         <a-row gutter={this.gutter}>
           <a-col span={this.left}>
-            <div class={"left"}>{this.$slots["left"]}</div>
+            <div class={"left-layout"}>{this.$slots["left"]}</div>
           </a-col>
           <a-col span={this.middle}>
-            <div class={"middle"}>{this.$slots["middle"]}</div>
+            <div class={"middle-layout"}>{this.$slots["middle"]}</div>
           </a-col>
           <a-col span={this.right}>
-            <div class={"right"}>{this.$slots["right"]}</div>
+            <div class={"right-layout"}>{this.$slots["right"]}</div>
           </a-col>
         </a-row>
       </div>

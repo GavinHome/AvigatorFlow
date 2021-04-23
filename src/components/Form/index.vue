@@ -1,5 +1,5 @@
 <template>
-  <div class="avigator-form-view">
+  <div class="avigator-form-view" :style="viewStyle">
     <Layout :left="5" :right="6" :middle="13">
       <template #left>
         <Card>
@@ -84,6 +84,8 @@ import PagePreview from "./preview_panel/index.vue";
 })
 export default class FormComponent extends Vue {
   @Prop() page!: PageModel;
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
   selectItem: FieldSchema | null = null;
   selectItemMaxCols: number | null = null;
   dataVisible = false;
@@ -108,7 +110,7 @@ export default class FormComponent extends Vue {
 <style scoped lang="scss">
 @import "./common/style.scss";
 .avigator-form-view {
-  height: 100vh;
-  position: relative;
+  // height: 100vh;
+  // position: relative;
 }
 </style>

@@ -18,25 +18,25 @@
       </a-row>
 
       <div v-if="current === 0">
-        <Form :page="app.page" />
+        <Form :page="app.page" :viewStyle="{ height: height }" />
       </div>
       <div v-if="current === 1">
         <Flow
           :isSilentMode="false"
-          :bodyStyle="{ height: '85%' }"
+          :viewStyle="{ height: height }"
           :controlStyle="flowControlStyle"
           :nodeStyle="{ left: '15px' }"
         >
         </Flow>
       </div>
       <div v-if="current === 2">
-        <List :data="app.list" />
+        <List :data="app.list" :viewStyle="{ height: height }" />
       </div>
       <div v-if="current === 3">
-        <Auth :data="app.auth" />
+        <Auth :data="app.auth" :viewStyle="{ height: height }" />
       </div>
       <div v-if="current === 4">
-        <App :app="app" />
+        <App :app="app" :viewStyle="{ height: height }" />
       </div>
     </div>
   </div>
@@ -64,6 +64,7 @@ import { AppModel } from "../common/model";
   },
 })
 export default class DesignerComponent extends Vue {
+  height = "86vh";
   current = 0;
   stepStyle = {
     boxShadow: "0px -1px 0 0 #e8e8e8 inset",
@@ -148,11 +149,11 @@ export default class DesignerComponent extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-$padding: 15px;
+$padding: 16px;
 .avigator-designer-view {
   padding: $padding;
   background: #e8e8e8;
-  height: 100vh;
+  // height: 100vh;
 
   .content {
     background: white;

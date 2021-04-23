@@ -1,14 +1,19 @@
 <template>
-  <div class="avigator-auth-view">权限设置：发起，导入，导出，报表</div>
+  <div class="avigator-auth-view" :style="viewStyle">
+    权限设置：发起，导入，导出，报表
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {},
 })
-export default class AuthComponent extends Vue {}
+export default class AuthComponent extends Vue {
+  //eslint-disable-next-line
+  @Prop() private viewStyle!: any;
+}
 </script>
 
 <style scoped lang="scss">

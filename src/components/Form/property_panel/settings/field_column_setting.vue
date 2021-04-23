@@ -4,6 +4,7 @@
     button-style="solid"
     :disabled="readonly"
     @change="onChange"
+    size="small"
   >
     <a-radio-button
       :value="option.value"
