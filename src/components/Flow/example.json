@@ -85,7 +85,7 @@
                       {
                           "type": "VariableId",
                           "value": {
-                              "value": "abc",
+                              "value": "fields6",
                               "text": "变量1"
                           }
                       }
@@ -257,7 +257,7 @@
                       {
                           "type": "Expression",
                           "expression": {
-                              "variable": "abc",
+                              "variable": "fields6",
                               "varType": "",
                               "operator": ">",
                               "value": "100000"
