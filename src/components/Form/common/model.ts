@@ -258,3 +258,14 @@ export interface FieldFormulaModel {
   fieldCode: string;
   formulas: string[];
 }
+
+/****************************** dataSource start ********************************/
+export const getDataSource = (field: FieldSchema): Array<DataOption> => {
+  let data: Array<DataOption> = [];
+  if (field.setting.dataSourceType === WidgetDataSourceTypeEnum.Simple) {
+    data = field.setting && field.setting.options ? field.setting.options : [];
+  }
+  //TODO: basic, dynamic
+  return data;
+};
+/****************************** dataSource end   ********************************/

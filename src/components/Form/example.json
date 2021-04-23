@@ -32,7 +32,7 @@
             "fields": [
                 {
                     "id": "1f217e5f-8bde-c6a4-a585-f4d3117e5767",
-                    "code": "",
+                    "code": "项目规模",
                     "type": "Label",
                     "name": "label",
                     "icon": "label_icon.png",
@@ -58,7 +58,7 @@
             "fields": [
                 {
                     "id": "ce93c2c9-9b6b-4736-aa3a-fb48492d8d7a",
-                    "code": "",
+                    "code": "fields1",
                     "type": "SingleText",
                     "name": "a-input",
                     "icon": "single_text_icon.png",
@@ -84,7 +84,7 @@
             "fields": [
                 {
                     "id": "3d24942e-aff4-de0c-1d4d-73fc2958abc9",
-                    "code": "",
+                    "code": "fields2",
                     "type": "MultipleText",
                     "name": "a-textarea",
                     "icon": "multiple_text_icon.png",
@@ -110,7 +110,7 @@
             "fields": [
                 {
                     "id": "439339c9-9407-8730-722c-9b6ba8a8e915",
-                    "code": "",
+                    "code": "fields3",
                     "type": "Number",
                     "name": "a-input-number",
                     "icon": "number_icon.png",
@@ -136,7 +136,7 @@
             "fields": [
                 {
                     "id": "9071e70a-2d17-122d-ca7a-b841073245ce",
-                    "code": "",
+                    "code": "fields4",
                     "type": "Date",
                     "name": "a-date-picker",
                     "icon": "date_icon.png",
@@ -162,7 +162,7 @@
             "fields": [
                 {
                     "id": "42e9fd83-415f-5e2a-e87c-e685a6eaf3c8",
-                    "code": "",
+                    "code": "fields5",
                     "type": "DateRange",
                     "name": "a-range-picker",
                     "icon": "date_range_icon.png",
@@ -214,7 +214,7 @@
             "fields": [
                 {
                     "id": "8bb9c039-3c78-b2fe-4eb6-1703a157cff2",
-                    "code": "",
+                    "code": "fields6",
                     "type": "Select",
                     "name": "a-select",
                     "icon": "select_icon.png",
@@ -247,7 +247,7 @@
             "fields": [
                 {
                     "id": "1777db72-eb60-7fe6-2bd4-0f02ef28c904",
-                    "code": "",
+                    "code": "fields7",
                     "type": "Radio",
                     "name": "a-radio-group",
                     "icon": "radio_icon.png",
@@ -280,7 +280,7 @@
             "fields": [
                 {
                     "id": "a9a1e712-7854-2d2e-722b-54335a829d27",
-                    "code": "",
+                    "code": "fields8",
                     "type": "CheckBox",
                     "name": "a-checkbox-group",
                     "icon": "checkbox_icon.png",

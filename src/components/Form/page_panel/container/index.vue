@@ -11,7 +11,11 @@
   >
     <template v-for="(field, index) of fields">
       <div :class="'single-field-container drag-item'" :key="index">
-        <RenderField v-if="field.type === 'Description'" :field="field" />
+        <RenderField
+          v-if="field.type === 'Description'"
+          :field="field"
+          @click.native="handleFormItemClick(index)"
+        />
         <a-form-item
           v-else
           :key="index"

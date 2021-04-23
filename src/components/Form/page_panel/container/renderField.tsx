@@ -4,7 +4,7 @@ import {
   INPUT_NUMBER_MAX,
   INPUT_NUMBER_MIN,
 } from "../../common/const";
-import { FieldSchema, WidgetTypeEnum } from "../../common/model";
+import { FieldSchema, WidgetTypeEnum, getDataSource } from "../../common/model";
 import { getRules } from "../../common/validators";
 
 import {
@@ -174,9 +174,9 @@ export default class RenderField extends Vue {
           { rules: getRules(field), initialValue: field.value },
         ]}
       >
-        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+        {getDataSource(field).map((s) => (
           <a-select-option value={s.value}>{s.text}</a-select-option>
-        ))} */}
+        ))}
       </a-select>
     );
   }
@@ -190,9 +190,9 @@ export default class RenderField extends Vue {
           { rules: getRules(field), initialValue: field.value },
         ]}
       >
-        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+        {getDataSource(field).map((s) => (
           <a-radio value={s.value}>{s.text}</a-radio>
-        ))} */}
+        ))}
       </a-radio-group>
     );
   }
@@ -206,9 +206,9 @@ export default class RenderField extends Vue {
           { rules: getRules(field), initialValue: field.value },
         ]}
       >
-        {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+        {getDataSource(field).map((s) => (
           <a-checkbox value={s.value}>{s.text}</a-checkbox>
-        ))} */}
+        ))}
       </a-checkbox-group>
     );
   }

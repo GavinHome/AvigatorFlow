@@ -9,6 +9,7 @@ import {
   PageModel,
   WidgetSchema,
   WidgetTypeEnum,
+  getDataSource,
 } from "../../common/model";
 
 import {
@@ -212,9 +213,9 @@ export default class RenderInterface extends Vue {
             disabled={field.isReadonly}
             v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
-            {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+            { getDataSource(field).map((s) => (
               <a-select-option value={s.value}>{s.text}</a-select-option>
-            ))} */}
+            ))}
           </a-select>
         );
       case WidgetTypeEnum.Radio:
@@ -223,9 +224,9 @@ export default class RenderInterface extends Vue {
             disabled={field.isReadonly}
             v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
-            {/* {getItemSource(field, this.fieldDataSource).map((s) => (
+            { getDataSource(field).map((s) => (
               <a-radio value={s.value}>{s.text}</a-radio>
-            ))} */}
+            ))}
           </a-radio-group>
         );
       case WidgetTypeEnum.CheckBox:
@@ -234,13 +235,9 @@ export default class RenderInterface extends Vue {
             disabled={field.isReadonly}
             v-decorator={[`${field.code}`, { rules: getRules(field), initialValue: field.value }]}
           >
-            <a-row>
-              {/* {getItemSource(field, this.fieldDataSource).map((s) => (
-                <a-col span={8}>
-                  <a-checkbox value={s.value}>{s.text}</a-checkbox>
-                </a-col>
-              ))} */}
-            </a-row>
+            {getDataSource(field).map((s) => (
+              <a-checkbox value={s.value}>{s.text}</a-checkbox>
+            ))}
           </a-checkbox-group>
         );
     }
