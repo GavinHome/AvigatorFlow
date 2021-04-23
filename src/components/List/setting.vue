@@ -25,6 +25,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 })
 export default class SettingComponent extends Vue {
   @Prop() readonly!: boolean;
+  //eslint-disable-next-line
   @Prop() data!: any;
   formRef = "form";
   INPUT_MAX_LENGTH_15 = 15;

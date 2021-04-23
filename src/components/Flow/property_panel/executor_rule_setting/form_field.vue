@@ -29,12 +29,13 @@ import { DataOption, FieldSchema } from "../../common/model";
   components: {},
 })
 export default class ExecutorRuleSettingComponent extends Vue {
-  @Inject("fields") fields!: Array<FieldSchema>;
+  @Inject("page") page!: Record<string, Array<FieldSchema>>;
+
   @Prop() field!: DataOption;
-  options: Array<FieldSchema> = this.fields;
+  options: Array<FieldSchema> = this.page.fields;
   selected = this.field ? this.field.value : "";
   onChange(key: string): void {
-    const field = this.fields.find((x: FieldSchema) => x.key == key);
+    const field = this.page.fields.find((x: FieldSchema) => x.key == key);
     this.$emit("change", {
       value: field ? field.key : "",
       text: field ? field.name : "",
@@ -44,12 +45,6 @@ export default class ExecutorRuleSettingComponent extends Vue {
   @Watch("field", { immediate: true, deep: true })
   fieldChanged(): void {
     this.selected = this.field ? this.field.value : "";
-  }
-
-  @Watch("fields", { immediate: true, deep: true })
-  fieldsChanged(val: any, oldval: any): void {
-    this.options = this.fields;
-    debugger
   }
 }
 </script>

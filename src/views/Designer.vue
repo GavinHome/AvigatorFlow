@@ -43,13 +43,14 @@
 </template>
 
 <script lang="ts">
-import { AppModel } from "../common/model";
 import { Component, Provide, Vue, Watch } from "vue-property-decorator";
 import App from "../components/App/index.vue";
 import Flow from "../components/Flow/index.vue";
 import Form from "../components/Form/index.vue";
 import List from "../components/List/index.vue";
 import Auth from "../components/Auth/index.vue";
+import { fieldsAdapter, PageProvider } from "../common/adapter";
+import { AppModel } from "../common/model";
 // import Extend from "../components/Auth/index.vue";
 
 @Component({
@@ -136,21 +137,13 @@ export default class DesignerComponent extends Vue {
     },
   ];
 
-  @Watch("app", { immediate: true, deep: true }) appDataChanged() {
-    const fields: Array<any> = [];
-    this.app.page?.rows
-      .filter((r: any) => r.fields.length > 0)
-      .forEach((r: any) => {
-        r.fields.forEach((f: any) => {
-          fields.push({
-            key: f.code,
-            name: f.title,
-            type: f.type,
-          });
-        });
-      });
-    this.fields = fields as Array<never>;
-    debugger
+  @Provide()
+  page: PageProvider = {
+    fields: [],
+  };
+
+  @Watch("app", { immediate: true, deep: true }) appDataChanged(): void {
+    this.page.fields = fieldsAdapter(this.app);
   }
 }
 </script>
