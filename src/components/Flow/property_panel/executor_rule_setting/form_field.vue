@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Inject, Prop, Vue } from "vue-property-decorator";
 import { DataOption, FieldSchema } from "../../common/model";
 
 @Component({
@@ -40,11 +40,6 @@ export default class ExecutorRuleSettingComponent extends Vue {
       value: field ? field.key : "",
       text: field ? field.name : "",
     });
-  }
-
-  @Watch("field", { immediate: true, deep: true })
-  fieldChanged(): void {
-    this.selected = this.field ? this.field.value : "";
   }
 }
 </script>

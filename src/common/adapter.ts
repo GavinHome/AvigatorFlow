@@ -4,6 +4,7 @@ import {
   WidgetSchema,
   WidgetTypeEnum,
 } from "@/components/Form/common/model";
+import { PermissionFieldSchema } from "@/components/Permissions/model";
 import { AppModel } from "./model";
 
 export const fieldsAdapter = (app: AppModel | null): Array<FieldSchema> => {
@@ -70,6 +71,26 @@ export const fieldsAdapter = (app: AppModel | null): Array<FieldSchema> => {
   return fields;
 };
 
+export const permissionFieldsAdapter = (
+  app: AppModel | null
+): Array<PermissionFieldSchema> => {
+  if (!app || !app.page) return [];
+  const fields: Array<PermissionFieldSchema> = [];
+  app.page.rows
+    .filter((r: FormRowModel) => r.fields.length > 0)
+    .forEach((r: FormRowModel) => {
+      r.fields.forEach((f: WidgetSchema) => {
+        const field: PermissionFieldSchema = {
+          id: f.id,
+          name: f.title,
+        };
+        fields.push(field);
+      });
+    });
+  return fields;
+};
+
 export type PageProvider = Record<string, Array<FieldSchema>>;
+export type PermissionsProvider = Record<string, Array<PermissionFieldSchema>>;
 
 // export type PageModelAdapter = PageModel;

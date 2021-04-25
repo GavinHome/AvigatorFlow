@@ -21,15 +21,15 @@
 </template>
 
 <script lang="ts">
-import { FormPermissionModel } from "@/common/model";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { PermissionsProvider } from "@/common/adapter";
+import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator";
 import {
   FieldPermissionModel,
   FieldPermissionType,
   FieldPermissionTypeData,
-  PageModel,
-} from "../common/model";
-import { getPageFields } from "../common/utils";
+  FormPermissionModel,
+  PermissionFieldSchema,
+} from "./model";
 
 @Component({
   model: {
@@ -39,8 +39,8 @@ import { getPageFields } from "../common/utils";
   components: {},
 })
 export default class FormPermissonComponent extends Vue {
+  @Inject("permissionsProvider") provider!: PermissionsProvider;
   @Prop() id!: string;
-  @Prop() page!: PageModel;
   @Prop({ default: () => [] }) permissions!: Array<FormPermissionModel>;
 
   PermissionTypeOptions = FieldPermissionTypeData;
@@ -48,8 +48,10 @@ export default class FormPermissonComponent extends Vue {
   permissionsData: Array<FieldPermissionModel> = [];
 
   @Watch("id", { immediate: true, deep: true }) valueChanged(): void {
-    const permission = this.permissions.find((x) => x.key === this.id);
-    const fields = getPageFields(this.page);
+    const permission: FormPermissionModel | undefined = this.permissions.find(
+      (x) => x.key === this.id
+    );
+    const fields = this.provider.fields;
     const perms: Array<FieldPermissionModel> = [];
     fields.forEach((f) => {
       const perm = permission
@@ -81,17 +83,15 @@ export default class FormPermissonComponent extends Vue {
     this.permissionsData = perms;
   }
 
-  // onChange(perms: Array<FieldPermissionModel>): void {
-  //   this.$emit("change", perms);
-  // }
-
   private getFieldTitle(id: string): string {
-    const field = getPageFields(this.page).find((f) => f.id === id);
+    const field = this.provider.fields.find((f) => f.id === id);
     return field ? field.title : id;
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../common/style.scss";
+.p-20 {
+  padding: 20px;
+}
 </style>

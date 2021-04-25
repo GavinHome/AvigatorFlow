@@ -182,6 +182,16 @@ export default class FlowComponent extends Vue {
     id: "",
     title: "发票管理",
     description: "申请开票",
+    page: {
+      name: "",
+      description: "",
+      rows: [],
+    },
+    permissions: [],
+    flow: {
+      nodes: [],
+      edges: [],
+    },
   };
 }
 </script>

@@ -30,11 +30,10 @@
         >
           <template slot="permission" slot-scope="{ data }">
             {{ data && data.id }}
-            <FormPermission
+            <Permission
               v-if="data && data.id"
               :id="data.id"
               v-model="app.permissions"
-              :page="app.page"
             />
           </template>
         </Flow>
@@ -59,11 +58,16 @@ import Flow from "../components/Flow/index.vue";
 import Form from "../components/Form/index.vue";
 import List from "../components/List/index.vue";
 import Auth from "../components/Auth/index.vue";
-import { fieldsAdapter, PageProvider } from "../common/adapter";
+import {
+  fieldsAdapter,
+  PageProvider,
+  permissionFieldsAdapter,
+  PermissionsProvider,
+} from "../common/adapter";
 import { AppModel } from "../common/model";
 // import Extend from "../components/Auth/index.vue";
 
-import FormPermission from "../components/Form/permission/index.vue";
+import Permission from "../components/Permissions/index.vue";
 
 @Component({
   components: {
@@ -73,7 +77,7 @@ import FormPermission from "../components/Form/permission/index.vue";
     Auth,
     // Extend,
     App,
-    FormPermission,
+    Permission,
   },
 })
 export default class DesignerComponent extends Vue {
@@ -105,7 +109,10 @@ export default class DesignerComponent extends Vue {
     },
     // permissions: [],
     permissions: [],
-    flow: {},
+    flow: {
+      nodes: [],
+      edges: [],
+    },
     list: {},
     auth: {},
   };
@@ -158,8 +165,14 @@ export default class DesignerComponent extends Vue {
     fields: [],
   };
 
+  @Provide()
+  permissionsProvider: PermissionsProvider = {
+    fields: [],
+  };
+
   @Watch("app", { immediate: true, deep: true }) appDataChanged(): void {
     this.page.fields = fieldsAdapter(this.app);
+    this.permissionsProvider.fields = permissionFieldsAdapter(this.app);
   }
 }
 </script>

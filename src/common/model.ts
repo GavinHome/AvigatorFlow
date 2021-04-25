@@ -1,7 +1,6 @@
-import {
-  FieldPermissionModel,
-  PageModel,
-} from "@/components/Form/common/model";
+import { PageModel } from "@/components/Form/common/model";
+import { FormPermissionModel } from "@/components/Permissions/model";
+import { GraphConfigData } from "@logicflow/core";
 
 /*eslint-disable */
 export interface AppModel {
@@ -10,18 +9,9 @@ export interface AppModel {
   description: string;
   page: PageModel;
   permissions: Array<FormPermissionModel>,
-  // permissions?: Record<string, Array<FieldPermissionModel>>,
-  flow: any;
+  flow: GraphConfigData;
   list?: any;
   auth?: any;
   extend?: any;
   publish?: any;
-}
-
-
-///节点对应的字段权限
-export interface FormPermissionModel {
-  // [key: string]: Array<FieldPermissionModel>;
-  key: string,
-  permissions: Array<FieldPermissionModel>
 }
