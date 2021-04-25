@@ -26,7 +26,15 @@
           :viewStyle="{ height: height }"
           :controlStyle="flowControlStyle"
           :nodeStyle="{ left: '15px' }"
+          v-model="app.flow"
         >
+          <template slot="permission" slot-scope="{ data }">
+            <FormPermission
+              v-if="data && data.id"
+              v-model="app.permissions[data.id]"
+              :page="app.page"
+            />
+          </template>
         </Flow>
       </div>
       <div v-if="current === 2">
@@ -53,6 +61,8 @@ import { fieldsAdapter, PageProvider } from "../common/adapter";
 import { AppModel } from "../common/model";
 // import Extend from "../components/Auth/index.vue";
 
+import FormPermission from "../components/Form/permission/index.vue";
+
 @Component({
   components: {
     Form,
@@ -61,6 +71,7 @@ import { AppModel } from "../common/model";
     Auth,
     // Extend,
     App,
+    FormPermission,
   },
 })
 export default class DesignerComponent extends Vue {
@@ -90,6 +101,8 @@ export default class DesignerComponent extends Vue {
         },
       ],
     },
+    // permissions: [],
+    permissions: {},
     flow: {},
     list: {},
     auth: {},

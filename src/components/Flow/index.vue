@@ -32,6 +32,17 @@
       ></PropertyPanel>
     </el-drawer>
 
+    字段权限面板 -->
+    <el-drawer
+      title="设置字段权限"
+      :visible.sync="fieldPermissionVisible"
+      direction="rtl"
+      size="65%"
+      :before-close="() => (fieldPermissionVisible = false)"
+    >
+      <slot name="permission" :data="clickNode"></slot>
+    </el-drawer>
+
     <!-- 数据面板 -->
     <el-dialog title="数据" :visible.sync="dataVisible" width="50%">
       <DataPanel :graphData="graphData"></DataPanel>
@@ -78,6 +89,10 @@ import { FlowData, getFlowData } from "./common/utils";
 // import demoData from "./example.json";
 
 @Component({
+  model: {
+    prop: "flow",
+    event: "change",
+  },
   components: {
     Control,
     NodePanel,
@@ -95,6 +110,7 @@ export default class FlowComponent extends Vue {
   //eslint-disable-next-line
   @Prop() private viewStyle!: any;
   @Prop() private isSilentMode!: boolean;
+  @Prop() private flow!: GraphConfigData;
   // @Prop({ default: null }) private formFields!: Array<FieldSchema> | null;
 
   private lf: LogicFlow | null = null;
@@ -103,6 +119,7 @@ export default class FlowComponent extends Vue {
   private dialogVisible = false;
   private graphData: GraphConfigData | null = null;
   private dataVisible = false;
+  private fieldPermissionVisible = false;
 
   mounted(): void {
     this.init();
@@ -159,6 +176,8 @@ export default class FlowComponent extends Vue {
 
     // MiniMap
     // MiniMap.show(200, 200);
+
+    this.onChange();
   }
 
   /// 设置节点菜单
@@ -179,6 +198,15 @@ export default class FlowComponent extends Vue {
               callback: (node: any) => {
                 this.clickNode = node;
                 this.dialogVisible = true;
+              },
+            },
+            {
+              text: "字段权限",
+              // eslint-disable-next-line
+              callback: (node: any) => {
+                this.clickNode = node;
+                console.log(this.clickNode);
+                this.fieldPermissionVisible = true;
               },
             },
             {
@@ -345,12 +373,18 @@ export default class FlowComponent extends Vue {
   //关闭弹框
   private closeDialog(): void {
     this.dialogVisible = false;
+    this.onChange();
   }
 
   // 查看数据
   private catData() {
     this.graphData = this.lf ? this.lf.getGraphData() : null;
     this.dataVisible = true;
+  }
+
+  private onChange() {
+    const graphData = this.lf ? this.lf.getGraphData() : null;
+    this.$emit("change", graphData);
   }
 }
 </script>

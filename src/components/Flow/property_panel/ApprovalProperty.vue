@@ -6,52 +6,45 @@
       :model="formData"
       :rules="rulesData"
     >
-      <el-tabs type="border-card">
-        <el-tab-pane label="基础设置">
-          <el-form-item label="节点标识" prop="key">
-            <el-input v-model="formData.key" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="节点名称" prop="name">
-            <el-input v-model="formData.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="审批人员">
-            <ExecutorSetting v-model="formData.executor" />
-          </el-form-item>
-          <el-form-item label="审批规则">
-            <el-radio-group v-model="formData.rule">
-              <el-radio-button
-                v-for="(option, index) in rules"
-                :label="option.value"
-                :key="index"
-                >{{ option.text }}</el-radio-button
-              >
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="审批动作">
-            <el-checkbox-group v-model="formData.actions">
-              <el-checkbox-button
-                v-for="(option, index) in actions"
-                :label="option.value"
-                :key="index"
-                >{{ option.text }}</el-checkbox-button
-              >
-            </el-checkbox-group>
-          </el-form-item>
-          <el-form-item label="节点描述">
-            <el-input type="textarea" v-model="formData.description"></el-input>
-          </el-form-item>
-        </el-tab-pane>
-        <el-tab-pane label="字段权限"> </el-tab-pane>
-      </el-tabs>
+      <el-form-item label="节点标识" prop="key">
+        <el-input v-model="formData.key" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="节点名称" prop="name">
+        <el-input v-model="formData.name" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="审批人员">
+        <ExecutorSetting v-model="formData.executor" />
+      </el-form-item>
+      <el-form-item label="审批规则">
+        <el-radio-group v-model="formData.rule">
+          <el-radio-button
+            v-for="(option, index) in rules"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-radio-button
+          >
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="审批动作">
+        <el-checkbox-group v-model="formData.actions">
+          <el-checkbox-button
+            v-for="(option, index) in actions"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-checkbox-button
+          >
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="节点描述">
+        <el-input type="textarea" v-model="formData.description"></el-input>
+      </el-form-item>
 
-      <!-- <el-form-item>
-        <el-button type="primary" @click="onSubmit" class="m-t-20">保存</el-button>
-      </el-form-item> -->
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit" class="m-t-20"
+          >保存</el-button
+        >
+      </el-form-item>
     </el-form>
-
-    <el-button type="primary" @click="onSubmit" class="m-t-20 text-center"
-      >保存</el-button
-    >
   </div>
 </template>
 

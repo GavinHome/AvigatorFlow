@@ -12,7 +12,6 @@ export const validateKeyExist = (rule: any, value: string, callback: any) => {
 
     const data: FlowData = getFlowData(rule.flow);
     const array = data.Nodes.filter((n) => n.id !== rule.id).map((n) => n.key);
-    console.log(array);
     if (array.includes(value)) {
       return callback(new Error(message));
     } else {
