@@ -29,9 +29,11 @@
           v-model="app.flow"
         >
           <template slot="permission" slot-scope="{ data }">
+            {{ data && data.id }}
             <FormPermission
               v-if="data && data.id"
-              v-model="app.permissions[data.id]"
+              :id="data.id"
+              v-model="app.permissions"
               :page="app.page"
             />
           </template>
@@ -102,7 +104,7 @@ export default class DesignerComponent extends Vue {
       ],
     },
     // permissions: [],
-    permissions: {},
+    permissions: [],
     flow: {},
     list: {},
     auth: {},

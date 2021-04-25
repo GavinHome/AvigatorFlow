@@ -32,7 +32,7 @@
       ></PropertyPanel>
     </el-drawer>
 
-    字段权限面板 -->
+    <!-- 字段权限面板 -->
     <el-drawer
       title="设置字段权限"
       :visible.sync="fieldPermissionVisible"

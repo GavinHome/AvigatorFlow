@@ -8,10 +8,10 @@ export interface AppModel {
   id: string;
   title: string;
   description: string;
-  page?: PageModel;
-  // permissions?: Array<Record<string, Array<FieldPermissionModel>>>,
-  permissions?: Record<string, Array<FieldPermissionModel>>,
-  flow?: any;
+  page: PageModel;
+  permissions: Array<FormPermissionModel>,
+  // permissions?: Record<string, Array<FieldPermissionModel>>,
+  flow: any;
   list?: any;
   auth?: any;
   extend?: any;
@@ -20,6 +20,8 @@ export interface AppModel {
 
 
 ///节点对应的字段权限
-// export interface FormPermissionModel {
-//   [key: string]: Array<FieldPermissionModel>;
-// }
+export interface FormPermissionModel {
+  // [key: string]: Array<FieldPermissionModel>;
+  key: string,
+  permissions: Array<FieldPermissionModel>
+}

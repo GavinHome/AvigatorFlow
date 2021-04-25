@@ -1,6 +1,10 @@
 <template>
   <div class="p-20">
-    <a-row :gutter="[16, 16]" v-for="(perm, index) in permissions" :key="index">
+    <a-row
+      :gutter="[16, 16]"
+      v-for="(perm, index) in permissionsData"
+      :key="index"
+    >
       <a-col span="6">{{ getFieldTitle(perm.id) }}</a-col>
       <a-col span="6">
         <a-radio-group v-model="perm.type">
@@ -17,7 +21,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { FormPermissionModel } from "@/common/model";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import {
   FieldPermissionModel,
   FieldPermissionType,
@@ -34,20 +39,26 @@ import { getPageFields } from "../common/utils";
   components: {},
 })
 export default class FormPermissonComponent extends Vue {
-  @Prop({ default: () => [] }) permissions!: Array<FieldPermissionModel>;
+  @Prop() id!: string;
   @Prop() page!: PageModel;
+  @Prop({ default: () => [] }) permissions!: Array<FormPermissionModel>;
 
   PermissionTypeOptions = FieldPermissionTypeData;
 
-  async created(): Promise<void> {
+  permissionsData: Array<FieldPermissionModel> = [];
+
+  @Watch("id", { immediate: true, deep: true }) valueChanged(): void {
+    const permission = this.permissions.find((x) => x.key === this.id);
     const fields = getPageFields(this.page);
     const perms: Array<FieldPermissionModel> = [];
     fields.forEach((f) => {
-      const perm = this.permissions.find((p) => p.id === f.id);
+      const perm = permission
+        ? permission.permissions.find((p) => p.id === f.id)
+        : null;
       if (!perm) {
         perms.push({
           id: f.id,
-          type: FieldPermissionType.VisibleOnly,
+          type: FieldPermissionType.Editable,
         });
       } else {
         perms.push({
@@ -56,12 +67,23 @@ export default class FormPermissonComponent extends Vue {
         });
       }
     });
-    await this.onChange(perms);
+
+    if (permission) {
+      const index = this.permissions.findIndex((p) => p === permission);
+      this.permissions.splice(index, 1);
+    }
+
+    this.permissions.push({
+      key: this.id,
+      permissions: perms,
+    });
+
+    this.permissionsData = perms;
   }
 
-  private async onChange(perms: Array<FieldPermissionModel>): Promise<void> {
-    this.$emit("change", perms);
-  }
+  // onChange(perms: Array<FieldPermissionModel>): void {
+  //   this.$emit("change", perms);
+  // }
 
   private getFieldTitle(id: string): string {
     const field = getPageFields(this.page).find((f) => f.id === id);
