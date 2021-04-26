@@ -2,7 +2,7 @@
   <div class="design">
     <el-tabs v-model="activeName" stretch>
       <el-tab-pane label="表单设计" name="form">
-        <Form :page="page" />
+        <Form :page="app.page" />
       </el-tab-pane>
 
       <el-tab-pane label="流程设计" name="flow">
@@ -55,7 +55,6 @@ import Auth from "../components/Auth/index.vue";
 import Report from "../components/Report/index.vue";
 import Extend from "../components/Auth/index.vue";
 import App from "../components/App/index.vue";
-import { PageModel } from "../components/Form/common/model";
 import { AppModel } from "../common/model";
 
 @Component({
@@ -73,68 +72,70 @@ export default class FlowComponent extends Vue {
   activeName = "form";
 
   @Provide()
-  fields = [
-    {
-      key: "abc",
-      name: "变量1",
-      type: "string",
-    },
-    {
-      key: "bcd",
-      name: "变量2",
-      type: "string",
-    },
-    {
-      key: "cde",
-      name: "变量3",
-      type: "select",
-      options: [
-        {
-          value: "Yes",
-          text: "是",
-        },
-        {
-          value: "No",
-          text: "否",
-        },
-      ],
-    },
-    {
-      key: "def",
-      name: "变量4",
-      type: "number",
-    },
-    {
-      key: "efg",
-      name: "变量5",
-      type: "checkbox",
-      options: [
-        {
-          value: "1",
-          text: "选项1",
-        },
-        {
-          value: "2",
-          text: "选项2",
-        },
-      ],
-    },
-    {
-      key: "fgh",
-      name: "变量6",
-      type: "radiobox",
-      options: [
-        {
-          value: "a",
-          text: "选项a",
-        },
-        {
-          value: "b",
-          text: "选项b",
-        },
-      ],
-    },
-  ];
+  flowFormProvider = {
+    fields: [
+      {
+        key: "abc",
+        name: "变量1",
+        type: "string",
+      },
+      {
+        key: "bcd",
+        name: "变量2",
+        type: "string",
+      },
+      {
+        key: "cde",
+        name: "变量3",
+        type: "select",
+        options: [
+          {
+            value: "Yes",
+            text: "是",
+          },
+          {
+            value: "No",
+            text: "否",
+          },
+        ],
+      },
+      {
+        key: "def",
+        name: "变量4",
+        type: "number",
+      },
+      {
+        key: "efg",
+        name: "变量5",
+        type: "checkbox",
+        options: [
+          {
+            value: "1",
+            text: "选项1",
+          },
+          {
+            value: "2",
+            text: "选项2",
+          },
+        ],
+      },
+      {
+        key: "fgh",
+        name: "变量6",
+        type: "radiobox",
+        options: [
+          {
+            value: "a",
+            text: "选项a",
+          },
+          {
+            value: "b",
+            text: "选项b",
+          },
+        ],
+      },
+    ],
+  };
 
   @Provide()
   roles = [
@@ -168,16 +169,6 @@ export default class FlowComponent extends Vue {
     },
   ];
 
-  page: PageModel = {
-    name: "",
-    description: "",
-    rows: [
-      {
-        fields: [],
-      },
-    ],
-  };
-
   app: AppModel = {
     id: "",
     title: "发票管理",
@@ -185,7 +176,11 @@ export default class FlowComponent extends Vue {
     page: {
       name: "",
       description: "",
-      rows: [],
+      rows: [
+        {
+          fields: [],
+        },
+      ],
     },
     permissions: [],
     flow: {

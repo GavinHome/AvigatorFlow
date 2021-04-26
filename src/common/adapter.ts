@@ -7,7 +7,7 @@ import {
 import { PermissionFieldSchema } from "@/components/Permissions/model";
 import { AppModel } from "./model";
 
-export const fieldsAdapter = (app: AppModel | null): Array<FieldSchema> => {
+export const flowFormAdapter = (app: AppModel | null): Array<FieldSchema> => {
   if (!app || !app.page) return [];
   const fields: Array<FieldSchema> = [];
   app.page.rows
@@ -71,7 +71,7 @@ export const fieldsAdapter = (app: AppModel | null): Array<FieldSchema> => {
   return fields;
 };
 
-export const permissionFieldsAdapter = (
+export const permissionFormAdapter = (
   app: AppModel | null
 ): Array<PermissionFieldSchema> => {
   if (!app || !app.page) return [];
@@ -82,7 +82,7 @@ export const permissionFieldsAdapter = (
       r.fields.forEach((f: WidgetSchema) => {
         const field: PermissionFieldSchema = {
           id: f.id,
-          name: f.title,
+          title: f.title,
         };
         fields.push(field);
       });
@@ -90,7 +90,8 @@ export const permissionFieldsAdapter = (
   return fields;
 };
 
-export type PageProvider = Record<string, Array<FieldSchema>>;
-export type PermissionsProvider = Record<string, Array<PermissionFieldSchema>>;
-
-// export type PageModelAdapter = PageModel;
+export type FlowFormProvider = Record<string, Array<FieldSchema>>;
+export type PermissionsFormProvider = Record<
+  string,
+  Array<PermissionFieldSchema>
+>;

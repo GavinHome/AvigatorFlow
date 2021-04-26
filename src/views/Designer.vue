@@ -59,10 +59,10 @@ import Form from "../components/Form/index.vue";
 import List from "../components/List/index.vue";
 import Auth from "../components/Auth/index.vue";
 import {
-  fieldsAdapter,
-  PageProvider,
-  permissionFieldsAdapter,
-  PermissionsProvider,
+  flowFormAdapter,
+  FlowFormProvider,
+  permissionFormAdapter,
+  PermissionsFormProvider,
 } from "../common/adapter";
 import { AppModel } from "../common/model";
 // import Extend from "../components/Auth/index.vue";
@@ -107,7 +107,6 @@ export default class DesignerComponent extends Vue {
         },
       ],
     },
-    // permissions: [],
     permissions: [],
     flow: {
       nodes: [],
@@ -120,9 +119,6 @@ export default class DesignerComponent extends Vue {
   getStatus(step: number): string {
     return this.current >= step ? "process" : "wait";
   }
-
-  @Provide()
-  fields = [];
 
   @Provide()
   roles = [
@@ -161,18 +157,18 @@ export default class DesignerComponent extends Vue {
   ];
 
   @Provide()
-  page: PageProvider = {
+  flowFormProvider: FlowFormProvider = {
     fields: [],
   };
 
   @Provide()
-  permissionsProvider: PermissionsProvider = {
+  permissionsProvider: PermissionsFormProvider = {
     fields: [],
   };
 
   @Watch("app", { immediate: true, deep: true }) appDataChanged(): void {
-    this.page.fields = fieldsAdapter(this.app);
-    this.permissionsProvider.fields = permissionFieldsAdapter(this.app);
+    this.flowFormProvider.fields = flowFormAdapter(this.app);
+    this.permissionsProvider.fields = permissionFormAdapter(this.app);
   }
 }
 </script>

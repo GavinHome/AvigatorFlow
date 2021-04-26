@@ -87,7 +87,7 @@ interface ExecutorRuleParams {
   },
 })
 export default class ExecutorRuleSettingComponent extends Vue {
-  @Inject("fields") fields!: Array<FieldSchema>;
+  @Inject("flowFormProvider") page!: Record<string, Array<FieldSchema>>;
   @Inject("roles") roles!: Array<DataOption>;
   @Inject("users") users!: Array<DataOption>;
   @Prop() private executor!: ExecutorRuleModel;

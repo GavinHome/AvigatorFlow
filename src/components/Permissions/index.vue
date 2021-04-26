@@ -21,14 +21,13 @@
 </template>
 
 <script lang="ts">
-import { PermissionsProvider } from "@/common/adapter";
+import { PermissionsFormProvider } from "@/common/adapter";
 import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator";
 import {
   FieldPermissionModel,
   FieldPermissionType,
   FieldPermissionTypeData,
   FormPermissionModel,
-  PermissionFieldSchema,
 } from "./model";
 
 @Component({
@@ -39,7 +38,7 @@ import {
   components: {},
 })
 export default class FormPermissonComponent extends Vue {
-  @Inject("permissionsProvider") provider!: PermissionsProvider;
+  @Inject("permissionsProvider") provider!: PermissionsFormProvider;
   @Prop() id!: string;
   @Prop({ default: () => [] }) permissions!: Array<FormPermissionModel>;
 

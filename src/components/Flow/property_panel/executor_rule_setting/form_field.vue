@@ -29,7 +29,7 @@ import { DataOption, FieldSchema } from "../../common/model";
   components: {},
 })
 export default class ExecutorRuleSettingComponent extends Vue {
-  @Inject("page") page!: Record<string, Array<FieldSchema>>;
+  @Inject("flowFormProvider") page!: Record<string, Array<FieldSchema>>;
 
   @Prop() field!: DataOption;
   options: Array<FieldSchema> = this.page.fields;

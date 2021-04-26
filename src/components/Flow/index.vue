@@ -88,6 +88,8 @@ import {
 import { FlowData, getFlowData } from "./common/utils";
 // import demoData from "./example.json";
 
+import { Message } from "element-ui";
+
 @Component({
   model: {
     prop: "flow",
@@ -282,10 +284,7 @@ export default class FlowComponent extends Vue {
       });
 
       this.lf.on("connection:not-allowed", (data) => {
-        // this.$message({
-        //   type: "error",
-        //   message: data.msg,
-        // });
+        Message.error(data.msg);
       });
 
       this.lf.on("node:add", ({ data }) => {
