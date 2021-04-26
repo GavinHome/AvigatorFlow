@@ -43,7 +43,7 @@ export const getFlowData = (lf: LogicFlow): FlowData => {
     //eslint-disable-next-line
     const { key, name, enName, executor, } = properties as any;
     //eslint-disable-next-line
-    const { description, aggregation, branch, rule, actions, } = properties as any;
+    const { description, rule, actions, } = properties as any;
     nodes.push({
       id: id as string,
       type: type,
@@ -52,8 +52,6 @@ export const getFlowData = (lf: LogicFlow): FlowData => {
       enName: enName,
       executor: executor,
       description: description,
-      aggregation: aggregation,
-      branch: branch,
       rule: rule,
       actions: actions,
     });

@@ -12,6 +12,16 @@
       <el-form-item label="节点名称" prop="name">
         <el-input v-model="formData.name" autocomplete="off"></el-input>
       </el-form-item>
+      <el-form-item label="审批动作">
+        <el-checkbox-group v-model="formData.actions">
+          <el-checkbox-button
+            v-for="(option, index) in actions"
+            :label="option.value"
+            :key="index"
+            >{{ option.text }}</el-checkbox-button
+          >
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="节点描述">
         <el-input type="textarea" v-model="formData.description"></el-input>
       </el-form-item>
@@ -33,6 +43,7 @@ import {
   NodeIdConst,
   NodeNameTypeEnum,
   ExecutorRuleType,
+  DataOption,
 } from "../common/model";
 
 import { validateKeyExist } from "../common/validators";
@@ -43,6 +54,17 @@ export default class StartProperty extends Vue {
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
+  actions: Array<DataOption> = [
+    {
+      value: ApprovalActionType.Save,
+      text: "保存",
+    },
+    {
+      value: ApprovalActionType.Submit,
+      text: "提交",
+    },
+  ];
+
   formData: NodeSchema = {
     key: NodeIdConst.START,
     name: NodeNameConst.START,
@@ -52,7 +74,6 @@ export default class StartProperty extends Vue {
       params: [],
     },
     description: "",
-    aggregation: null,
     rule: ApprovalRuleType.OneAgreed,
     actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
   };

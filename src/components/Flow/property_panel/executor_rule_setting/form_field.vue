@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Inject, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Inject, Prop, Vue } from "vue-property-decorator";
 import { DataOption, FieldSchema } from "../../common/model";
 
 @Component({
@@ -29,21 +29,17 @@ import { DataOption, FieldSchema } from "../../common/model";
   components: {},
 })
 export default class ExecutorRuleSettingComponent extends Vue {
-  @Inject("fields") fields!: Array<FieldSchema>;
+  @Inject("flowFormProvider") page!: Record<string, Array<FieldSchema>>;
+
   @Prop() field!: DataOption;
-  options: Array<FieldSchema> = this.fields;
+  options: Array<FieldSchema> = this.page.fields;
   selected = this.field ? this.field.value : "";
   onChange(key: string): void {
-    const field = this.fields.find((x: FieldSchema) => x.key == key);
+    const field = this.page.fields.find((x: FieldSchema) => x.key == key);
     this.$emit("change", {
       value: field ? field.key : "",
       text: field ? field.name : "",
     });
-  }
-
-  @Watch("field", { immediate: true, deep: true })
-  fieldChanged(): void {
-    this.selected = this.field ? this.field.value : "";
   }
 }
 </script>

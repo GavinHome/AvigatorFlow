@@ -14,7 +14,6 @@
                   "params": []
               },
               "description": "",
-              "aggregation": null,
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -50,7 +49,6 @@
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -87,14 +85,13 @@
                       {
                           "type": "VariableId",
                           "value": {
-                              "value": "abc",
+                              "value": "fields6",
                               "text": "变量1"
                           }
                       }
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -131,7 +128,6 @@
                   ]
               },
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": [
@@ -157,7 +153,6 @@
               "enName": "Gateway",
               "executor": null,
               "description": "",
-              "aggregation": "One",
               "branch": "One",
               "rule": "One",
               "actions": null
@@ -179,7 +174,6 @@
               "enName": "Completer",
               "executor": null,
               "description": "",
-              "aggregation": "One",
               "branch": null,
               "rule": "One",
               "actions": null
@@ -263,7 +257,7 @@
                       {
                           "type": "Expression",
                           "expression": {
-                              "variable": "abc",
+                              "variable": "fields6",
                               "varType": "",
                               "operator": ">",
                               "value": "100000"

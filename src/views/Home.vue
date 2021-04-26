@@ -115,6 +115,70 @@ export default {
         text: "用户3",
       },
     ],
+    flowFormProvider: {
+      fields: [
+        {
+          key: "abc",
+          name: "变量1",
+          type: "string",
+        },
+        {
+          key: "bcd",
+          name: "变量2",
+          type: "string",
+        },
+        {
+          key: "cde",
+          name: "变量3",
+          type: "select",
+          options: [
+            {
+              value: "Yes",
+              text: "是",
+            },
+            {
+              value: "No",
+              text: "否",
+            },
+          ],
+        },
+        {
+          key: "def",
+          name: "变量4",
+          type: "number",
+        },
+        {
+          key: "efg",
+          name: "变量5",
+          type: "checkbox",
+          options: [
+            {
+              value: "1",
+              text: "选项1",
+            },
+            {
+              value: "2",
+              text: "选项2",
+            },
+          ],
+        },
+        {
+          key: "fgh",
+          name: "变量6",
+          type: "radiobox",
+          options: [
+            {
+              value: "a",
+              text: "选项a",
+            },
+            {
+              value: "b",
+              text: "选项b",
+            },
+          ],
+        },
+      ],
+    },
   },
 };
 </script>

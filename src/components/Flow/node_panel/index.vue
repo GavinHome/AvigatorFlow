@@ -64,7 +64,7 @@ export default class NodePanel extends Vue {
 .node-item-icon {
   width: 30px;
   height: 30px;
-  margin-left: 20px;
+  margin-left: 10px;
   background-size: cover;
 }
 .node-label {

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "@/views/Home.vue";
+import Home from "@/views/Designer.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +9,23 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/flow",
+    name: "Flow",
+    component: () => import(/* webpackChunkName: "flow" */ "../views/Home.vue"),
+  },
+  {
+    path: "/v1",
+    name: "v1",
+    component: () =>
+      import(/* webpackChunkName: "designer_v1" */ "../views/DesignerV1.vue"),
+  },
+  {
+    path: "/v2",
+    name: "v2",
+    component: () =>
+      import(/* webpackChunkName: "designer_v2" */ "../views/Designer.vue"),
   },
   {
     path: "/about",
