@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/AvigatorFlow/precache-manifest.411845291170bd5333a320dca68e97df.js"
+  "/AvigatorFlow/precache-manifest.0132b4dee2f261649e9a103686a51df4.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "avigatorflow"});
