@@ -22,7 +22,7 @@ The AvigatorFlow developed base on [vue](https://github.com/vuejs/vue) and [elem
 
 ## Feature
 
-* Visualization: drag and drop configuration process
+* Visualization: drag and drop configuration process and form
 * Preview: preview the configuration effect
 * Nodes: start, approve, gateway, end
 * Attribute: node attribute panel, branch condition attribute panel
