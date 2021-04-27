@@ -57,7 +57,7 @@ import {
   components: {},
 })
 export default class ExpressionComponent extends Vue {
-  @Inject("fields") fields!: Array<FieldSchema>;
+  @Inject("flowFormProvider") page!: Record<string, Array<FieldSchema>>;
   @Prop() private exp!: ConditionExpressionModel;
   rules: Array<DataOption> = ConditionRules;
   operators: Array<DataOption> = ComparisonOperations;
@@ -65,6 +65,10 @@ export default class ExpressionComponent extends Vue {
   get varOptions(): Array<DataOption> {
     const field = this.fields.find((f) => f.key === this.exp.variable);
     return field && field.options ? (field.options as Array<DataOption>) : [];
+  }
+
+  get fields(): Array<FieldSchema> {
+    return this.page ? this.page.fields : [];
   }
 }
 </script>

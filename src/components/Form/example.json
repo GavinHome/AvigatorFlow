@@ -1,0 +1,325 @@
+{
+    "name": "",
+    "description": "",
+    "rows": [
+        {
+            "fields": [
+                {
+                    "id": "fae42340-552e-e231-fd63-95f1f14d120d",
+                    "code": "group1",
+                    "type": "Description",
+                    "name": "a-description",
+                    "icon": "label_icon.png",
+                    "title": "基本信息",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": false,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 20
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": "基本信息"
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "1f217e5f-8bde-c6a4-a585-f4d3117e5767",
+                    "code": "field0",
+                    "type": "Label",
+                    "name": "label",
+                    "icon": "label_icon.png",
+                    "title": "静态文本",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": false,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "ce93c2c9-9b6b-4736-aa3a-fb48492d8d7a",
+                    "code": "fields1",
+                    "type": "SingleText",
+                    "name": "a-input",
+                    "icon": "single_text_icon.png",
+                    "title": "单行输入",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "3d24942e-aff4-de0c-1d4d-73fc2958abc9",
+                    "code": "fields2",
+                    "type": "MultipleText",
+                    "name": "a-textarea",
+                    "icon": "multiple_text_icon.png",
+                    "title": "多行输入",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "439339c9-9407-8730-722c-9b6ba8a8e915",
+                    "code": "fields3",
+                    "type": "Number",
+                    "name": "a-input-number",
+                    "icon": "number_icon.png",
+                    "title": "数字",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "9071e70a-2d17-122d-ca7a-b841073245ce",
+                    "code": "fields4",
+                    "type": "Date",
+                    "name": "a-date-picker",
+                    "icon": "date_icon.png",
+                    "title": "日期",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "42e9fd83-415f-5e2a-e87c-e685a6eaf3c8",
+                    "code": "fields5",
+                    "type": "DateRange",
+                    "name": "a-range-picker",
+                    "icon": "date_range_icon.png",
+                    "title": "日期区间",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "78d86bfc-ee0e-a7b4-0eb1-c6f65e6dd7ab",
+                    "code": "group2",
+                    "type": "Description",
+                    "name": "a-description",
+                    "icon": "label_icon.png",
+                    "title": "高级属性",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": false,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 20
+                    },
+                    "setting": {
+                        "isMultipleSelect": false
+                    },
+                    "expression": [],
+                    "value": "高级属性"
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "8bb9c039-3c78-b2fe-4eb6-1703a157cff2",
+                    "code": "fields6",
+                    "type": "Select",
+                    "name": "a-select",
+                    "icon": "select_icon.png",
+                    "title": "下拉选择",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false,
+                        "dataSourceType": "Simple",
+                        "options": [
+                            {
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
+                            }
+                        ]
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "1777db72-eb60-7fe6-2bd4-0f02ef28c904",
+                    "code": "fields7",
+                    "type": "Radio",
+                    "name": "a-radio-group",
+                    "icon": "radio_icon.png",
+                    "title": "单项选择",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false,
+                        "dataSourceType": "Simple",
+                        "options": [
+                            {
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
+                            }
+                        ]
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "id": "a9a1e712-7854-2d2e-722b-54335a829d27",
+                    "code": "fields8",
+                    "type": "CheckBox",
+                    "name": "a-checkbox-group",
+                    "icon": "checkbox_icon.png",
+                    "title": "多项选择",
+                    "placeHolder": "",
+                    "cols": 4,
+                    "prompt": "",
+                    "description": "",
+                    "isRequired": true,
+                    "isReadonly": false,
+                    "style": {
+                        "fontSize": 14
+                    },
+                    "setting": {
+                        "isMultipleSelect": false,
+                        "dataSourceType": "Simple",
+                        "options": [
+                            {
+                                "text": "选项1",
+                                "value": "选项1"
+                            },
+                            {
+                                "value": "选项2",
+                                "text": "选项2"
+                            }
+                        ]
+                    },
+                    "expression": [],
+                    "value": null
+                }
+            ]
+        }
+    ]
+}

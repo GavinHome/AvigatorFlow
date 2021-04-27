@@ -12,16 +12,6 @@
       <el-form-item label="节点名称" prop="name">
         <el-input v-model="formData.name" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="聚合方式">
-        <el-radio-group v-model="formData.aggregation">
-          <el-radio-button
-            v-for="(option, index) in aggregations"
-            :label="option.value"
-            :key="index"
-            >{{ option.text }}</el-radio-button
-          >
-        </el-radio-group>
-      </el-form-item>
       <el-form-item label="节点描述">
         <el-input type="textarea" v-model="formData.description"></el-input>
       </el-form-item>
@@ -36,8 +26,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import LogicFlow from "@logicflow/core";
 import {
-  AggregationModes,
-  AggregationModeType,
   ApprovalRuleType,
   NodeNameConst,
   NodeSchema,
@@ -52,15 +40,12 @@ export default class GatewayProperty extends Vue {
   @Prop() private nodeData!: any;
   @Prop() private lf!: LogicFlow;
 
-  aggregations = AggregationModes;
-
   formData: NodeSchema = {
     key: NodeIdConst.GATEWAY,
     name: NodeNameConst.GATEWAY,
     enName: NodeNameTypeEnum.Gateway,
     executor: null,
     description: "",
-    aggregation: AggregationModeType.AllAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: null,
   };

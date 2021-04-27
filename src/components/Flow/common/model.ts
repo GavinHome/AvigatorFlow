@@ -52,22 +52,6 @@ export enum ApprovalRuleType {
   AllAgreed = "All",
 }
 
-///聚合模式：单一，全部，多路
-export enum AggregationModeType {
-  ///单一（抢办）
-  OneAgreed = "One",
-  ///全部（会签）
-  AllAgreed = "All",
-}
-
-///分支模式：单一，全部，多路
-export enum BranchModeType {
-  ///单一
-  OneAgreed = "One",
-  ///全部
-  AllAgreed = "All",
-}
-
 ///审批动作：动作为空时表示自动完成
 export enum ApprovalActionType {
   ///同意
@@ -241,8 +225,6 @@ export interface NodeSchema {
   enName: NodeNameType; ///英文名称
   executor: ExecutorRuleModel | null; ///审批人员, 为空时自动处理
   description: string; ///节点描述
-  aggregation?: AggregationModeType | null; ///聚合方式
-  branch?: BranchModeType | null;
   rule?: ApprovalRuleType; ///审核机制
   actions?: Array<ApprovalActionType> | null; ///审批动作
 }
@@ -278,8 +260,6 @@ export const schemaAdapter = (data: NodeData): NodeSchema => {
     enName: data.enName,
     executor: data.executor,
     description: data.description,
-    aggregation: data.aggregation,
-    branch: data.branch,
     rule: data.rule,
     actions: data.actions,
   };
@@ -293,25 +273,6 @@ export const nodeAdapter = (data: NodeData): NodeModel => {
   };
 };
 
-// export const executorAdapter = (data: ExecutorRuleModel): any => {
-//   return  {
-//     type: data.type,
-//     params: MapToObj(data.params),
-//   }
-// }
-
-// export const propertiesAdapter = (data: NodeSchema): any => {
-//   return {
-//     key: data.key,
-//     name: data.name,
-//     enName: data.enName,
-//     executor: data.executor ? executorAdapter(data.executor) : data.executor,
-//     description: data.description,
-//     aggregation: data.aggregation,
-//     rule: data.rule,
-//     actions: data.actions,
-//   }
-// }
 /*************************** schema Adapter end ***********************/
 
 /*************************** data common ******************************/
@@ -323,28 +284,6 @@ export const ApprovalRules: Array<DataOption> = [
   {
     value: ApprovalRuleType.AllAgreed,
     text: "会签",
-  },
-];
-
-export const AggregationModes: Array<DataOption> = [
-  {
-    value: AggregationModeType.OneAgreed,
-    text: "单一聚合",
-  },
-  {
-    value: AggregationModeType.AllAgreed,
-    text: "全部聚合",
-  },
-];
-
-export const BranchModes: Array<DataOption> = [
-  {
-    value: BranchModeType.OneAgreed,
-    text: "单一分支",
-  },
-  {
-    value: BranchModeType.AllAgreed,
-    text: "全部分支",
   },
 ];
 
@@ -384,8 +323,6 @@ export const NodesData: Array<NodeData> = [
       params: [],
     },
     description: "",
-    aggregation: null,
-    branch: BranchModeType.OneAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: [ApprovalActionType.Save, ApprovalActionType.Submit],
   },
@@ -401,8 +338,6 @@ export const NodesData: Array<NodeData> = [
       params: [],
     },
     description: "",
-    aggregation: AggregationModeType.OneAgreed,
-    branch: BranchModeType.OneAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: [
       ApprovalActionType.Pass,
@@ -419,8 +354,6 @@ export const NodesData: Array<NodeData> = [
   //   enName: NodeNameTypeEnum.System,
   //   executor: null,
   //   description: "",
-  //   aggregation: AggregationModeType.OneAgreed,
-  //   branch: BranchModeType.OneAgreed,
   //   rule: ApprovalRuleType.OneAgreed,
   //   actions: null,
   // },
@@ -433,8 +366,6 @@ export const NodesData: Array<NodeData> = [
     enName: NodeNameTypeEnum.Gateway,
     executor: null,
     description: "",
-    aggregation: AggregationModeType.OneAgreed,
-    branch: BranchModeType.OneAgreed,
     rule: ApprovalRuleType.OneAgreed,
     actions: null,
   },
@@ -447,8 +378,6 @@ export const NodesData: Array<NodeData> = [
     enName: NodeNameTypeEnum.Completer,
     executor: null,
     description: "",
-    aggregation: AggregationModeType.OneAgreed,
-    branch: null,
     rule: ApprovalRuleType.OneAgreed,
     actions: null,
   },
