@@ -1,5 +1,5 @@
 #! /bin/sh
-VERSION='0.2'
+VERSION='0.3'
 GH_PAGES_FOLDER='gh-pages'
 mkdir $GH_PAGES_FOLDER 
 git clone --depth 1 -b gh-pages --single-branch https://github.com/GavinHome/AvigatorFlow.git $GH_PAGES_FOLDER
